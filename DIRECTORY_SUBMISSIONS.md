@@ -18,7 +18,7 @@ Submit PromptShield to these high-authority developer and AI tooling platforms t
 ## 2. AlternativeTo (High Search Volume Comparison Site)
 * **URL:** [alternativeto.net/software/submit/](https://alternativeto.net/software/submit/)
 * **Name:** `PromptShield`
-* **License:** `Open Core / Commercial`
+* **Licence:** `Open Core / Commercial`
 * **Platforms:** `Windows, Mac, Linux, Web`
 * **Description:**
   `PromptShield is an offline, zero-telemetry cybersecurity tool that stops credential and PII leaks before sending data to AI models, while protecting LLM applications against prompt injections in < 0.2ms.`
@@ -33,7 +33,7 @@ Submit PromptShield to these high-authority developer and AI tooling platforms t
 ## 3. GitHub Awesome Lists (PR Submissions)
 Submit pull requests to include PromptShield under the "Tools & Guardrails" sections of:
 1. **awesome-llm-security** (`https://github.com/corca-ai/awesome-llm-security`)
-   - Entry: `- [PromptShield](https://github.com/lorthris/promptshield) - Local zero-telemetry secret sanitiser and < 0.2ms prompt injection defense firewall for LLMs.`
+   - Entry: `- [PromptShield](https://github.com/lorthris/promptshield) - Local zero-telemetry secret sanitiser and < 0.2ms prompt injection defence firewall for LLMs.`
 2. **awesome-chatgpt** (`https://github.com/f/awesome-chatgpt-prompts`)
 3. **awesome-python** (`https://github.com/vinta/awesome-python`) under "Security"
 
@@ -43,4 +43,4 @@ Submit pull requests to include PromptShield under the "Tools & Guardrails" sect
 * **URL:** [saashub.com/submit](https://www.saashub.com/submit)
 * **Product:** `PromptShield`
 * **Website:** `https://lorthris.github.io/promptshield/`
-* **Short Description:** `Developer privacy and prompt defense suite for LLM workflows.`
+* **Short Description:** `Developer privacy and prompt defence suite for LLM workflows.`

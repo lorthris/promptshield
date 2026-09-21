@@ -7,13 +7,13 @@ Ready-to-use launch submissions designed to drive immediate organic traffic to y
 ## 1. Hacker News ("Show HN")
 
 **Submit URL:** [news.ycombinator.com/submit](https://news.ycombinator.com/submit)  
-**Title:** `Show HN: PromptShield – Zero-telemetry secret and prompt injection defense for AI`  
+**Title:** `Show HN: PromptShield – Zero-telemetry secret and prompt injection defence for AI`  
 **URL:** `https://github.com/lorthris/promptshield` (or leave URL blank and use Text to tell the story)
 
 ### Text Post Version (Recommended for Show HN):
 
 ```
-Show HN: PromptShield – Zero-telemetry secret sanitiser and prompt injection defense
+Show HN: PromptShield – Zero-telemetry secret sanitiser and prompt injection defence
 
 Hi HN,
 
@@ -41,7 +41,7 @@ Feedback on detection heuristics and evasion edge cases is very welcome!
 ## 2. Reddit Posts
 
 ### A. r/Python
-**Title:** `I built PromptShield: a zero-dependency, local secret & prompt injection defense suite for LLM workflows`  
+**Title:** `I built PromptShield: a zero-dependency, local secret & prompt injection defence suite for LLM workflows`  
 **Body:**
 ```
 Hey everyone,
@@ -96,7 +96,7 @@ Source: https://github.com/lorthris/promptshield
 > Then run `promptshield restore` on the reply to automatically swap back your real local variables.
 
 **Post 3:**
-> 2/ Inbound Defense (PromptShield Guard):
+> 2/ Inbound Defence (PromptShield Guard):
 > A sub-millisecond firewall that intercepts:
 > - DAN & persona jailbreaks
 > - System prompt extraction attacks
