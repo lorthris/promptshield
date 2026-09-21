@@ -28,6 +28,66 @@ def get_stdin_or_file_content(path_arg: Optional[str]) -> str:
 def cmd_scan(args: argparse.Namespace) -> int:
     """Scan input and report detected sensitive findings."""
     detector = Detector(check_entropy=not args.no_entropy)
+
+    # Check if target is a directory
+    if args.file and args.file != "-":
+        target = Path(args.file)
+        if not target.exists():
+            sys.stderr.write(f"Error: Path not found: {args.file}\n")
+            return 2
+        if target.is_dir():
+            files_to_scan = []
+            skip_dirs = {".git", "__pycache__", "venv", ".venv", "env", "node_modules", "dist_output", ".idea", ".vscode"}
+            for root, dirs, files in os.walk(target):
+                dirs[:] = [d for d in dirs if d not in skip_dirs]
+                for f in files:
+                    ext = Path(f).suffix.lower()
+                    if ext in [".py", ".js", ".ts", ".jsx", ".tsx", ".json", ".yaml", ".yml", ".md", ".txt", ".env", ".sh", ".bash", ".ps1", ".toml", ".ini", ".cfg", ".sql", ".html"]:
+                        files_to_scan.append(Path(root) / f)
+
+            all_results = {}
+            total_findings = 0
+            for p in files_to_scan:
+                try:
+                    content = p.read_text(encoding="utf-8", errors="replace")
+                    findings = detector.scan(content)
+                    if findings:
+                        total_findings += len(findings)
+                        all_results[str(p)] = findings
+                except Exception:
+                    continue
+
+            if args.json:
+                json_out = {
+                    file_path: [
+                        {
+                            "category": f.category,
+                            "rule_name": f.rule_name,
+                            "value_masked": f.value[:4] + "..." + f.value[-4:] if len(f.value) > 8 else "***",
+                            "start": f.start,
+                            "end": f.end,
+                            "confidence": f.confidence,
+                        }
+                        for f in findings
+                    ]
+                    for file_path, findings in all_results.items()
+                }
+                sys.stdout.write(json.dumps(json_out, indent=2) + "\n")
+            else:
+                if total_findings == 0:
+                    sys.stdout.write(f"Clean: Scanned {len(files_to_scan)} file(s) in {args.file}. No sensitive credentials detected.\n")
+                    return 0
+
+                sys.stdout.write(f"Found {total_findings} sensitive item(s) across {len(all_results)} file(s):\n\n")
+                for file_path, findings in all_results.items():
+                    sys.stdout.write(f"--- {file_path} ({len(findings)} findings) ---\n")
+                    for f in findings:
+                        preview = f.value[:6] + "..." + f.value[-4:] if len(f.value) > 12 else f.value
+                        sys.stdout.write(f"  {f.category:<12} {f.rule_name:<24} {f.confidence:<8.2f} {preview}\n")
+                    sys.stdout.write("\n")
+
+            return 1 if total_findings > 0 else 0
+
     content = get_stdin_or_file_content(args.file)
     findings = detector.scan(content)
 

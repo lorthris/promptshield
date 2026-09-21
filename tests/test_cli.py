@@ -88,6 +88,17 @@ class TestCLI(unittest.TestCase):
         self.assertEqual(code, 1)
         self.assertIn("Threat Detected", stdout.getvalue())
 
+    def test_cli_scan_directory(self):
+        sub = self.temp_dir / "subdir"
+        sub.mkdir()
+        (sub / "file1.py").write_text("a = 1", encoding="utf-8")
+        (sub / "file2.py").write_text("b = 2", encoding="utf-8")
+        stdout = io.StringIO()
+        with patch("sys.stdout", stdout):
+            code = main(["scan", str(sub)])
+        self.assertEqual(code, 0)
+        self.assertIn("Clean: Scanned 2 file(s)", stdout.getvalue())
+
 
 if __name__ == "__main__":
     unittest.main()
