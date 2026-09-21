@@ -30,6 +30,7 @@ PromptShield solves both with zero external packages (pure standard library Pyth
 You can test both live in your browser (all client-side WebAssembly/JS, nothing sent over the wire):
 https://lorthris.github.io/promptshield/
 
+Quick install: pip install promptshield-core
 Code is open on GitHub: https://github.com/lorthris/promptshield
 Commercial standalone packages and team licences: https://lorthris.gumroad.com
 
@@ -54,6 +55,7 @@ It addresses two major risks:
 
 Zero external dependencies (pure Python standard library).
 
+- Quick install: pip install promptshield-core
 - GitHub: https://github.com/lorthris/promptshield
 - Interactive Web Demo: https://lorthris.github.io/promptshield/
 - Gumroad Store: https://lorthris.gumroad.com
@@ -73,6 +75,7 @@ I open-sourced PromptShield:
 - Runs 100% locally with zero external network calls.
 
 Try the interactive browser playground: https://lorthris.github.io/promptshield/
+Install: pip install promptshield-core
 Source: https://github.com/lorthris/promptshield
 ```
 
@@ -106,5 +109,6 @@ Source: https://github.com/lorthris/promptshield
 **Post 4:**
 > Full source code, CLI installer, and automated Git pre-commit hooks are available now:
 > 
+> 🐍 PyPI: pip install promptshield-core
 > 📦 GitHub: https://github.com/lorthris/promptshield
 > 🛒 Gumroad Store: https://lorthris.gumroad.com
