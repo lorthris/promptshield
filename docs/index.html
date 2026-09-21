@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="color-scheme" content="dark">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PromptShield - Zero-Telemetry Secret & PII Sanitiser for AI Workflows</title>
+  <title>PromptShield - Zero-Telemetry Security &amp; Privacy Suite for AI Workflows</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -13,12 +13,12 @@
       <div class="brand">
         <span class="logo-shield">🛡️</span>
         <span class="brand-title">PromptShield</span>
-        <span class="version-tag">v1.0.0 Pro</span>
+        <span class="version-tag">v1.0.0 Suite</span>
       </div>
       <nav class="nav-links">
         <a href="#playground" class="nav-link">Interactive Sandbox</a>
-        <a href="#features" class="nav-link">Features</a>
-        <a href="#pricing" class="nav-link">Commercial Licence</a>
+        <a href="#features" class="nav-link">Capabilities</a>
+        <a href="#pricing" class="nav-link">Commercial Licences</a>
       </nav>
     </div>
   </header>
@@ -26,47 +26,56 @@
   <main class="container">
     <section class="hero-section">
       <div class="badge">100% Client-Side &amp; Local Execution &bull; Zero Telemetry</div>
-      <h1 class="hero-heading">Stop Leaking API Keys, Passwords, and PII into AI Prompts.</h1>
+      <h1 class="hero-heading">Full-Stack Security &amp; Privacy for AI Developers.</h1>
       <p class="hero-subheading">
-        PromptShield strips secrets, credentials, internal endpoints, and identity tokens from terminal transcripts, error logs, and source code before they touch external LLMs.
+        Protect your company from API key and PII data leaks while shielding your LLM applications against prompt injections, persona jailbreaks, and system prompt extraction attacks.
       </p>
     </section>
 
     <!-- Interactive Playground -->
     <section id="playground" class="sandbox-card">
+      <div class="sandbox-tabs">
+        <button id="tab-pro" class="tab-btn active">
+          <span>🔒</span> PromptShield Pro: Secret &amp; PII Sanitiser
+        </button>
+        <button id="tab-guard" class="tab-btn">
+          <span>⚡</span> PromptShield Guard: Prompt Injection Firewall
+        </button>
+      </div>
+
       <div class="sandbox-header">
         <div class="sandbox-title-group">
-          <h2>Interactive Redaction Sandbox</h2>
-          <p class="sandbox-desc">Paste raw debug text or load a dirty sample. Everything runs in your local browser sandbox.</p>
+          <h2 id="engine-title">Interactive Secret &amp; PII Redaction</h2>
+          <p id="engine-desc" class="sandbox-desc">Paste raw debug text, logs, or code. Secrets and PII are masked deterministically in local browser memory.</p>
         </div>
         <div class="sandbox-actions">
-          <button id="btn-load-sample" class="btn btn-secondary">Load Sample Incident</button>
-          <button id="btn-sanitise" class="btn btn-primary">Sanitise Now</button>
+          <button id="btn-load-sample" class="btn btn-secondary">Load Sample Leak</button>
+          <button id="btn-execute" class="btn btn-primary">Sanitise Now</button>
         </div>
       </div>
 
       <div class="editor-grid">
         <div class="editor-pane">
           <div class="pane-bar">
-            <span class="pane-label">Original Prompt / Incident Log</span>
+            <span id="input-label" class="pane-label">Original Prompt / Incident Log</span>
             <span id="input-stats" class="pane-meta">0 chars</span>
           </div>
-          <textarea id="raw-input" placeholder="Paste logs, stack traces, code snippets, or environment variables containing secrets..."></textarea>
+          <textarea id="raw-input" placeholder="Paste logs, stack traces, code snippets, or user prompts..."></textarea>
         </div>
 
         <div class="editor-pane">
           <div class="pane-bar">
-            <span class="pane-label">Sanitised Output (Safe for LLM Prompts)</span>
-            <button id="btn-copy" class="btn-sm">Copy Sanitised</button>
+            <span id="output-label" class="pane-label">Protected Output (Safe for LLM)</span>
+            <button id="btn-copy" class="btn-sm">Copy Output</button>
           </div>
-          <textarea id="clean-output" readonly placeholder="Sanitised prompt with deterministic pseudonyms will appear here..."></textarea>
+          <textarea id="clean-output" readonly placeholder="Processed safe output will appear here..."></textarea>
         </div>
       </div>
 
       <div id="findings-summary" class="findings-box hidden">
         <div class="findings-header">
           <span id="findings-count" class="findings-badge">0 Detections</span>
-          <span class="findings-note">Masked deterministically. Reverse rehydration available in Pro edition.</span>
+          <span id="findings-note" class="findings-note">Masked deterministically. Reverse rehydration available in Pro edition.</span>
         </div>
         <div id="findings-list" class="findings-items"></div>
       </div>
@@ -75,65 +84,84 @@
     <!-- Value proposition cards -->
     <section id="features" class="feature-grid">
       <div class="feature-card">
-        <div class="feature-icon">⚡</div>
+        <div class="feature-icon">🔒</div>
         <h3>Deterministic Pseudonyms</h3>
-        <p>Identical secrets receive identical tokens throughout the prompt. The LLM retains full structural context and relational reasoning without seeing real credentials.</p>
+        <p>Identical secrets receive identical tokens throughout prompts. The LLM retains relational reasoning without ever viewing live keys.</p>
       </div>
 
       <div class="feature-card">
         <div class="feature-icon">🔄</div>
         <h3>Two-Way Rehydration</h3>
-        <p>Run locally to de-anonymise LLM responses. Send masked prompts to Claude or GPT, then restore your live variables locally with one command.</p>
+        <p>De-anonymise LLM responses locally. Send masked prompts to Claude or ChatGPT, then restore live production variables with one command.</p>
       </div>
 
       <div class="feature-card">
-        <div class="feature-icon">🪝</div>
-        <h3>Automated Git Pre-Commit Hook</h3>
-        <p>Blocks sensitive commits before push. Works seamlessly across macOS, Linux, and Windows PowerShell with zero setup friction.</p>
+        <div class="feature-icon">⚡</div>
+        <h3>Prompt Injection Firewall</h3>
+        <p>Inspects incoming prompts in &lt; 0.2ms. Neutralises DAN jailbreaks, system prompt extraction leaks, and delimiter manipulation.</p>
       </div>
 
       <div class="feature-card">
-        <div class="feature-icon">🛡️</div>
-        <h3>Australian Compliance Built-In</h3>
-        <p>Native algorithmic validation for Australian Tax File Numbers (ATO Mod 11), Medicare numbers, and Australian mobile patterns, plus global PII and credit cards.</p>
+        <div class="feature-icon">🇦🇺</div>
+        <h3>Australian Privacy Built-In</h3>
+        <p>Algorithmic checksum validation for Australian Tax File Numbers (ATO Mod 11), Medicare numbers, and Australian mobiles, plus global PII.</p>
       </div>
     </section>
 
     <!-- Pricing / Commercial Licence Section -->
     <section id="pricing" class="pricing-section">
-      <h2 class="section-title">Commercial Developer Editions</h2>
-      <p class="section-subtitle">No monthly lock-in. One-time licence for perpetual local use.</p>
+      <h2 class="section-title">Commercial Developer Licences</h2>
+      <p class="section-subtitle">No recurring subscriptions. One-time licence for perpetual local use with free updates.</p>
 
       <div class="pricing-grid">
-        <!-- Community Tier Card (Whole-card clickable) -->
-        <a href="#playground" class="pricing-card whole-card-link">
-          <div class="pricing-badge">Free / Community</div>
-          <div class="pricing-price">$0</div>
-          <p class="pricing-tagline">Client-side web sandbox and basic regex scanning.</p>
+        <!-- Pro Tier Card (Whole-card clickable) -->
+        <a href="https://lorthris.gumroad.com/l/promptshield-pro" target="_blank" rel="noopener" class="pricing-card whole-card-link">
+          <div class="pricing-badge">Outbound Protection</div>
+          <div class="pricing-price">$19 <span>USD Solo ($49 Team)</span></div>
+          <p class="pricing-tagline">Local secret and PII sanitiser for developer terminals and AI prompts.</p>
           <ul class="pricing-list">
-            <li>Browser-based sanitizer</li>
-            <li>Basic API key detectors</li>
-            <li>Single-file manual scan</li>
+            <li><strong>Standalone Python &amp; Node CLI</strong></li>
+            <li><strong>Two-Way Session Rehydration</strong></li>
+            <li><strong>Automated Git Pre-Commit Hook</strong></li>
+            <li><strong>Live System Clipboard Daemon</strong></li>
+            <li><strong>50+ Secret Detectors + Shannon Entropy</strong></li>
+            <li><strong>Australian ATO TFN &amp; Medicare Rules</strong></li>
+            <li><strong>Perpetual commercial licence</strong></li>
           </ul>
-          <span class="card-action-btn btn btn-outline">Use Web Sandbox</span>
+          <span class="card-action-btn btn btn-outline">Buy PromptShield Pro - $19</span>
         </a>
 
-        <!-- Pro Tier Card (Whole-card clickable) -->
-        <a href="https://lorthris.gumroad.com/l/promptshield-pro" target="_blank" rel="noopener" class="pricing-card featured whole-card-link">
-          <div class="pricing-badge featured-badge">Pro Developer Edition</div>
-          <div class="pricing-price">$19 <span>USD / Solo ($49 Team)</span></div>
-          <p class="pricing-tagline">Complete standalone CLI, git hooks, clipboard daemon, and reverse rehydration.</p>
+        <!-- Guard Tier Card (Whole-card clickable) -->
+        <a href="https://lorthris.gumroad.com/l/promptshield-guard" target="_blank" rel="noopener" class="pricing-card whole-card-link">
+          <div class="pricing-badge">Inbound Defense</div>
+          <div class="pricing-price">$19 <span>USD Solo ($49 Team)</span></div>
+          <p class="pricing-tagline">Zero-latency prompt injection, jailbreak, and system prompt leak defense.</p>
           <ul class="pricing-list">
-            <li><strong>Standalone Python &amp; Node CLI</strong> (Zero dependencies)</li>
-            <li><strong>Two-Way Session Rehydration</strong> (Unmask LLM replies)</li>
-            <li><strong>Automated Git Pre-Commit Hook</strong></li>
-            <li><strong>Live Clipboard Sanitiser Daemon</strong></li>
-            <li><strong>50+ Secret Detectors + Shannon Entropy</strong></li>
-            <li><strong>Australian ATO TFN &amp; Global PII Packs</strong></li>
-            <li><strong>Solo ($19) or Team ($49)</strong> multi-seat options</li>
-            <li><strong>Perpetual updates &amp; commercial rights</strong></li>
+            <li><strong>Prompt Injection Interception</strong></li>
+            <li><strong>DAN, AIM &amp; Jailbreak Persona Neutralisation</strong></li>
+            <li><strong>System Prompt Extraction Shield</strong></li>
+            <li><strong>Markdown &amp; HTML Exfiltration Blocker</strong></li>
+            <li><strong>ChatML &amp; Delimiter Attack Firewall</strong></li>
+            <li><strong>Sub-millisecond latency (&lt; 0.2ms)</strong></li>
+            <li><strong>Perpetual commercial licence</strong></li>
           </ul>
-          <span class="card-action-btn btn btn-primary">Buy PromptShield Pro - $19</span>
+          <span class="card-action-btn btn btn-outline">Buy PromptShield Guard - $19</span>
+        </a>
+
+        <!-- Suite Bundle Card (Featured, Whole-card clickable) -->
+        <a href="https://lorthris.gumroad.com/l/promptshield-suite" target="_blank" rel="noopener" class="pricing-card featured-suite whole-card-link">
+          <div class="pricing-badge suite-badge">Complete Suite &bull; Best Value</div>
+          <div class="pricing-price">$29 <span>USD Solo (Save $9)</span></div>
+          <p class="pricing-tagline">The complete developer AI security stack: outbound credential sanitiser plus inbound prompt firewall.</p>
+          <ul class="pricing-list">
+            <li><strong>Both Full Commercial Packages Included</strong></li>
+            <li><strong>PromptShield Pro</strong> (CLI, Git Hook, Clipboard)</li>
+            <li><strong>PromptShield Guard</strong> (Injection &amp; Jailbreak Defense)</li>
+            <li><strong>Multi-Seat Team Options Available</strong> ($79)</li>
+            <li><strong>OpenAI, Claude, LangChain integration templates</strong></li>
+            <li><strong>Priority developer support &amp; lifetime updates</strong></li>
+          </ul>
+          <span class="card-action-btn btn btn-suite">Buy Complete Suite - $29</span>
         </a>
       </div>
     </section>
@@ -142,7 +170,7 @@
   <footer class="site-footer">
     <div class="container footer-inner">
       <p>&copy; PromptShield. Zero-telemetry cybersecurity tools for developer AI workflows.</p>
-      <p class="footer-sub">All processing happens locally on your hardware. No data ever leaves your device.</p>
+      <p class="footer-sub">All calculations run locally on your device. Zero telemetry, zero tracking.</p>
     </div>
   </footer>
 

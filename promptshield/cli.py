@@ -8,6 +8,7 @@ import sys
 from typing import List, Optional
 
 from promptshield.detector import Detector
+from promptshield.guard import PromptGuard
 from promptshield.redactor import Redactor
 
 
@@ -151,6 +152,37 @@ exit 0
     return 0
 
 
+def cmd_guard(args: argparse.Namespace) -> int:
+    """Analyze prompt for injection attacks, jailbreaks, and leaks."""
+    guard = PromptGuard(threshold=args.threshold)
+    content = get_stdin_or_file_content(args.file)
+    result = guard.scan(content)
+
+    if args.json:
+        sys.stdout.write(json.dumps(result.to_dict(), indent=2) + "\n")
+    else:
+        if result.is_safe:
+            sys.stdout.write(f"Clean: Prompt passed guard inspection (Threat Score: {result.threat_score}/100, Level: {result.threat_level.value.upper()})\n")
+        else:
+            sys.stdout.write(f"Threat Detected: Level {result.threat_level.value.upper()} (Score: {result.threat_score}/100, Threshold: {args.threshold})\n\n")
+            sys.stdout.write(f"{'Category':<22} {'Score':<8} {'Offset':<12} {'Description'}\n")
+            sys.stdout.write("-" * 75 + "\n")
+            for f in result.findings:
+                sys.stdout.write(f"{f.category.value:<22} {f.score:<8} {f.start:<12} {f.description}\n")
+            sys.stdout.write("\n")
+
+        if args.sanitize:
+            if args.out:
+                Path(args.out).write_text(result.sanitized_prompt, encoding="utf-8")
+                sys.stdout.write(f"Wrote sanitised prompt to {args.out}\n")
+            else:
+                sys.stdout.write("--- Sanitised Prompt ---\n")
+                sys.stdout.write(result.sanitized_prompt + "\n")
+
+    return 0 if result.is_safe else 1
+
+
+
 def main(argv: Optional[List[str]] = None) -> int:
     parser = argparse.ArgumentParser(
         prog="promptshield",
@@ -187,6 +219,14 @@ def main(argv: Optional[List[str]] = None) -> int:
     p_clip = subparsers.add_parser("clip", help="Sanitise text currently on clipboard")
     p_clip.add_argument("--session", type=str, default=None, help="Session identifier for reverse rehydration")
 
+    # guard
+    p_guard = subparsers.add_parser("guard", help="Scan prompt for injections, jailbreaks, and leaks")
+    p_guard.add_argument("file", nargs="?", default=None, help="File to analyze (or standard input)")
+    p_guard.add_argument("--threshold", type=int, default=40, help="Threat score threshold (default: 40)")
+    p_guard.add_argument("--json", action="store_true", help="Output evaluation as JSON")
+    p_guard.add_argument("--sanitize", action="store_true", help="Neutralize threats and output sanitized text")
+    p_guard.add_argument("--out", type=str, default=None, help="Write sanitized output to file")
+
     args = parser.parse_args(argv)
 
     if not args.command:
@@ -205,6 +245,8 @@ def main(argv: Optional[List[str]] = None) -> int:
         from promptshield.clipboard import sanitise_clipboard
         sanitise_clipboard(session_id=args.session)
         return 0
+    elif args.command == "guard":
+        return cmd_guard(args)
 
     return 0
 

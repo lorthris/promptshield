@@ -1,76 +1,98 @@
 # PromptShield
 
-Local tool to find and mask secrets, credentials, and identity data before sending text to artificial intelligence models.
+Local cybersecurity and privacy tool suite for artificial intelligence workflows.
+
+[![Tests](https://img.shields.io/badge/tests-31%20passing-brightgreen)](tests/)
+[![Python](https://img.shields.io/badge/python-3.8%2B-blue)](https://www.python.org/)
+[![Licence](https://img.shields.io/badge/licence-Commercial%20%2F%20Open%20Core-cyan)](https://lorthris.gumroad.com/l/promptshield-suite)
+[![Interactive Sandbox](https://img.shields.io/badge/demo-live%20sandbox-emerald)](https://lorthris.github.io/promptshield/)
 
 ## Purpose
 
-Artificial intelligence models can record data that users send in prompts. This tool removes secrets, private keys, database addresses, and identity numbers from logs, files, and text. The tool operates locally on your computer with zero network communication.
+Artificial intelligence models can record data that users transmit in prompts. This tool suite gives full-stack protection:
+1. **PromptShield Pro:** Detects and masks credentials, passwords, database URIs, and identity numbers before data leaves your computer.
+2. **PromptShield Guard:** Analyzes incoming user prompts in less than 0.2 milliseconds to block prompt injections, persona jailbreaks, and system prompt extraction.
 
-## Capabilities
+All calculations run locally on your device with zero telemetry and zero network calls.
 
-- Find credentials for OpenAI, Anthropic, Google Gemini, Amazon Web Services, GitHub, Stripe, Slack, and SendGrid.
-- Find database addresses with passwords and private keys.
-- Find Australian Tax File Numbers, Australian mobile numbers, credit card numbers, and electronic mail addresses.
-- Calculate Shannon entropy to identify random secret strings.
-- Replace identical secrets with the same token name to keep context for the model.
-- Restore real values in model output by reading a local session file.
-- Prevent git commits that contain unmasked secrets.
-- Mask text on the system clipboard.
-- Run an offline visual interface in any web browser.
+---
 
-## Requirements
+## Live Interactive Sandbox
 
-- Python 3.8 or newer.
-- Modern web browser for the visual tool.
-- No external packages required. Standard library only.
+Test both engines directly in your browser:  
+👉 **[lorthris.github.io/promptshield](https://lorthris.github.io/promptshield/)**
+
+---
+
+## Architecture and Core Modules
+
+```
+c:/Drive/fun/
+├── promptshield/
+│   ├── detector.py      # 50+ secret signatures, Luhn CC, ATO TFN, Shannon entropy
+│   ├── redactor.py      # Deterministic pseudonym substitution and restore mapping
+│   ├── guard.py         # Prompt injection, jailbreak, and leak defense engine
+│   ├── clipboard.py     # System clipboard background sanitiser
+│   └── cli.py           # Unified command-line interface
+├── docs/                # Live interactive web application (GitHub Pages)
+└── tests/               # 31 automated unit tests
+```
+
+---
 
 ## Commands
 
-### 1. Find Secrets in a File
-
-```powershell
+### 1. Scan Files for Sensitive Credentials
+```bash
 python -m promptshield.cli scan path/to/file.txt
-```
-
-To get structured machine output:
-
-```powershell
 python -m promptshield.cli scan path/to/file.txt --json
 ```
 
-### 2. Mask Secrets in a File
-
-```powershell
-python -m promptshield.cli redact dirty.log --out clean.log
+### 2. Mask Secrets with Deterministic Pseudonyms
+```bash
+python -m promptshield.cli redact dirty.log --out clean.log --session incident42
 ```
 
-To save a session for later restoration:
-
-```powershell
-python -m promptshield.cli redact dirty.log --session bug101 --out clean.log
+### 3. Restore Live Secrets in Model Output
+```bash
+python -m promptshield.cli restore ai_reply.txt --session incident42 --out final.txt
 ```
 
-### 3. Restore Secrets from a Session
-
-```powershell
-python -m promptshield.cli restore ai_answer.txt --session bug101 --out final.txt
+### 4. Guard LLMs Against Prompt Injections and Jailbreaks
+```bash
+python -m promptshield.cli guard user_prompt.txt
+python -m promptshield.cli guard user_prompt.txt --sanitize --out clean_prompt.txt
+python -m promptshield.cli guard user_prompt.txt --json
 ```
 
-### 4. Mask Clipboard Text
-
-```powershell
+### 5. Sanitise System Clipboard
+```bash
 python -m promptshield.cli clip
 ```
 
-### 5. Install Git Pre-Commit Hook
-
-```powershell
+### 6. Install Automated Git Pre-Commit Hook
+```bash
 python -m promptshield.cli install-hook
 ```
 
-## Structure
+---
 
-- `promptshield/`: Python package files.
-- `tests/`: Automated unit tests.
-- `web/`: Offline web application files.
-- `distribution/`: Packaging scripts and merchant configuration.
+## Commercial Licences
+
+Commercial developer packages are available on Gumroad with perpetual rights and free updates:
+
+| Package | Purpose | Price (USD) | Link |
+| :--- | :--- | :--- | :--- |
+| **PromptShield Pro** | Outbound secret & PII sanitiser, Git hook, clipboard daemon | \$19 | [Buy Pro Edition](https://lorthris.gumroad.com/l/promptshield-pro) |
+| **PromptShield Guard** | Inbound prompt injection, jailbreak & leak firewall | \$19 | [Buy Guard Edition](https://lorthris.gumroad.com/l/promptshield-guard) |
+| **Complete AI Security Suite** | Both full packages (Save \$9) | \$29 | [Buy Complete Suite](https://lorthris.gumroad.com/l/promptshield-suite) |
+
+---
+
+## Testing
+
+Run the automated test suite:
+
+```bash
+python -B -m unittest discover -s tests -p "test_*.py"
+```
