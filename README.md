@@ -36,7 +36,20 @@ c:/Drive/fun/
 │   ├── clipboard.py     # System clipboard background sanitiser
 │   └── cli.py           # Unified command-line interface
 ├── docs/                # Live interactive web application (GitHub Pages)
-└── tests/               # 31 automated unit tests
+└── tests/               # 32 automated unit tests
+```
+
+---
+
+## Quick Install
+
+Install directly via `pip`:
+```bash
+pip install git+https://github.com/lorthris/promptshield.git
+```
+Or run directly from the cloned repository without installation:
+```bash
+python -m promptshield.cli --help
 ```
 
 ---
