@@ -1,0 +1,15 @@
+- id: promptshield-scan
+  name: PromptShield Secret Scanner
+  description: Scan modified files for API keys, passwords, tokens, and PII before commit.
+  entry: python -m promptshield.cli scan
+  language: python
+  types: [text]
+  stages: [commit]
+
+- id: promptshield-guard
+  name: PromptShield Prompt Injection Firewall
+  description: Verify prompts and templates do not contain direct injections or jailbreak vectors.
+  entry: python -m promptshield.cli guard
+  language: python
+  types: [text]
+  stages: [commit]

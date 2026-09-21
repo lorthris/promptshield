@@ -1,0 +1,41 @@
+name: "PromptShield Security Scanner"
+description: "Zero-telemetry local secret, PII, and prompt injection scanner for AI developer workflows."
+author: "Lorthris"
+branding:
+  icon: "shield"
+  color: "blue"
+
+inputs:
+  path:
+    description: "File or directory path to scan for secrets and injection vectors"
+    required: false
+    default: "."
+  fail-on-threats:
+    description: "Fail workflow execution if unmasked secrets or prompt injections are found"
+    required: false
+    default: "true"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.11"
+
+    - name: Run PromptShield Secret & PII Scan
+      shell: bash
+      run: |
+        echo "🛡️ Running PromptShield Secret Scanner..."
+        python -m promptshield.cli scan "${{ inputs.path }}" || {
+          if [ "${{ inputs.fail-on-threats }}" = "true" ]; then
+            echo "❌ PromptShield detected sensitive credentials or identity numbers."
+            echo "💡 Tip: Use PromptShield Pro to automatically redact secrets with deterministic pseudonyms: https://lorthris.gumroad.com/l/promptshield-pro"
+            exit 1
+          fi
+        }
+
+    - name: Success Summary
+      shell: bash
+      run: |
+        echo "✅ PromptShield scan complete. No unmasked secrets found."

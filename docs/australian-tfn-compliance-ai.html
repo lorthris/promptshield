@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="color-scheme" content="dark">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Australian Privacy Principles &amp; AI: Validating TFN Locally - PromptShield</title>
+  <meta name="description" content="Comply with the Privacy Act 1988 and ATO TFN Rule 2015 when using AI models. Local-first algorithmic Mod 11 validation with zero data egress.">
+  <link rel="canonical" href="https://lorthris.github.io/promptshield/australian-tfn-compliance-ai.html">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand">
+        <span class="logo-shield">🛡️</span>
+        <span class="brand-title">PromptShield</span>
+      </a>
+      <nav class="nav-links">
+        <a href="index.html#playground" class="nav-link">Live Sandbox</a>
+        <a href="index.html#pricing" class="nav-link">Commercial Licences</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container" style="max-width: 860px; padding-top: 3rem; padding-bottom: 5rem;">
+    <div class="badge">Australian Compliance &bull; Privacy Act 1988</div>
+    <h1 style="font-size: 2.4rem; font-weight: 800; margin-bottom: 1rem; line-height: 1.25;">
+      Australian Privacy Principles (APP) &amp; AI: Validating TFN and Medicare Data Locally
+    </h1>
+    <p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 2rem;">
+      Under the Australian Privacy Act 1988 and the Tax File Number Rule 2015, transmitting unmasked TFNs or Medicare numbers to offshore AI model servers can trigger substantial regulatory penalties. Here is how to guarantee local data sovereignty.
+    </p>
+
+    <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 0.75rem; padding: 2rem; margin-bottom: 2.5rem;">
+      <h2 style="font-size: 1.4rem; margin-bottom: 1rem;">The Offshore Data Sovereignty Problem</h2>
+      <p style="color: #cbd5e1; margin-bottom: 1rem; font-size: 0.95rem; line-height: 1.6;">
+        Many enterprise DLP (Data Loss Prevention) tools operate via cloud gateways. When a developer inspects customer logs, sending the payload to a third-party cloud DLP service ironically violates data sovereignty rules by transferring sensitive personal data across international borders.
+      </p>
+
+      <h3 style="font-size: 1.15rem; margin-top: 1.5rem; margin-bottom: 0.75rem;">Native Algorithmic Mod 11 Checksums</h3>
+      <p style="color: #cbd5e1; margin-bottom: 1rem; font-size: 0.95rem; line-height: 1.6;">
+        Simple 8 or 9-digit regex matching generates massive numbers of false positives on phone numbers, serial numbers, and invoice IDs. <strong>PromptShield</strong> implements native mathematical weighting algorithms:
+      </p>
+
+      <ul style="color: #cbd5e1; margin-left: 1.5rem; margin-bottom: 1.5rem; font-size: 0.95rem; line-height: 1.6;">
+        <li><strong>ATO Mod 11 Checksum:</strong> Verifies 8-digit and 9-digit Tax File Numbers using official Australian Taxation Office mathematical weight vectors.</li>
+        <li><strong>Medicare Checksum Validation:</strong> Validates 10-digit Medicare numbers with check-digit inspection.</li>
+        <li><strong>Australian Mobile Numbers:</strong> Identifies national and international dialling formats (<code>+61 4...</code> / <code>04...</code>).</li>
+      </ul>
+    </div>
+
+    <div style="text-align: center; margin: 3rem 0;">
+      <h2 style="font-size: 1.8rem; margin-bottom: 1rem;">Enforce Australian PII Compliance Today</h2>
+      <p style="color: var(--text-muted); margin-bottom: 1.5rem;">
+        PromptShield Pro guarantees zero network telemetry and 100% offline local validation.
+      </p>
+      <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+        <a href="index.html#playground" class="btn btn-secondary">Try Live Sandbox</a>
+        <a href="https://lorthris.gumroad.com/l/promptshield-suite" target="_blank" rel="noopener" class="btn btn-primary">Buy Complete Suite ($29 USD)</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>&copy; PromptShield. Zero-telemetry cybersecurity tools for developer AI workflows.</p>
+    </div>
+  </footer>
+</body>
+</html>

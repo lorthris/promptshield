@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://lorthris.github.io/promptshield/sitemap.xml

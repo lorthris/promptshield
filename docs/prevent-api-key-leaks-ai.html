@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="color-scheme" content="dark">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Prevent API Key Leaks in AI Prompts - PromptShield</title>
+  <meta name="description" content="Learn how to stop leaking OpenAI, Anthropic, AWS, and Stripe credentials into ChatGPT, Claude, and Gemini. Comprehensive developer guide and offline tooling.">
+  <link rel="canonical" href="https://lorthris.github.io/promptshield/prevent-api-key-leaks-ai.html">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand">
+        <span class="logo-shield">🛡️</span>
+        <span class="brand-title">PromptShield</span>
+      </a>
+      <nav class="nav-links">
+        <a href="index.html#playground" class="nav-link">Live Sandbox</a>
+        <a href="index.html#pricing" class="nav-link">Commercial Licences</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container" style="max-width: 860px; padding-top: 3rem; padding-bottom: 5rem;">
+    <div class="badge">Developer Security Guide</div>
+    <h1 style="font-size: 2.4rem; font-weight: 800; margin-bottom: 1rem; line-height: 1.25;">
+      How to Prevent API Key &amp; Database Password Leaks in AI Prompts
+    </h1>
+    <p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 2rem;">
+      When debugging stack traces or querying AI models, developers frequently paste terminal logs containing active credentials. Here is how to eliminate that risk with zero performance overhead.
+    </p>
+
+    <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 0.75rem; padding: 2rem; margin-bottom: 2.5rem;">
+      <h2 style="font-size: 1.4rem; margin-bottom: 1rem;">The Anatomy of a Prompt Data Leak</h2>
+      <p style="color: #cbd5e1; margin-bottom: 1rem; font-size: 0.95rem; line-height: 1.6;">
+        Modern engineering workflows increasingly rely on LLM coding assistants like Claude, ChatGPT, and GitHub Copilot. The most common attack vector is unintentional: a developer pastes an error traceback or an ORM database connection string directly into a chat window. Once submitted, those credentials enter third-party logging and evaluation pipelines.
+      </p>
+      
+      <h3 style="font-size: 1.15rem; margin-top: 1.5rem; margin-bottom: 0.75rem;">Why Basic Find-and-Replace Fails</h3>
+      <p style="color: #cbd5e1; margin-bottom: 1rem; font-size: 0.95rem; line-height: 1.6;">
+        Naively replacing secrets with <code>[REDACTED]</code> destroys the structural context the LLM needs to resolve errors. If two different database URIs or API keys are both replaced with the same blank token, the model cannot deduce which variable failed.
+      </p>
+
+      <h3 style="font-size: 1.15rem; margin-top: 1.5rem; margin-bottom: 0.75rem;">The Solution: Deterministic Pseudonyms</h3>
+      <p style="color: #cbd5e1; margin-bottom: 1rem; font-size: 0.95rem; line-height: 1.6;">
+        <strong>PromptShield Pro</strong> solves this by using deterministic session pseudonyms. The first instance of an Anthropic key becomes <code>[ANTHROPIC_KEY_1]</code>, and every subsequent appearance receives that exact token. Relational reasoning remains 100% intact while zero confidential bytes leave your workstation.
+      </p>
+    </div>
+
+    <div style="text-align: center; margin: 3rem 0;">
+      <h2 style="font-size: 1.8rem; margin-bottom: 1rem;">Protect Your Terminal &amp; Prompts Now</h2>
+      <p style="color: var(--text-muted); margin-bottom: 1.5rem;">
+        Get PromptShield Pro with automated Git pre-commit hooks, clipboard daemon, and reverse session rehydration.
+      </p>
+      <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+        <a href="index.html#playground" class="btn btn-secondary">Try Live Sandbox</a>
+        <a href="https://lorthris.gumroad.com/l/promptshield-pro" target="_blank" rel="noopener" class="btn btn-primary">Buy PromptShield Pro ($19 USD)</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>&copy; PromptShield. Zero-telemetry cybersecurity tools for developer AI workflows.</p>
+    </div>
+  </footer>
+</body>
+</html>
