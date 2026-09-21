@@ -1,0 +1,47 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "promptshield-core"
+version = "1.0.0"
+description = "Local zero-telemetry secret sanitiser and LLM prompt injection firewall"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "Commercial / Open Core"}
+authors = [
+    {name = "Lorthris", email = "lorthris@gmail.com"}
+]
+keywords = [
+    "prompt-injection",
+    "cybersecurity",
+    "llm-security",
+    "secret-detection",
+    "pii-sanitiser",
+    "guardrails",
+    "ai-safety"
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Topic :: Security",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+
+[project.urls]
+Homepage = "https://lorthris.github.io/promptshield/"
+Repository = "https://github.com/lorthris/promptshield"
+Commercial = "https://lorthris.gumroad.com/l/promptshield-suite"
+
+[project.scripts]
+promptshield = "promptshield.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["promptshield*"]
