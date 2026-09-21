@@ -29,7 +29,7 @@ Test both engines directly in your browser:
 ## Architecture and Core Modules
 
 ```
-c:/Drive/fun/
+PromptShield/
 ├── promptshield/
 │   ├── detector.py      # 50+ secret signatures, Luhn CC, ATO TFN, Shannon entropy
 │   ├── redactor.py      # Deterministic pseudonym substitution and restore mapping

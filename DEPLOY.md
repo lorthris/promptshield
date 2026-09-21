@@ -39,13 +39,13 @@ To receive your money:
 
 ## 3. Deploy the Web Showcase (Zero Cost)
 
-Deploy the files in `c:\Drive\fun\web\` to make the interactive sandbox public.
+Deploy the files in `docs/` (or `web/`) to make the interactive sandbox public.
 
 ### Method 1: Cloudflare Pages
 
 1. Log in to your Cloudflare dashboard.
 2. Select **Compute (Workers & Pages)** -> **Create Application** -> **Pages**.
-3. Drag and drop the `c:\Drive\fun\web\` directory into the browser.
+3. Drag and drop the `docs/` directory into the browser.
 4. Your site will be live immediately on a free `*.pages.dev` address.
 
 ### Method 2: GitHub Pages
