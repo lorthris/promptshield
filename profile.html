@@ -200,25 +200,38 @@
       .promo-callout {
         display: flex;
         flex-direction: column;
-        gap: 0.75rem;
-        padding: 1.25rem 1.5rem;
-        background: linear-gradient(90deg, rgba(56, 189, 248, 0.1) 0%, rgba(168, 85, 247, 0.1) 100%);
-        border: 1px solid rgba(56, 189, 248, 0.3);
+        gap: 0.65rem;
+        padding: 1.2rem 1.5rem;
+        background: linear-gradient(90deg, rgba(56, 189, 248, 0.08) 0%, rgba(168, 85, 247, 0.08) 100%);
+        border: 1px solid rgba(56, 189, 248, 0.25);
         border-radius: 0.75rem;
         margin-bottom: 3rem;
       }
 
-      @media (min-width: 640px) {
-        .promo-callout {
-          flex-direction: row;
-          align-items: center;
-          justify-content: space-between;
-        }
-      }
-
-      .promo-text {
+      .promo-primary {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0.6rem;
         font-size: 0.95rem;
         color: var(--text-primary);
+        line-height: 1.5;
+      }
+
+      .promo-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        padding: 0.2rem 0.6rem;
+        background: rgba(56, 189, 248, 0.15);
+        border: 1px solid rgba(56, 189, 248, 0.35);
+        border-radius: 9999px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: var(--accent-cyan);
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        flex-shrink: 0;
       }
 
       .promo-code {
@@ -227,9 +240,31 @@
         font-weight: 700;
         background: #0f172a;
         color: var(--accent-amber);
-        padding: 0.2rem 0.55rem;
+        padding: 0.15rem 0.5rem;
         border-radius: 0.35rem;
         border: 1px dashed rgba(245, 158, 11, 0.4);
+      }
+
+      .promo-footer {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0.6rem;
+        font-size: 0.825rem;
+        color: var(--text-secondary);
+        padding-top: 0.5rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.07);
+      }
+
+      .promo-footer-item {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+      }
+
+      .promo-sep {
+        color: var(--text-muted);
+        opacity: 0.5;
       }
 
       /* Product Catalog Section */
@@ -672,11 +707,16 @@
 
       <!-- Launch Promo Callout -->
       <aside class="promo-callout">
-        <div class="promo-text">
-          <strong>🚀 Launch Special:</strong> Take <strong>20% off</strong> all tools and bundles with coupon code <span class="promo-code">LAUNCH20</span> at checkout.
+        <div class="promo-primary">
+          <span class="promo-badge">🚀 Launch Special</span>
+          <span>Take <strong>20% off</strong> all tools and bundles with coupon code <span class="promo-code">LAUNCH20</span> at checkout.</span>
         </div>
-        <div class="promo-text" style="font-size: 0.85rem; color: var(--text-secondary);">
-          Instant digital download + perpetual commercial licence key
+        <div class="promo-footer">
+          <span class="promo-footer-item">⚡ Instant digital download</span>
+          <span class="promo-sep">&bull;</span>
+          <span class="promo-footer-item">🔑 Perpetual commercial licence key</span>
+          <span class="promo-sep">&bull;</span>
+          <span class="promo-footer-item">🛡️ 100% Offline &amp; local evaluation</span>
         </div>
       </aside>
 
