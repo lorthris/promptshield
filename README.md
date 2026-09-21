@@ -2,10 +2,11 @@
 
 Local cybersecurity and privacy tool suite for artificial intelligence workflows.
 
-[![Tests](https://img.shields.io/badge/tests-31%20passing-brightgreen)](tests/)
+[![Tests](https://img.shields.io/badge/tests-32%20passing-brightgreen)](tests/)
 [![Python](https://img.shields.io/badge/python-3.8%2B-blue)](https://www.python.org/)
 [![Licence](https://img.shields.io/badge/licence-Commercial%20%2F%20Open%20Core-cyan)](https://lorthris.gumroad.com/l/promptshield-suite)
 [![Interactive Sandbox](https://img.shields.io/badge/demo-live%20sandbox-emerald)](https://lorthris.github.io/promptshield/)
+[![Coupon](https://img.shields.io/badge/launch%20coupon-20%25%20off%20(LAUNCH20)-orange)](https://lorthris.gumroad.com/l/promptshield-suite)
 
 ## Purpose
 
@@ -75,11 +76,19 @@ python -m promptshield.cli clip
 python -m promptshield.cli install-hook
 ```
 
+### 7. GitHub Actions CI/CD Integration
+```yaml
+# .github/workflows/security.yml
+- name: PromptShield Security Scanner
+  uses: lorthris/promptshield@v1
+```
+
 ---
 
 ## Commercial Licences
 
-Commercial developer packages are available on Gumroad with perpetual rights and free updates:
+Commercial developer packages are available on Gumroad with perpetual rights and free updates.  
+🎉 **Launch Special:** Use code **`LAUNCH20`** at checkout for **20% off** any tool or bundle.
 
 | Package | Purpose | Price (USD) | Link |
 | :--- | :--- | :--- | :--- |
