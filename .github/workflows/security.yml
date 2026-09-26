@@ -1,14 +1,27 @@
 name: PromptShield Security CI
 
+# CI runs on LankySV01, on the self-hosted runner gh-runner-promptshield.
+# publish.yml stays on GitHub-hosted runners, because its build job feeds the PyPI
+# trusted-publishing job.
+
 on:
   push:
     branches: [ master ]
   pull_request:
     branches: [ master ]
 
+# One runner serves this repo. Cancel a superseded run, so that the runner checks only
+# the last push to each ref.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   test-and-scan:
-    runs-on: ubuntu-latest
+    # A pull request from a fork never runs on the self-hosted runner.
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: [self-hosted, lankysv01, promptshield-ci]
+    timeout-minutes: 10
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
