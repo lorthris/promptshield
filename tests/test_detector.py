@@ -4,9 +4,9 @@ import unittest
 
 from promptshield.detector import (
     Detector,
+    australian_tfn_valid,
     calculate_shannon_entropy,
     luhn_checksum_valid,
-    australian_tfn_valid,
 )
 
 

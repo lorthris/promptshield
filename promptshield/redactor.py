@@ -1,9 +1,8 @@
 """Redaction and deterministic masking engine with session rehydration."""
 
-from dataclasses import dataclass, field
 import hashlib
 import json
-import os
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Dict, List, Optional
 
@@ -33,9 +32,7 @@ class Redactor:
         self.style = style  # pseudonym, redacted, or hash
         self.session_dir = session_dir or (Path.cwd() / ".promptshield_sessions")
 
-    def _generate_pseudonym(
-        self, rule_name: str, index: int, value: str
-    ) -> str:
+    def _generate_pseudonym(self, rule_name: str, index: int, value: str) -> str:
         if self.style == "redacted":
             return f"[REDACTED:{rule_name.upper()}]"
         elif self.style == "hash":
@@ -45,9 +42,7 @@ class Redactor:
             clean_name = rule_name.upper().replace("_API_KEY", "_KEY")
             return f"[{clean_name}_{index}]"
 
-    def redact(
-        self, text: str, session_id: Optional[str] = None
-    ) -> RedactionResult:
+    def redact(self, text: str, session_id: Optional[str] = None) -> RedactionResult:
         """Scan and mask sensitive tokens deterministically."""
         findings = self.detector.scan(text)
         if not findings:
@@ -91,7 +86,12 @@ class Redactor:
             session_id=session_id,
         )
 
-    def restore(self, text: str, session_id: Optional[str] = None, mapping: Optional[Dict[str, str]] = None) -> str:
+    def restore(
+        self,
+        text: str,
+        session_id: Optional[str] = None,
+        mapping: Optional[Dict[str, str]] = None,
+    ) -> str:
         """Swap pseudonyms back to real values using session or mapping dictionary."""
         effective_map: Dict[str, str] = {}
         if session_id:

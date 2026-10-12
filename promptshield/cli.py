@@ -3,8 +3,8 @@
 import argparse
 import json
 import os
-from pathlib import Path
 import sys
+from pathlib import Path
 from typing import List, Optional
 
 from promptshield.detector import Detector
@@ -21,7 +21,9 @@ def get_stdin_or_file_content(path_arg: Optional[str]) -> str:
             sys.exit(2)
         return target.read_text(encoding="utf-8", errors="replace")
     if sys.stdin.isatty():
-        sys.stderr.write("PromptShield: Reading from standard input (Ctrl+Z and Enter to complete)...\n")
+        sys.stderr.write(
+            "PromptShield: Reading from standard input (Ctrl+Z and Enter to complete)...\n"
+        )
     return sys.stdin.read()
 
 
@@ -37,12 +39,42 @@ def cmd_scan(args: argparse.Namespace) -> int:
             return 2
         if target.is_dir():
             files_to_scan = []
-            skip_dirs = {".git", "__pycache__", "venv", ".venv", "env", "node_modules", "dist_output", ".idea", ".vscode"}
+            skip_dirs = {
+                ".git",
+                "__pycache__",
+                "venv",
+                ".venv",
+                "env",
+                "node_modules",
+                "dist_output",
+                ".idea",
+                ".vscode",
+            }
             for root, dirs, files in os.walk(target):
                 dirs[:] = [d for d in dirs if d not in skip_dirs]
                 for f in files:
                     ext = Path(f).suffix.lower()
-                    if ext in [".py", ".js", ".ts", ".jsx", ".tsx", ".json", ".yaml", ".yml", ".md", ".txt", ".env", ".sh", ".bash", ".ps1", ".toml", ".ini", ".cfg", ".sql", ".html"]:
+                    if ext in [
+                        ".py",
+                        ".js",
+                        ".ts",
+                        ".jsx",
+                        ".tsx",
+                        ".json",
+                        ".yaml",
+                        ".yml",
+                        ".md",
+                        ".txt",
+                        ".env",
+                        ".sh",
+                        ".bash",
+                        ".ps1",
+                        ".toml",
+                        ".ini",
+                        ".cfg",
+                        ".sql",
+                        ".html",
+                    ]:
                         files_to_scan.append(Path(root) / f)
 
             all_results = {}
@@ -63,7 +95,9 @@ def cmd_scan(args: argparse.Namespace) -> int:
                         {
                             "category": f.category,
                             "rule_name": f.rule_name,
-                            "value_masked": f.value[:4] + "..." + f.value[-4:] if len(f.value) > 8 else "***",
+                            "value_masked": f.value[:4] + "..." + f.value[-4:]
+                            if len(f.value) > 8
+                            else "***",
                             "start": f.start,
                             "end": f.end,
                             "confidence": f.confidence,
@@ -75,15 +109,23 @@ def cmd_scan(args: argparse.Namespace) -> int:
                 sys.stdout.write(json.dumps(json_out, indent=2) + "\n")
             else:
                 if total_findings == 0:
-                    sys.stdout.write(f"Clean: Scanned {len(files_to_scan)} file(s) in {args.file}. No sensitive credentials detected.\n")
+                    sys.stdout.write(
+                        f"Clean: Scanned {len(files_to_scan)} file(s) in {args.file}. No sensitive credentials detected.\n"
+                    )
                     return 0
 
-                sys.stdout.write(f"Found {total_findings} sensitive item(s) across {len(all_results)} file(s):\n\n")
+                sys.stdout.write(
+                    f"Found {total_findings} sensitive item(s) across {len(all_results)} file(s):\n\n"
+                )
                 for file_path, findings in all_results.items():
                     sys.stdout.write(f"--- {file_path} ({len(findings)} findings) ---\n")
                     for f in findings:
-                        preview = f.value[:6] + "..." + f.value[-4:] if len(f.value) > 12 else f.value
-                        sys.stdout.write(f"  {f.category:<12} {f.rule_name:<24} {f.confidence:<8.2f} {preview}\n")
+                        preview = (
+                            f.value[:6] + "..." + f.value[-4:] if len(f.value) > 12 else f.value
+                        )
+                        sys.stdout.write(
+                            f"  {f.category:<12} {f.rule_name:<24} {f.confidence:<8.2f} {preview}\n"
+                        )
                     sys.stdout.write("\n")
 
             return 1 if total_findings > 0 else 0
@@ -110,11 +152,15 @@ def cmd_scan(args: argparse.Namespace) -> int:
             return 0
 
         sys.stdout.write(f"Found {len(findings)} sensitive item(s):\n\n")
-        sys.stdout.write(f"{'Category':<12} {'Rule':<24} {'Confidence':<12} {'Offset':<12} {'Sample'}\n")
+        sys.stdout.write(
+            f"{'Category':<12} {'Rule':<24} {'Confidence':<12} {'Offset':<12} {'Sample'}\n"
+        )
         sys.stdout.write("-" * 75 + "\n")
         for f in findings:
             preview = f.value[:6] + "..." + f.value[-4:] if len(f.value) > 12 else f.value
-            sys.stdout.write(f"{f.category:<12} {f.rule_name:<24} {f.confidence:<12.2f} {f.start:<12} {preview}\n")
+            sys.stdout.write(
+                f"{f.category:<12} {f.rule_name:<24} {f.confidence:<12.2f} {f.start:<12} {preview}\n"
+            )
         sys.stdout.write("\n")
 
     return 1 if findings else 0
@@ -133,12 +179,16 @@ def cmd_redact(args: argparse.Namespace) -> int:
         sys.stderr.write(f"Updated {args.file} in place ({len(result.findings)} items masked).\n")
     elif args.out:
         Path(args.out).write_text(result.sanitised_text, encoding="utf-8")
-        sys.stderr.write(f"Wrote sanitised output to {args.out} ({len(result.findings)} items masked).\n")
+        sys.stderr.write(
+            f"Wrote sanitised output to {args.out} ({len(result.findings)} items masked).\n"
+        )
     else:
         sys.stdout.write(result.sanitised_text)
 
     if args.session:
-        sys.stderr.write(f"\n[Session saved: {args.session} ({len(result.mapping)} tokens mapped for restore)]\n")
+        sys.stderr.write(
+            f"\n[Session saved: {args.session} ({len(result.mapping)} tokens mapped for restore)]\n"
+        )
 
     return 0
 
@@ -149,7 +199,9 @@ def cmd_restore(args: argparse.Namespace) -> int:
     content = get_stdin_or_file_content(args.file)
 
     if not args.session and not args.mapping:
-        sys.stderr.write("Error: Either --session <id> or --mapping <file> is required to restore tokens.\n")
+        sys.stderr.write(
+            "Error: Either --session <id> or --mapping <file> is required to restore tokens.\n"
+        )
         return 2
 
     mapping_dict = None
@@ -222,13 +274,19 @@ def cmd_guard(args: argparse.Namespace) -> int:
         sys.stdout.write(json.dumps(result.to_dict(), indent=2) + "\n")
     else:
         if result.is_safe:
-            sys.stdout.write(f"Clean: Prompt passed guard inspection (Threat Score: {result.threat_score}/100, Level: {result.threat_level.value.upper()})\n")
+            sys.stdout.write(
+                f"Clean: Prompt passed guard inspection (Threat Score: {result.threat_score}/100, Level: {result.threat_level.value.upper()})\n"
+            )
         else:
-            sys.stdout.write(f"Threat Detected: Level {result.threat_level.value.upper()} (Score: {result.threat_score}/100, Threshold: {args.threshold})\n\n")
+            sys.stdout.write(
+                f"Threat Detected: Level {result.threat_level.value.upper()} (Score: {result.threat_score}/100, Threshold: {args.threshold})\n\n"
+            )
             sys.stdout.write(f"{'Category':<22} {'Score':<8} {'Offset':<12} {'Description'}\n")
             sys.stdout.write("-" * 75 + "\n")
             for f in result.findings:
-                sys.stdout.write(f"{f.category.value:<22} {f.score:<8} {f.start:<12} {f.description}\n")
+                sys.stdout.write(
+                    f"{f.category.value:<22} {f.score:<8} {f.start:<12} {f.description}\n"
+                )
             sys.stdout.write("\n")
 
         if args.sanitize:
@@ -242,7 +300,6 @@ def cmd_guard(args: argparse.Namespace) -> int:
     return 0 if result.is_safe else 1
 
 
-
 def main(argv: Optional[List[str]] = None) -> int:
     parser = argparse.ArgumentParser(
         prog="promptshield",
@@ -254,37 +311,86 @@ def main(argv: Optional[List[str]] = None) -> int:
     p_scan = subparsers.add_parser("scan", help="Scan text or file for secrets and PII")
     p_scan.add_argument("file", nargs="?", default=None, help="File to scan (or standard input)")
     p_scan.add_argument("--json", action="store_true", help="Output findings as structured JSON")
-    p_scan.add_argument("--no-entropy", action="store_true", help="Disable Shannon entropy heuristic")
+    p_scan.add_argument(
+        "--no-entropy", action="store_true", help="Disable Shannon entropy heuristic"
+    )
 
     # redact
     p_redact = subparsers.add_parser("redact", help="Sanitise text by masking sensitive values")
-    p_redact.add_argument("file", nargs="?", default=None, help="File to redact (or standard input)")
-    p_redact.add_argument("--style", choices=["pseudonym", "redacted", "hash"], default="pseudonym", help="Masking style")
-    p_redact.add_argument("--session", type=str, default=None, help="Session identifier for reverse rehydration")
-    p_redact.add_argument("--out", type=str, default=None, help="Write sanitised output to destination path")
+    p_redact.add_argument(
+        "file", nargs="?", default=None, help="File to redact (or standard input)"
+    )
+    p_redact.add_argument(
+        "--style",
+        choices=["pseudonym", "redacted", "hash"],
+        default="pseudonym",
+        help="Masking style",
+    )
+    p_redact.add_argument(
+        "--session",
+        type=str,
+        default=None,
+        help="Session identifier for reverse rehydration",
+    )
+    p_redact.add_argument(
+        "--out",
+        type=str,
+        default=None,
+        help="Write sanitised output to destination path",
+    )
     p_redact.add_argument("--in-place", action="store_true", help="Modify input file in place")
-    p_redact.add_argument("--no-entropy", action="store_true", help="Disable Shannon entropy heuristic")
+    p_redact.add_argument(
+        "--no-entropy", action="store_true", help="Disable Shannon entropy heuristic"
+    )
 
     # restore
-    p_restore = subparsers.add_parser("restore", help="Rehydrate pseudonyms in AI responses back to real secrets")
-    p_restore.add_argument("file", nargs="?", default=None, help="File to restore (or standard input)")
-    p_restore.add_argument("--session", type=str, default=None, help="Session identifier to restore from")
+    p_restore = subparsers.add_parser(
+        "restore", help="Rehydrate pseudonyms in AI responses back to real secrets"
+    )
+    p_restore.add_argument(
+        "file", nargs="?", default=None, help="File to restore (or standard input)"
+    )
+    p_restore.add_argument(
+        "--session", type=str, default=None, help="Session identifier to restore from"
+    )
     p_restore.add_argument("--mapping", type=str, default=None, help="Path to JSON mapping file")
-    p_restore.add_argument("--out", type=str, default=None, help="Write restored output to destination path")
+    p_restore.add_argument(
+        "--out",
+        type=str,
+        default=None,
+        help="Write restored output to destination path",
+    )
 
     # install-hook
     subparsers.add_parser("install-hook", help="Install git pre-commit hook in current repository")
 
     # clip
     p_clip = subparsers.add_parser("clip", help="Sanitise text currently on clipboard")
-    p_clip.add_argument("--session", type=str, default=None, help="Session identifier for reverse rehydration")
+    p_clip.add_argument(
+        "--session",
+        type=str,
+        default=None,
+        help="Session identifier for reverse rehydration",
+    )
 
     # guard
-    p_guard = subparsers.add_parser("guard", help="Scan prompt for injections, jailbreaks, and leaks")
-    p_guard.add_argument("file", nargs="?", default=None, help="File to analyze (or standard input)")
-    p_guard.add_argument("--threshold", type=int, default=40, help="Threat score threshold (default: 40)")
+    p_guard = subparsers.add_parser(
+        "guard", help="Scan prompt for injections, jailbreaks, and leaks"
+    )
+    p_guard.add_argument(
+        "file", nargs="?", default=None, help="File to analyze (or standard input)"
+    )
+    p_guard.add_argument(
+        "--threshold", type=int, default=40, help="Threat score threshold (default: 40)"
+    )
     p_guard.add_argument("--json", action="store_true", help="Output evaluation as JSON")
-    p_guard.add_argument("--sanitize", action="store_true", help="Neutralize threats and output sanitized text")
+    p_guard.add_argument(
+        "--sanitise",
+        "--sanitize",
+        dest="sanitize",
+        action="store_true",
+        help="Neutralise threats and output sanitised text",
+    )
     p_guard.add_argument("--out", type=str, default=None, help="Write sanitized output to file")
 
     args = parser.parse_args(argv)
@@ -303,6 +409,7 @@ def main(argv: Optional[List[str]] = None) -> int:
         return cmd_install_hook(args)
     elif args.command == "clip":
         from promptshield.clipboard import sanitise_clipboard
+
         sanitise_clipboard(session_id=args.session)
         return 0
     elif args.command == "guard":

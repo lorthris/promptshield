@@ -14,6 +14,7 @@ from enum import Enum
 
 class ThreatCategory(str, Enum):
     """Categories of prompt attacks."""
+
     DIRECT_INJECTION = "direct_injection"
     JAILBREAK = "jailbreak"
     SYSTEM_PROMPT_LEAK = "system_prompt_leak"
@@ -24,6 +25,7 @@ class ThreatCategory(str, Enum):
 
 class ThreatLevel(str, Enum):
     """Assessment levels for detected threats."""
+
     CLEAN = "clean"
     LOW = "low"
     MEDIUM = "medium"
@@ -34,6 +36,7 @@ class ThreatLevel(str, Enum):
 @dataclass(frozen=True)
 class ThreatFinding:
     """Individual security finding in a prompt."""
+
     category: ThreatCategory
     score: int
     matched_text: str
@@ -45,6 +48,7 @@ class ThreatFinding:
 @dataclass
 class GuardResult:
     """Complete evaluation result for an analyzed prompt."""
+
     is_safe: bool
     threat_level: ThreatLevel
     threat_score: int
@@ -114,9 +118,7 @@ class PromptGuard:
             "Known jailbreak persona activation",
         ),
         (
-            re.compile(
-                r"(?i)\bdo\s+anything\s+now\b"
-            ),
+            re.compile(r"(?i)\bdo\s+anything\s+now\b"),
             50,
             "DAN jailbreak signature",
         ),
@@ -162,9 +164,7 @@ class PromptGuard:
             "System instructions inquiry",
         ),
         (
-            re.compile(
-                r"(?i)\boutput\s+initialization\s+(?:configuration|text|prompt)\b"
-            ),
+            re.compile(r"(?i)\boutput\s+initialization\s+(?:configuration|text|prompt)\b"),
             40,
             "Initialization prompt extraction attempt",
         ),
@@ -191,23 +191,17 @@ class PromptGuard:
     # Special token and delimiter injection patterns
     _DELIMITER_PATTERNS = [
         (
-            re.compile(
-                r"<\|(?:im_start|im_end|endoftext|system|assistant|user)\|>"
-            ),
+            re.compile(r"<\|(?:im_start|im_end|endoftext|system|assistant|user)\|>"),
             50,
             "ChatML special token injection",
         ),
         (
-            re.compile(
-                r"\[\/?(?:INST|SYS)\]"
-            ),
+            re.compile(r"\[\/?(?:INST|SYS)\]"),
             45,
             "LLaMA instruction delimiter injection",
         ),
         (
-            re.compile(
-                r"<\/(?:context|system|instruction|rules|user_query)>"
-            ),
+            re.compile(r"<\/(?:context|system|instruction|rules|user_query)>"),
             40,
             "XML prompt container escape tag",
         ),
@@ -218,7 +212,7 @@ class PromptGuard:
 
     def __init__(self, threshold: int = 40) -> None:
         """Initialize guard with score threshold for safe classification.
-        
+
         Args:
             threshold: Cumulative score above which a prompt is marked unsafe.
         """
@@ -226,10 +220,10 @@ class PromptGuard:
 
     def scan(self, prompt: str) -> GuardResult:
         """Scan prompt for injection attacks, leaks, and exploits.
-        
+
         Args:
             prompt: Text to analyze.
-            
+
         Returns:
             GuardResult containing safety status, threat level, score, and findings.
         """
@@ -259,13 +253,24 @@ class PromptGuard:
             )
 
         # 2. Base64 payload detection
-        for match in re.finditer(r"(?<![A-Za-z0-9+/])([A-Za-z0-9+/]{24,}={0,2})(?![A-Za-z0-9+/=])", prompt):
+        for match in re.finditer(
+            r"(?<![A-Za-z0-9+/])([A-Za-z0-9+/]{24,}={0,2})(?![A-Za-z0-9+/=])", prompt
+        ):
             candidate = match.group(1)
             try:
-                decoded = base64.b64decode(candidate, validate=True).decode("utf-8", errors="ignore")
+                decoded = base64.b64decode(candidate, validate=True).decode(
+                    "utf-8", errors="ignore"
+                )
                 if len(decoded) >= 12 and any(
                     kw in decoded.lower()
-                    for kw in ["ignore", "system", "instruction", "prompt", "bypass", "jailbreak"]
+                    for kw in [
+                        "ignore",
+                        "system",
+                        "instruction",
+                        "prompt",
+                        "bypass",
+                        "jailbreak",
+                    ]
                 ):
                     findings.append(
                         ThreatFinding(
@@ -330,10 +335,10 @@ class PromptGuard:
 
     def sanitize(self, prompt: str) -> str:
         """Strip or neutralize detected malicious attack vectors.
-        
+
         Args:
             prompt: Text to sanitize.
-            
+
         Returns:
             Cleaned text safe for LLM context inclusion.
         """
@@ -352,3 +357,5 @@ class PromptGuard:
                 cleaned = pattern.sub("[REMOVED_SECURITY_THREAT]", cleaned)
 
         return cleaned
+
+    sanitise = sanitize

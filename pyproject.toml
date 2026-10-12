@@ -42,6 +42,32 @@ Commercial = "https://lorthris.gumroad.com/l/promptshield-suite"
 [project.scripts]
 promptshield = "promptshield.cli:main"
 
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "ruff>=0.8.0",
+]
+
 [tool.setuptools.packages.find]
 where = ["."]
 include = ["promptshield*"]
+
+[tool.ruff]
+target-version = "py38"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "S"]
+ignore = ["E501", "S101", "S110", "S112"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S101", "S105", "S106"]
+
+[tool.ruff.format]
+line-ending = "lf"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_functions = ["test_*"]
+

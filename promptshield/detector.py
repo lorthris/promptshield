@@ -1,9 +1,9 @@
 """Detection engine for credentials, tokens, PII, and high-entropy secrets."""
 
-from dataclasses import dataclass
 import math
 import re
-from typing import List, Optional
+from dataclasses import dataclass
+from typing import List
 
 
 @dataclass(frozen=True)
@@ -96,7 +96,9 @@ class Detector:
         (
             "CREDENTIAL",
             "github_token",
-            re.compile(r"\b(?:ghp|gho|ghu|ghs|ghr)_[A-Za-z0-9]{36}\b|\bgithub_pat_[A-Za-z0-9_]{82}\b"),
+            re.compile(
+                r"\b(?:ghp|gho|ghu|ghs|ghr)_[A-Za-z0-9]{36}\b|\bgithub_pat_[A-Za-z0-9_]{82}\b"
+            ),
             0.98,
         ),
         (

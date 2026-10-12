@@ -5,7 +5,6 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from promptshield.detector import Detector
 from promptshield.redactor import Redactor
 
 

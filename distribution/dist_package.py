@@ -1,9 +1,9 @@
 """Automated build and packaging script for PromptShield commercial distribution."""
 
 import os
-from pathlib import Path
 import shutil
 import zipfile
+from pathlib import Path
 
 
 def build_distribution():
@@ -13,7 +13,13 @@ def build_distribution():
 
     # Reset staging
     if dist_output.exists():
-        shutil.rmtree(dist_output)
+        import stat
+
+        def _onerror(func, path, _):
+            os.chmod(path, stat.S_IWRITE)
+            func(path)
+
+        shutil.rmtree(dist_output, onerror=_onerror)
     staging_dir.mkdir(parents=True, exist_ok=True)
 
     print(f"[PromptShield] Building commercial release package in {staging_dir}...")

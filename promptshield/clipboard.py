@@ -1,10 +1,8 @@
 """Clipboard helper to sanitise copied text before pasting into AI models."""
 
 import sys
-import time
 from typing import Optional
 
-from promptshield.detector import Detector
 from promptshield.redactor import Redactor
 
 
@@ -26,7 +24,6 @@ def get_clipboard_text() -> Optional[str]:
 
     try:
         import ctypes
-        from ctypes import wintypes
 
         user32 = ctypes.windll.user32
         kernel32 = ctypes.windll.kernel32
