@@ -3,7 +3,7 @@
 Local cybersecurity and privacy tool suite for artificial intelligence workflows.
 
 [![PyPI](https://img.shields.io/pypi/v/promptshield-core.svg)](https://pypi.org/project/promptshield-core/)
-[![Tests](https://img.shields.io/badge/tests-34%20passing-brightgreen)](tests/)
+[![Tests](https://img.shields.io/badge/tests-39%20passing-brightgreen)](tests/)
 [![Python](https://img.shields.io/badge/python-3.8%2B-blue)](https://www.python.org/)
 [![Licence](https://img.shields.io/badge/licence-Commercial%20%2F%20Open%20Core-cyan)](https://lorthris.gumroad.com/l/promptshield-suite)
 [![Interactive Sandbox](https://img.shields.io/badge/demo-live%20sandbox-emerald)](https://lorthris.github.io/promptshield/)
@@ -37,7 +37,7 @@ PromptShield/
 │   ├── clipboard.py     # System clipboard background sanitiser
 │   └── cli.py           # Unified command-line interface
 ├── docs/                # Live interactive web application (GitHub Pages)
-└── tests/               # 34 automated unit tests
+└── tests/               # 39 automated unit tests
 ```
 
 ---
