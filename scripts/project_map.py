@@ -17,7 +17,8 @@ def main():
     )
     if not engine.is_file():
         raise SystemExit(
-            f"Project map engine missing: {engine}. Install the shared engine or set PROJECT_MAP_ENGINE to its project_map.py file."
+            f"Project map engine missing: {engine}. "
+            "Install the shared engine or set PROJECT_MAP_ENGINE to its project_map.py file."
         )
     sys.argv = [str(engine), "--root", str(root), *sys.argv[1:]]
     sys.path.insert(0, str(engine.resolve().parent))
