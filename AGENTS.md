@@ -34,3 +34,16 @@ python -m promptshield.cli scan promptshield/
 
 - Zero telemetry: All heuristics, pattern scans, and masking operations run locally. Do not add network calls or remote telemetry to core modules.
 - Language: Use Australian English spelling in code identifiers, docstrings, comments, and documentation.
+
+## Project navigation
+
+Use `docs/project_map/INDEX.md` or open `docs/project_map/index.html` before broad searches.
+The authored source is `docs/project_map/project_map_source.json`.
+
+Run `python scripts/project_map.py q <path-or-words>` for ownership and related context.
+Use `impact`, `tests` and `brief` with the same target before a change.
+After an included file or component changes, update the source and run
+`python scripts/project_map.py build` and `python scripts/project_map.py check`.
+The launcher uses the shared engine under `~/.claude/tools/project-map`;
+set `PROJECT_MAP_ENGINE` to its `project_map.py` file for a separate installation.
+Keep credentials, local state, caches and generated packages out of the map inventory.

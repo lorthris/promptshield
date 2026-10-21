@@ -17,3 +17,5 @@ htmlcov/
 .promptshield_sessions/
 dist_output/
 
+# Local project map query cache
+.cache/project_map/

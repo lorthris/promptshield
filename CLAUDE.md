@@ -29,3 +29,16 @@ Guidelines for AI coding assistants working in this repository.
 
 - Local-only execution: Zero network calls or external telemetry in core modules.
 - Australian English spelling in all documentation, comments, and messages.
+
+## Project navigation
+
+Use `docs/project_map/INDEX.md` or open `docs/project_map/index.html` before broad searches.
+The authored source is `docs/project_map/project_map_source.json`.
+
+Run `python scripts/project_map.py q <path-or-words>` for ownership and related context.
+Use `impact`, `tests` and `brief` with the same target before a change.
+After an included file or component changes, update the source and run
+`python scripts/project_map.py build` and `python scripts/project_map.py check`.
+The launcher uses the shared engine under `~/.claude/tools/project-map`;
+set `PROJECT_MAP_ENGINE` to its `project_map.py` file for a separate installation.
+Keep credentials, local state, caches and generated packages out of the map inventory.

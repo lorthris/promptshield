@@ -1,0 +1,871 @@
+{
+  "catalogues": [],
+  "conditional_artifacts": [],
+  "domain_relationships": [
+    {
+      "count": 3,
+      "source": "domain.project",
+      "target": "domain.application",
+      "types": {
+        "contains": 3
+      }
+    },
+    {
+      "count": 5,
+      "source": "domain.project",
+      "target": "domain.delivery",
+      "types": {
+        "contains": 5
+      }
+    },
+    {
+      "count": 3,
+      "source": "domain.project",
+      "target": "domain.operations",
+      "types": {
+        "contains": 3
+      }
+    },
+    {
+      "count": 1,
+      "source": "domain.project",
+      "target": "domain.project",
+      "types": {
+        "contains": 1
+      }
+    }
+  ],
+  "domains": [
+    {
+      "id": "domain.project",
+      "name": "Project",
+      "order": 0,
+      "purpose": "Project components."
+    },
+    {
+      "id": "domain.application",
+      "name": "Application",
+      "order": 1,
+      "purpose": "Application components."
+    },
+    {
+      "id": "domain.operations",
+      "name": "Operations",
+      "order": 2,
+      "purpose": "Operations components."
+    },
+    {
+      "id": "domain.delivery",
+      "name": "Delivery",
+      "order": 3,
+      "purpose": "Delivery components."
+    }
+  ],
+  "entry_points": [
+    {
+      "label": "Project contract",
+      "path": "README.md",
+      "purpose": "Local secret and PII detection, deterministic redaction, prompt injection checks and clipboard sanitisation."
+    },
+    {
+      "label": "Agent instructions",
+      "path": "AGENTS.md",
+      "purpose": "Read project rules and map commands."
+    },
+    {
+      "label": "Shared map launcher",
+      "path": "scripts/project_map.py",
+      "purpose": "Build, check and query repository navigation."
+    }
+  ],
+  "inventory": {
+    "coverage": {
+      "ambiguous_paths": [],
+      "unmapped_paths": []
+    },
+    "legacy_stub": {
+      "owner": "archive.legacy",
+      "represented_as_stub": true,
+      "tracked_path_count": 0
+    },
+    "path_index": {
+      ".editorconfig": "project.boundary",
+      ".gitattributes": "project.boundary",
+      ".github/workflows/publish.yml": "governance.ci",
+      ".github/workflows/security.yml": "governance.ci",
+      ".gitignore": "project.boundary",
+      ".pre-commit-config.yaml": "project.boundary",
+      ".pre-commit-hooks.yaml": "project.boundary",
+      "AGENTS.md": "project.boundary",
+      "CLAUDE.md": "project.boundary",
+      "DEPLOY.md": "project.docs",
+      "DIRECTORY_SUBMISSIONS.md": "project.docs",
+      "LAUNCH_KIT.md": "project.docs",
+      "README.md": "project.docs",
+      "action.yml": "project.boundary",
+      "articles/defending-against-prompt-injections-in-production.md": "delivery.content",
+      "articles/how-to-prevent-api-key-leaks-in-ai.md": "delivery.content",
+      "articles/product-hunt-launch-kit.md": "delivery.content",
+      "distribution/cover.jpg": "delivery.release",
+      "distribution/dist_package.py": "delivery.release",
+      "distribution/gumroad/CUSTOMER_GUIDE.md": "delivery.release",
+      "distribution/gumroad/PRODUCT_LISTING.md": "delivery.release",
+      "distribution/product_description.html": "delivery.release",
+      "docs/.nojekyll": "project.docs",
+      "docs/app.js": "project.docs",
+      "docs/australian-tfn-compliance-ai.html": "project.docs",
+      "docs/index.html": "project.docs",
+      "docs/llm-prompt-injection-defense.html": "project.docs",
+      "docs/prevent-api-key-leaks-ai.html": "project.docs",
+      "docs/project_map/INDEX.md": "governance.map",
+      "docs/project_map/index.html": "governance.map",
+      "docs/project_map/project_map.json": "governance.map",
+      "docs/project_map/project_map_source.json": "governance.map",
+      "docs/robots.txt": "project.docs",
+      "docs/sitemap.xml": "project.docs",
+      "docs/style.css": "project.docs",
+      "profile.html": "project.docs",
+      "promptshield/__init__.py": "interface.cli",
+      "promptshield/cli.py": "interface.cli",
+      "promptshield/clipboard.py": "interface.clipboard",
+      "promptshield/detector.py": "engine.detector",
+      "promptshield/guard.py": "engine.guard",
+      "promptshield/redactor.py": "engine.redactor",
+      "promptshield_avatar.jpg": "project.docs",
+      "promptshield_avatar.png": "project.docs",
+      "promptshield_logo.png": "project.docs",
+      "promptshield_logo_220x220.png": "project.docs",
+      "promptshield_pro_thumb.jpg": "project.docs",
+      "pyproject.toml": "project.boundary",
+      "scripts/project_map.py": "governance.map",
+      "tests/__init__.py": "quality.tests",
+      "tests/test_cli.py": "quality.tests",
+      "tests/test_clipboard.py": "quality.tests",
+      "tests/test_detector.py": "quality.tests",
+      "tests/test_guard.py": "quality.tests",
+      "tests/test_redactor.py": "quality.tests",
+      "web/app.js": "web.public",
+      "web/index.html": "web.public",
+      "web/style.css": "web.public"
+    }
+  },
+  "metadata": {
+    "generated_by": "scripts/project_map.py",
+    "generation_command": "python scripts/project_map.py build",
+    "inventory_path_sha256": "9fff9fd17568729b8e47c6006ace6ecf8592ffeeb6412a0adcc7ff5f3d17dc58",
+    "source_sha256": "c4a2df56968362072dc65fcf3b9c5398f81a463b6d15f18c27ab9e50e7bb58d3"
+  },
+  "nodes": [
+    {
+      "cautions": [],
+      "classification": "current",
+      "domain": "domain.delivery",
+      "evidence": [
+        {
+          "claim": "Repository evidence for public articles and launch materials.",
+          "locator": "## Live Interactive Sandbox",
+          "path": "README.md"
+        }
+      ],
+      "id": "delivery.content",
+      "incoming_relationships": [
+        "relation.12"
+      ],
+      "inventory_count": 3,
+      "lifecycle": {
+        "governance": "not_applicable",
+        "implementation": "implemented",
+        "operation": "conditional"
+      },
+      "name": "Public articles and launch materials",
+      "outgoing_relationships": [],
+      "paths": [
+        "articles"
+      ],
+      "phases": [],
+      "purpose": "Public articles and launch materials.",
+      "tags": [],
+      "type": "component"
+    },
+    {
+      "cautions": [],
+      "classification": "current",
+      "domain": "domain.delivery",
+      "evidence": [
+        {
+          "claim": "Repository evidence for commercial distribution.",
+          "locator": "def build_distribution():",
+          "path": "distribution/dist_package.py"
+        }
+      ],
+      "id": "delivery.release",
+      "incoming_relationships": [
+        "relation.11"
+      ],
+      "inventory_count": 5,
+      "lifecycle": {
+        "governance": "not_applicable",
+        "implementation": "implemented",
+        "operation": "conditional"
+      },
+      "name": "Commercial distribution",
+      "outgoing_relationships": [],
+      "paths": [
+        "distribution"
+      ],
+      "phases": [],
+      "purpose": "Commercial distribution.",
+      "tags": [],
+      "type": "component"
+    },
+    {
+      "cautions": [],
+      "classification": "current",
+      "domain": "domain.application",
+      "evidence": [
+        {
+          "claim": "Repository evidence for secret and pii detection.",
+          "locator": "Heuristics, signatures, Shannon entropy, and checksums",
+          "path": "AGENTS.md"
+        }
+      ],
+      "id": "engine.detector",
+      "incoming_relationships": [
+        "relation.5"
+      ],
+      "inventory_count": 1,
+      "lifecycle": {
+        "governance": "not_applicable",
+        "implementation": "implemented",
+        "operation": "conditional"
+      },
+      "name": "Secret and PII detection",
+      "outgoing_relationships": [],
+      "paths": [
+        "promptshield/detector.py"
+      ],
+      "phases": [],
+      "purpose": "Secret and PII detection.",
+      "tags": [],
+      "type": "component"
+    },
+    {
+      "cautions": [],
+      "classification": "current",
+      "domain": "domain.application",
+      "evidence": [
+        {
+          "claim": "Repository evidence for prompt injection checks.",
+          "locator": "Heuristic firewall against prompt injections and jailbreaks.",
+          "path": "AGENTS.md"
+        }
+      ],
+      "id": "engine.guard",
+      "incoming_relationships": [
+        "relation.7"
+      ],
+      "inventory_count": 1,
+      "lifecycle": {
+        "governance": "not_applicable",
+        "implementation": "implemented",
+        "operation": "conditional"
+      },
+      "name": "Prompt injection checks",
+      "outgoing_relationships": [],
+      "paths": [
+        "promptshield/guard.py"
+      ],
+      "phases": [],
+      "purpose": "Prompt injection checks.",
+      "tags": [],
+      "type": "component"
+    },
+    {
+      "cautions": [],
+      "classification": "current",
+      "domain": "domain.application",
+      "evidence": [
+        {
+          "claim": "Repository evidence for redaction and restore mapping.",
+          "locator": "Deterministic pseudonym substitution and restore mapping.",
+          "path": "AGENTS.md"
+        }
+      ],
+      "id": "engine.redactor",
+      "incoming_relationships": [
+        "relation.6"
+      ],
+      "inventory_count": 1,
+      "lifecycle": {
+        "governance": "not_applicable",
+        "implementation": "implemented",
+        "operation": "conditional"
+      },
+      "name": "Redaction and restore mapping",
+      "outgoing_relationships": [],
+      "paths": [
+        "promptshield/redactor.py"
+      ],
+      "phases": [],
+      "purpose": "Redaction and restore mapping.",
+      "tags": [],
+      "type": "component"
+    },
+    {
+      "cautions": [],
+      "classification": "current",
+      "domain": "domain.operations",
+      "evidence": [
+        {
+          "claim": "Repository evidence for ci workflows.",
+          "locator": "# PromptShield",
+          "path": "README.md"
+        }
+      ],
+      "id": "governance.ci",
+      "incoming_relationships": [
+        "relation.2"
+      ],
+      "inventory_count": 2,
+      "lifecycle": {
+        "governance": "not_applicable",
+        "implementation": "implemented",
+        "operation": "conditional"
+      },
+      "name": "CI workflows",
+      "outgoing_relationships": [],
+      "paths": [
+        ".github"
+      ],
+      "phases": [],
+      "purpose": "CI workflows.",
+      "tags": [],
+      "type": "component"
+    },
+    {
+      "cautions": [],
+      "classification": "current",
+      "domain": "domain.operations",
+      "evidence": [
+        {
+          "claim": "Repository evidence for authored map and generated navigation.",
+          "locator": "## Project navigation",
+          "path": "AGENTS.md"
+        }
+      ],
+      "id": "governance.map",
+      "incoming_relationships": [
+        "relation.1"
+      ],
+      "inventory_count": 5,
+      "lifecycle": {
+        "governance": "not_applicable",
+        "implementation": "implemented",
+        "operation": "conditional"
+      },
+      "name": "Authored map and generated navigation",
+      "outgoing_relationships": [],
+      "paths": [
+        "docs/project_map",
+        "scripts/project_map.py"
+      ],
+      "phases": [],
+      "purpose": "Authored map and generated navigation.",
+      "tags": [],
+      "type": "component"
+    },
+    {
+      "cautions": [],
+      "classification": "current",
+      "domain": "domain.delivery",
+      "evidence": [
+        {
+          "claim": "Repository evidence for command-line interface.",
+          "locator": "def cmd_scan(args: argparse.Namespace) -> int:",
+          "path": "promptshield/cli.py"
+        }
+      ],
+      "id": "interface.cli",
+      "incoming_relationships": [
+        "relation.9"
+      ],
+      "inventory_count": 2,
+      "lifecycle": {
+        "governance": "not_applicable",
+        "implementation": "implemented",
+        "operation": "conditional"
+      },
+      "name": "Command-line interface",
+      "outgoing_relationships": [],
+      "paths": [
+        "promptshield/__init__.py",
+        "promptshield/cli.py"
+      ],
+      "phases": [],
+      "purpose": "Command-line interface.",
+      "tags": [],
+      "type": "component"
+    },
+    {
+      "cautions": [],
+      "classification": "current",
+      "domain": "domain.delivery",
+      "evidence": [
+        {
+          "claim": "Repository evidence for local clipboard sanitisation.",
+          "locator": "Local clipboard sanitiser with fallback mechanisms.",
+          "path": "AGENTS.md"
+        }
+      ],
+      "id": "interface.clipboard",
+      "incoming_relationships": [
+        "relation.8"
+      ],
+      "inventory_count": 1,
+      "lifecycle": {
+        "governance": "not_applicable",
+        "implementation": "implemented",
+        "operation": "conditional"
+      },
+      "name": "Local clipboard sanitisation",
+      "outgoing_relationships": [],
+      "paths": [
+        "promptshield/clipboard.py"
+      ],
+      "phases": [],
+      "purpose": "Local clipboard sanitisation.",
+      "tags": [],
+      "type": "component"
+    },
+    {
+      "cautions": [
+        "Core processing is local. Do not add remote telemetry or network calls.",
+        "Exclude .promptshield_sessions because restore mappings can contain secrets.",
+        "Use the promptshield vault collection and Brain scope. Other projects do not own these credentials."
+      ],
+      "classification": "current",
+      "domain": "domain.project",
+      "evidence": [
+        {
+          "claim": "Repository evidence for project contract and configuration.",
+          "locator": "# PromptShield",
+          "path": "README.md"
+        }
+      ],
+      "id": "project.boundary",
+      "incoming_relationships": [],
+      "inventory_count": 9,
+      "lifecycle": {
+        "governance": "not_applicable",
+        "implementation": "implemented",
+        "operation": "conditional"
+      },
+      "name": "Project contract and configuration",
+      "outgoing_relationships": [
+        "relation.1",
+        "relation.10",
+        "relation.11",
+        "relation.12",
+        "relation.2",
+        "relation.3",
+        "relation.4",
+        "relation.5",
+        "relation.6",
+        "relation.7",
+        "relation.8",
+        "relation.9"
+      ],
+      "paths": [
+        ".editorconfig",
+        ".gitattributes",
+        ".gitignore",
+        ".pre-commit-config.yaml",
+        ".pre-commit-hooks.yaml",
+        "AGENTS.md",
+        "CLAUDE.md",
+        "action.yml",
+        "pyproject.toml"
+      ],
+      "phases": [],
+      "purpose": "Project contract and configuration.",
+      "tags": [],
+      "type": "component"
+    },
+    {
+      "cautions": [],
+      "classification": "current",
+      "domain": "domain.project",
+      "evidence": [
+        {
+          "claim": "Repository evidence for product guides and deployment documentation.",
+          "locator": "# PromptShield",
+          "path": "README.md"
+        }
+      ],
+      "id": "project.docs",
+      "incoming_relationships": [
+        "relation.3"
+      ],
+      "inventory_count": 19,
+      "lifecycle": {
+        "governance": "not_applicable",
+        "implementation": "implemented",
+        "operation": "conditional"
+      },
+      "name": "Product guides and deployment documentation",
+      "outgoing_relationships": [],
+      "paths": [
+        "DEPLOY.md",
+        "DIRECTORY_SUBMISSIONS.md",
+        "LAUNCH_KIT.md",
+        "README.md",
+        "docs/.nojekyll",
+        "docs/app.js",
+        "docs/australian-tfn-compliance-ai.html",
+        "docs/index.html",
+        "docs/llm-prompt-injection-defense.html",
+        "docs/prevent-api-key-leaks-ai.html",
+        "docs/robots.txt",
+        "docs/sitemap.xml",
+        "docs/style.css",
+        "profile.html",
+        "promptshield_avatar.jpg",
+        "promptshield_avatar.png",
+        "promptshield_logo.png",
+        "promptshield_logo_220x220.png",
+        "promptshield_pro_thumb.jpg"
+      ],
+      "phases": [],
+      "purpose": "Product guides and deployment documentation.",
+      "tags": [],
+      "type": "component"
+    },
+    {
+      "cautions": [],
+      "classification": "current",
+      "domain": "domain.operations",
+      "evidence": [
+        {
+          "claim": "Repository evidence for automated verification.",
+          "locator": "# PromptShield",
+          "path": "README.md"
+        }
+      ],
+      "id": "quality.tests",
+      "incoming_relationships": [
+        "relation.4"
+      ],
+      "inventory_count": 6,
+      "lifecycle": {
+        "governance": "not_applicable",
+        "implementation": "implemented",
+        "operation": "conditional"
+      },
+      "name": "Automated verification",
+      "outgoing_relationships": [],
+      "paths": [
+        "tests"
+      ],
+      "phases": [],
+      "purpose": "Automated verification.",
+      "tags": [],
+      "type": "component"
+    },
+    {
+      "cautions": [],
+      "classification": "current",
+      "domain": "domain.delivery",
+      "evidence": [
+        {
+          "claim": "Repository evidence for browser demonstration.",
+          "locator": "Live interactive web application (GitHub Pages).",
+          "path": "CLAUDE.md"
+        }
+      ],
+      "id": "web.public",
+      "incoming_relationships": [
+        "relation.10"
+      ],
+      "inventory_count": 3,
+      "lifecycle": {
+        "governance": "not_applicable",
+        "implementation": "implemented",
+        "operation": "conditional"
+      },
+      "name": "Browser demonstration",
+      "outgoing_relationships": [],
+      "paths": [
+        "web"
+      ],
+      "phases": [],
+      "purpose": "Browser demonstration.",
+      "tags": [],
+      "type": "component"
+    }
+  ],
+  "phases": [
+    {
+      "evidence": [
+        {
+          "claim": "Repository evidence for project contract and configuration.",
+          "locator": "# PromptShield",
+          "path": "README.md"
+        }
+      ],
+      "id": "phase.maintenance",
+      "label": "P0",
+      "name": "Maintain the current project",
+      "order": 0,
+      "status": "in_progress",
+      "summary": "Maintain repository components and validate changes. This phase does not claim production approval."
+    }
+  ],
+  "project": {
+    "generation_command": "python scripts/project_map.py build",
+    "id": "promptshield",
+    "name": "PromptShield",
+    "purpose": "Local secret and PII detection, deterministic redaction, prompt injection checks and clipboard sanitisation.",
+    "source_of_truth": "docs/project_map/project_map_source.json and tracked repository files.",
+    "tagline": "Local secret and PII detection, deterministic redaction, prompt injection checks and clipboard sanitisation."
+  },
+  "relationships": [
+    {
+      "classification": "current",
+      "evidence": [
+        {
+          "claim": "Repository evidence for authored map and generated navigation.",
+          "locator": "## Project navigation",
+          "path": "AGENTS.md"
+        }
+      ],
+      "id": "relation.1",
+      "label": "Repository component",
+      "source": "project.boundary",
+      "target": "governance.map",
+      "type": "contains"
+    },
+    {
+      "classification": "current",
+      "evidence": [
+        {
+          "claim": "Repository evidence for browser demonstration.",
+          "locator": "Live interactive web application (GitHub Pages).",
+          "path": "CLAUDE.md"
+        }
+      ],
+      "id": "relation.10",
+      "label": "Repository component",
+      "source": "project.boundary",
+      "target": "web.public",
+      "type": "contains"
+    },
+    {
+      "classification": "current",
+      "evidence": [
+        {
+          "claim": "Repository evidence for commercial distribution.",
+          "locator": "def build_distribution():",
+          "path": "distribution/dist_package.py"
+        }
+      ],
+      "id": "relation.11",
+      "label": "Repository component",
+      "source": "project.boundary",
+      "target": "delivery.release",
+      "type": "contains"
+    },
+    {
+      "classification": "current",
+      "evidence": [
+        {
+          "claim": "Repository evidence for public articles and launch materials.",
+          "locator": "## Live Interactive Sandbox",
+          "path": "README.md"
+        }
+      ],
+      "id": "relation.12",
+      "label": "Repository component",
+      "source": "project.boundary",
+      "target": "delivery.content",
+      "type": "contains"
+    },
+    {
+      "classification": "current",
+      "evidence": [
+        {
+          "claim": "Repository evidence for ci workflows.",
+          "locator": "# PromptShield",
+          "path": "README.md"
+        }
+      ],
+      "id": "relation.2",
+      "label": "Repository component",
+      "source": "project.boundary",
+      "target": "governance.ci",
+      "type": "contains"
+    },
+    {
+      "classification": "current",
+      "evidence": [
+        {
+          "claim": "Repository evidence for product guides and deployment documentation.",
+          "locator": "# PromptShield",
+          "path": "README.md"
+        }
+      ],
+      "id": "relation.3",
+      "label": "Repository component",
+      "source": "project.boundary",
+      "target": "project.docs",
+      "type": "contains"
+    },
+    {
+      "classification": "current",
+      "evidence": [
+        {
+          "claim": "Repository evidence for automated verification.",
+          "locator": "# PromptShield",
+          "path": "README.md"
+        }
+      ],
+      "id": "relation.4",
+      "label": "Repository component",
+      "source": "project.boundary",
+      "target": "quality.tests",
+      "type": "contains"
+    },
+    {
+      "classification": "current",
+      "evidence": [
+        {
+          "claim": "Repository evidence for secret and pii detection.",
+          "locator": "Heuristics, signatures, Shannon entropy, and checksums",
+          "path": "AGENTS.md"
+        }
+      ],
+      "id": "relation.5",
+      "label": "Repository component",
+      "source": "project.boundary",
+      "target": "engine.detector",
+      "type": "contains"
+    },
+    {
+      "classification": "current",
+      "evidence": [
+        {
+          "claim": "Repository evidence for redaction and restore mapping.",
+          "locator": "Deterministic pseudonym substitution and restore mapping.",
+          "path": "AGENTS.md"
+        }
+      ],
+      "id": "relation.6",
+      "label": "Repository component",
+      "source": "project.boundary",
+      "target": "engine.redactor",
+      "type": "contains"
+    },
+    {
+      "classification": "current",
+      "evidence": [
+        {
+          "claim": "Repository evidence for prompt injection checks.",
+          "locator": "Heuristic firewall against prompt injections and jailbreaks.",
+          "path": "AGENTS.md"
+        }
+      ],
+      "id": "relation.7",
+      "label": "Repository component",
+      "source": "project.boundary",
+      "target": "engine.guard",
+      "type": "contains"
+    },
+    {
+      "classification": "current",
+      "evidence": [
+        {
+          "claim": "Repository evidence for local clipboard sanitisation.",
+          "locator": "Local clipboard sanitiser with fallback mechanisms.",
+          "path": "AGENTS.md"
+        }
+      ],
+      "id": "relation.8",
+      "label": "Repository component",
+      "source": "project.boundary",
+      "target": "interface.clipboard",
+      "type": "contains"
+    },
+    {
+      "classification": "current",
+      "evidence": [
+        {
+          "claim": "Repository evidence for command-line interface.",
+          "locator": "def cmd_scan(args: argparse.Namespace) -> int:",
+          "path": "promptshield/cli.py"
+        }
+      ],
+      "id": "relation.9",
+      "label": "Repository component",
+      "source": "project.boundary",
+      "target": "interface.cli",
+      "type": "contains"
+    }
+  ],
+  "schema_version": 1,
+  "sibling_sets": [],
+  "statistics": {
+    "by_classification": {
+      "current": 13
+    },
+    "by_domain": {
+      "domain.application": 3,
+      "domain.delivery": 5,
+      "domain.operations": 3,
+      "domain.project": 2
+    },
+    "by_type": {
+      "component": 13
+    },
+    "inventory_paths": 58,
+    "legacy_paths": 0,
+    "mapped_nonlegacy_paths": 58,
+    "nodes": 13,
+    "relationships": 12
+  },
+  "workflows": [
+    {
+      "classification": "current",
+      "evidence": [
+        {
+          "claim": "Repository evidence for command-line interface.",
+          "locator": "def cmd_scan(args: argparse.Namespace) -> int:",
+          "path": "promptshield/cli.py"
+        }
+      ],
+      "id": "workflow.primary",
+      "name": "Scan, redact and validate local processing",
+      "purpose": "Follow component ownership through the main project workflow. These steps do not authorise external operations.",
+      "steps": [
+        {
+          "label": "Command-line interface",
+          "node": "interface.cli"
+        },
+        {
+          "label": "Secret and PII detection",
+          "node": "engine.detector"
+        },
+        {
+          "label": "Redaction and restore mapping",
+          "node": "engine.redactor"
+        },
+        {
+          "label": "Automated verification",
+          "node": "quality.tests"
+        },
+        {
+          "label": "Commercial distribution",
+          "node": "delivery.release"
+        }
+      ]
+    }
+  ]
+}
