@@ -39,9 +39,10 @@ Read in this order. Every link resolves from a repository checkout.
 
 - Components: 19
 - Directed relationships: 25
-- Inventory paths: 58 (Git tracked plus intended map deliverables)
-- Mapped live inventory paths: 58
-- Legacy paths represented by one stub: 0
+- Complete manifest paths: 59 (all Git tracked paths and intended map outputs)
+- Content ownership projection paths: 58
+- Non-legacy content ownership projection paths: 58
+- Legacy paths with one semantic owner and exact metadata records: 0
 - Roadmap: P0 in progress
 - Rebuild: `python scripts/project_map.py build`
 
@@ -53,7 +54,7 @@ Read in this order. Every link resolves from a repository checkout.
 | `planned` | Explicitly specified by an authoritative roadmap, plan, or contract. |
 | `inferred` | Strongly implied by at least two sources and labelled with confidence. |
 | `proposed` | An unresolved choice that must remain visible. |
-| `legacy` | Retired historical material represented only as a stub. |
+| `legacy` | Retired historical material with one semantic owner and per-path metadata. |
 
 Implementation, operation, and governance are separate lifecycle axes. An authored
 component can therefore be implemented while dormant or still under governance review.
@@ -165,11 +166,12 @@ The docs and web copies contain the same browser implementation, page and styles
 ## Operational surfaces
 
 Each catalogue is resolved mechanically from the tracked inventory at build
-time, so a listed path exists and an absent path is not tracked.
+time. Listed paths match the complete selector; omitted paths can be excluded.
 
 ### Local processing engines (6)
 
-Find detection, masking, guard and clipboard modules. Pattern: `promptshield/`.
+Find detection, masking, guard and clipboard modules. Primary pattern: `promptshield/`.
+Include: none. Exclude: none.
 
 - [promptshield/__init__.py](../../promptshield/__init__.py)
 - [promptshield/cli.py](../../promptshield/cli.py)
@@ -180,7 +182,8 @@ Find detection, masking, guard and clipboard modules. Pattern: `promptshield/`.
 
 ### Engine and interface tests (6)
 
-Find the unit tests for each local component. Pattern: `tests/`.
+Find the unit tests for each local component. Primary pattern: `tests/`.
+Include: none. Exclude: none.
 
 - [tests/__init__.py](../../tests/__init__.py)
 - [tests/test_cli.py](../../tests/test_cli.py)
@@ -191,7 +194,8 @@ Find the unit tests for each local component. Pattern: `tests/`.
 
 ### Browser source assets (3)
 
-Find the source browser demonstration. Pattern: `web/`.
+Find the source browser demonstration. Primary pattern: `web/`.
+Include: none. Exclude: none.
 
 - [web/app.js](../../web/app.js)
 - [web/index.html](../../web/index.html)
@@ -199,7 +203,8 @@ Find the source browser demonstration. Pattern: `web/`.
 
 ### Published browser assets and guides (13)
 
-Find the GitHub Pages browser and documentation files. Pattern: `docs/`.
+Find the GitHub Pages browser and documentation files. Primary pattern: `docs/`.
+Include: none. Exclude: none.
 
 - [docs/.nojekyll](../../docs/.nojekyll)
 - [docs/app.js](../../docs/app.js)
@@ -217,7 +222,8 @@ Find the GitHub Pages browser and documentation files. Pattern: `docs/`.
 
 ### Distribution files (5)
 
-Find commercial package and distribution material. Pattern: `distribution/`.
+Find commercial package and distribution material. Primary pattern: `distribution/`.
+Include: none. Exclude: none.
 
 - [distribution/cover.jpg](../../distribution/cover.jpg)
 - [distribution/dist_package.py](../../distribution/dist_package.py)
@@ -346,8 +352,8 @@ component identifier finds what it depends on and what depends on it.
 
 ## Ownership summary
 
-Primary inventory ownership per component, collapsed to the first two
-directory levels. Exact file ownership is `inventory.path_index` in the JSON.
+Complete manifest ownership per component, collapsed to the first two
+directory levels. Exact file metadata and ownership are in `inventory.manifest`.
 
 - `delivery.content` (3): articles/ (3)
 - `delivery.release` (5): distribution/ (3), distribution/gumroad/ (2)
@@ -355,7 +361,7 @@ directory levels. Exact file ownership is `inventory.path_index` in the JSON.
 - `engine.guard` (1): promptshield/ (1)
 - `engine.redactor` (1): promptshield/ (1)
 - `governance.ci` (2): .github/workflows/ (2)
-- `governance.map` (5): docs/project_map/ (4), scripts/ (1)
+- `governance.map` (6): docs/project_map/ (5), scripts/ (1)
 - `interface.cli` (2): promptshield/ (2)
 - `interface.clipboard` (1): promptshield/ (1)
 - `interface.integrations` (2): (repository root) (2)
@@ -392,8 +398,12 @@ filterable lifecycle data. Treat the `classification` field as the fact and futu
 boundary. Never promote `planned`, `inferred`, or `proposed` content to current fact.
 Treat `nodes[].paths` as associations: exact current files assert an eligible owner,
 while wildcards and directories group related material. Resolve unique primary
-ownership through `inventory.path_index`; `nodes[].inventory_count` counts it.
-`legacy/` intentionally has no file-level path index and is represented by
-`inventory.legacy_stub`.
+ownership and read policy through `inventory.manifest`. Node and graph coverage
+counts derive from this manifest and do not claim test success. The backwards-compatible
+`inventory.path_index` and `nodes[].inventory_count` describe content ownership only.
+Legacy retains its semantic stub and has exact metadata records in the manifest.
+The Files view pages through every manifest record. The separate local `workspace.html`
+adds ignored and untracked names, dependencies, VCS metadata and link boundaries.
+Refresh local metadata with `workspace --write`; deterministic checks exclude it.
 `catalogues[]` and `entry_points[]` are resolved against the same inventory, so a
 path they name is tracked at the recorded source digest.

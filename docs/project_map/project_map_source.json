@@ -1484,5 +1484,7 @@
     ".venv/*",
     "*.egg-info/*"
   ],
-  "index_exclusions": []
+  "index_exclusions": [
+    "docs/project_map/workspace.html"
+  ]
 }

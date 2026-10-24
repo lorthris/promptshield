@@ -3,7 +3,9 @@
     {
       "allow_empty": false,
       "count": 6,
+      "exclude": [],
       "id": "catalogue.engines",
+      "include": [],
       "kind": "prefix",
       "name": "Local processing engines",
       "paths": [
@@ -20,7 +22,9 @@
     {
       "allow_empty": false,
       "count": 6,
+      "exclude": [],
       "id": "catalogue.tests",
+      "include": [],
       "kind": "prefix",
       "name": "Engine and interface tests",
       "paths": [
@@ -37,7 +41,9 @@
     {
       "allow_empty": false,
       "count": 3,
+      "exclude": [],
       "id": "catalogue.browser",
+      "include": [],
       "kind": "prefix",
       "name": "Browser source assets",
       "paths": [
@@ -51,7 +57,9 @@
     {
       "allow_empty": false,
       "count": 13,
+      "exclude": [],
       "id": "catalogue.served",
+      "include": [],
       "kind": "prefix",
       "name": "Published browser assets and guides",
       "paths": [
@@ -75,7 +83,9 @@
     {
       "allow_empty": false,
       "count": 5,
+      "exclude": [],
       "id": "catalogue.distribution",
+      "include": [],
       "kind": "prefix",
       "name": "Distribution files",
       "paths": [
@@ -90,6 +100,20 @@
     }
   ],
   "conditional_artifacts": [],
+  "coverage": {
+    "access_counts": {
+      "content": 58,
+      "metadata": 1
+    },
+    "path_count": 59,
+    "provenance": "derived from inventory.manifest; no test execution claim",
+    "role_counts": {
+      "documentation": 12,
+      "generated": 4,
+      "source": 39,
+      "test": 5
+    }
+  },
   "domain_relationships": [
     {
       "count": 1,
@@ -218,6 +242,894 @@
       "represented_as_stub": true,
       "tracked_path_count": 0
     },
+    "manifest": {
+      ".editorconfig": {
+        "access": "content",
+        "kind": "file",
+        "owner": "project.boundary",
+        "policy": {
+          "basis": "authored inventory rule",
+          "index_excluded": false,
+          "inventory_excluded": false,
+          "rule": "inventory.7"
+        },
+        "roles": [
+          "source"
+        ],
+        "tracking": "tracked"
+      },
+      ".gitattributes": {
+        "access": "content",
+        "kind": "file",
+        "owner": "project.boundary",
+        "policy": {
+          "basis": "authored inventory rule",
+          "index_excluded": false,
+          "inventory_excluded": false,
+          "rule": "inventory.8"
+        },
+        "roles": [
+          "source"
+        ],
+        "tracking": "tracked"
+      },
+      ".github/workflows/publish.yml": {
+        "access": "content",
+        "kind": "file",
+        "owner": "governance.ci",
+        "policy": {
+          "basis": "authored inventory rule",
+          "index_excluded": false,
+          "inventory_excluded": false,
+          "rule": "inventory.2"
+        },
+        "roles": [
+          "source"
+        ],
+        "tracking": "tracked"
+      },
+      ".github/workflows/security.yml": {
+        "access": "content",
+        "kind": "file",
+        "owner": "governance.ci",
+        "policy": {
+          "basis": "authored inventory rule",
+          "index_excluded": false,
+          "inventory_excluded": false,
+          "rule": "inventory.2"
+        },
+        "roles": [
+          "source"
+        ],
+        "tracking": "tracked"
+      },
+      ".gitignore": {
+        "access": "content",
+        "kind": "file",
+        "owner": "project.boundary",
+        "policy": {
+          "basis": "authored inventory rule",
+          "index_excluded": false,
+          "inventory_excluded": false,
+          "rule": "inventory.9"
+        },
+        "roles": [
+          "source"
+        ],
+        "tracking": "tracked"
+      },
+      ".pre-commit-config.yaml": {
+        "access": "content",
+        "kind": "file",
+        "owner": "project.boundary",
+        "policy": {
+          "basis": "authored inventory rule",
+          "index_excluded": false,
+          "inventory_excluded": false,
+          "rule": "inventory.10"
+        },
+        "roles": [
+          "source"
+        ],
+        "tracking": "tracked"
+      },
+      ".pre-commit-hooks.yaml": {
+        "access": "content",
+        "kind": "file",
+        "owner": "interface.integrations",
+        "policy": {
+          "basis": "authored inventory rule",
+          "index_excluded": false,
+          "inventory_excluded": false,
+          "rule": "owner.interface.integrations.44"
+        },
+        "roles": [
+          "source"
+        ],
+        "tracking": "tracked"
+      },
+      "AGENTS.md": {
+        "access": "content",
+        "kind": "file",
+        "owner": "project.boundary",
+        "policy": {
+          "basis": "authored inventory rule",
+          "index_excluded": false,
+          "inventory_excluded": false,
+          "rule": "inventory.12"
+        },
+        "roles": [
+          "documentation"
+        ],
+        "tracking": "tracked"
+      },
+      "CLAUDE.md": {
+        "access": "content",
+        "kind": "file",
+        "owner": "project.boundary",
+        "policy": {
+          "basis": "authored inventory rule",
+          "index_excluded": false,
+          "inventory_excluded": false,
+          "rule": "inventory.13"
+        },
+        "roles": [
+          "documentation"
+        ],
+        "tracking": "tracked"
+      },
+      "DEPLOY.md": {
+        "access": "content",
+        "kind": "file",
+        "owner": "project.docs",
+        "policy": {
+          "basis": "authored inventory rule",
+          "index_excluded": false,
+          "inventory_excluded": false,
+          "rule": "inventory.14"
+        },
+        "roles": [
+          "documentation"
+        ],
+        "tracking": "tracked"
+      },
+      "DIRECTORY_SUBMISSIONS.md": {
+        "access": "content",
+        "kind": "file",
+        "owner": "project.docs",
+        "policy": {
+          "basis": "authored inventory rule",
+          "index_excluded": false,
+          "inventory_excluded": false,
+          "rule": "inventory.15"
+        },
+        "roles": [
+          "documentation"
+        ],
+        "tracking": "tracked"
+      },
+      "LAUNCH_KIT.md": {
+        "access": "content",
+        "kind": "file",
+        "owner": "project.docs",
+        "policy": {
+          "basis": "authored inventory rule",
+          "index_excluded": false,
+          "inventory_excluded": false,
+          "rule": "inventory.16"
+        },
+        "roles": [
+          "documentation"
+        ],
+        "tracking": "tracked"
+      },
+      "README.md": {
+        "access": "content",
+        "kind": "file",
+        "owner": "project.docs",
+        "policy": {
+          "basis": "authored inventory rule",
+          "index_excluded": false,
+          "inventory_excluded": false,
+          "rule": "inventory.17"
+        },
+        "roles": [
+          "documentation"
+        ],
+        "tracking": "tracked"
+      },
+      "action.yml": {
+        "access": "content",
+        "kind": "file",
+        "owner": "interface.integrations",
+        "policy": {
+          "basis": "authored inventory rule",
+          "index_excluded": false,
+          "inventory_excluded": false,
+          "rule": "owner.interface.integrations.45"
+        },
+        "roles": [
+          "source"
+        ],
+        "tracking": "tracked"
+      },
+      "articles/defending-against-prompt-injections-in-production.md": {
+        "access": "content",
+        "kind": "file",
+        "owner": "delivery.content",
+        "policy": {
+          "basis": "authored inventory rule",
+          "index_excluded": false,
+          "inventory_excluded": false,
+          "rule": "inventory.6"
+        },
+        "roles": [
+          "documentation"
+        ],
+        "tracking": "tracked"
+      },
+      "articles/how-to-prevent-api-key-leaks-in-ai.md": {
+        "access": "content",
+        "kind": "file",
+        "owner": "delivery.content",
+        "policy": {
+          "basis": "authored inventory rule",
+          "index_excluded": false,
+          "inventory_excluded": false,
+          "rule": "inventory.6"
+        },
+        "roles": [
+          "documentation"
+        ],
+        "tracking": "tracked"
+      },
+      "articles/product-hunt-launch-kit.md": {
+        "access": "content",
+        "kind": "file",
+        "owner": "delivery.content",
+        "policy": {
+          "basis": "authored inventory rule",
+          "index_excluded": false,
+          "inventory_excluded": false,
+          "rule": "inventory.6"
+        },
+        "roles": [
+          "documentation"
+        ],
+        "tracking": "tracked"
+      },
+      "distribution/cover.jpg": {
+        "access": "content",
+        "kind": "file",
+        "owner": "delivery.release",
+        "policy": {
+          "basis": "authored inventory rule",
+          "index_excluded": false,
+          "inventory_excluded": false,
+          "rule": "inventory.5"
+        },
+        "roles": [
+          "source"
+        ],
+        "tracking": "tracked"
+      },
+      "distribution/dist_package.py": {
+        "access": "content",
+        "kind": "file",
+        "owner": "delivery.release",
+        "policy": {
+          "basis": "authored inventory rule",
+          "index_excluded": false,
+          "inventory_excluded": false,
+          "rule": "inventory.5"
+        },
+        "roles": [
+          "source"
+        ],
+        "tracking": "tracked"
+      },
+      "distribution/gumroad/CUSTOMER_GUIDE.md": {
+        "access": "content",
+        "kind": "file",
+        "owner": "delivery.release",
+        "policy": {
+          "basis": "authored inventory rule",
+          "index_excluded": false,
+          "inventory_excluded": false,
+          "rule": "inventory.5"
+        },
+        "roles": [
+          "documentation"
+        ],
+        "tracking": "tracked"
+      },
+      "distribution/gumroad/PRODUCT_LISTING.md": {
+        "access": "content",
+        "kind": "file",
+        "owner": "delivery.release",
+        "policy": {
+          "basis": "authored inventory rule",
+          "index_excluded": false,
+          "inventory_excluded": false,
+          "rule": "inventory.5"
+        },
+        "roles": [
+          "documentation"
+        ],
+        "tracking": "tracked"
+      },
+      "distribution/product_description.html": {
+        "access": "content",
+        "kind": "file",
+        "owner": "delivery.release",
+        "policy": {
+          "basis": "authored inventory rule",
+          "index_excluded": false,
+          "inventory_excluded": false,
+          "rule": "inventory.5"
+        },
+        "roles": [
+          "source"
+        ],
+        "tracking": "tracked"
+      },
+      "docs/.nojekyll": {
+        "access": "content",
+        "kind": "file",
+        "owner": "project.docs",
+        "policy": {
+          "basis": "authored inventory rule",
+          "index_excluded": false,
+          "inventory_excluded": false,
+          "rule": "inventory.19"
+        },
+        "roles": [
+          "source"
+        ],
+        "tracking": "tracked"
+      },
+      "docs/app.js": {
+        "access": "content",
+        "kind": "file",
+        "owner": "web.public",
+        "policy": {
+          "basis": "authored inventory rule",
+          "index_excluded": false,
+          "inventory_excluded": false,
+          "rule": "owner.web.public.41"
+        },
+        "roles": [
+          "source"
+        ],
+        "tracking": "tracked"
+      },
+      "docs/australian-tfn-compliance-ai.html": {
+        "access": "content",
+        "kind": "file",
+        "owner": "project.docs",
+        "policy": {
+          "basis": "authored inventory rule",
+          "index_excluded": false,
+          "inventory_excluded": false,
+          "rule": "inventory.21"
+        },
+        "roles": [
+          "source"
+        ],
+        "tracking": "tracked"
+      },
+      "docs/index.html": {
+        "access": "content",
+        "kind": "file",
+        "owner": "web.public",
+        "policy": {
+          "basis": "authored inventory rule",
+          "index_excluded": false,
+          "inventory_excluded": false,
+          "rule": "owner.web.public.43"
+        },
+        "roles": [
+          "source"
+        ],
+        "tracking": "tracked"
+      },
+      "docs/llm-prompt-injection-defense.html": {
+        "access": "content",
+        "kind": "file",
+        "owner": "project.docs",
+        "policy": {
+          "basis": "authored inventory rule",
+          "index_excluded": false,
+          "inventory_excluded": false,
+          "rule": "inventory.23"
+        },
+        "roles": [
+          "source"
+        ],
+        "tracking": "tracked"
+      },
+      "docs/prevent-api-key-leaks-ai.html": {
+        "access": "content",
+        "kind": "file",
+        "owner": "project.docs",
+        "policy": {
+          "basis": "authored inventory rule",
+          "index_excluded": false,
+          "inventory_excluded": false,
+          "rule": "inventory.24"
+        },
+        "roles": [
+          "source"
+        ],
+        "tracking": "tracked"
+      },
+      "docs/project_map/INDEX.md": {
+        "access": "content",
+        "kind": "file",
+        "owner": "governance.map",
+        "policy": {
+          "basis": "authored inventory rule",
+          "index_excluded": false,
+          "inventory_excluded": false,
+          "rule": "inventory.1"
+        },
+        "roles": [
+          "documentation",
+          "generated"
+        ],
+        "tracking": "tracked"
+      },
+      "docs/project_map/index.html": {
+        "access": "content",
+        "kind": "file",
+        "owner": "governance.map",
+        "policy": {
+          "basis": "authored inventory rule",
+          "index_excluded": false,
+          "inventory_excluded": false,
+          "rule": "inventory.1"
+        },
+        "roles": [
+          "generated"
+        ],
+        "tracking": "tracked"
+      },
+      "docs/project_map/project_map.json": {
+        "access": "content",
+        "kind": "file",
+        "owner": "governance.map",
+        "policy": {
+          "basis": "authored inventory rule",
+          "index_excluded": false,
+          "inventory_excluded": false,
+          "rule": "inventory.1"
+        },
+        "roles": [
+          "generated"
+        ],
+        "tracking": "tracked"
+      },
+      "docs/project_map/project_map_source.json": {
+        "access": "content",
+        "kind": "file",
+        "owner": "governance.map",
+        "policy": {
+          "basis": "authored inventory rule",
+          "index_excluded": false,
+          "inventory_excluded": false,
+          "rule": "inventory.1"
+        },
+        "roles": [
+          "source"
+        ],
+        "tracking": "tracked"
+      },
+      "docs/project_map/workspace.html": {
+        "access": "metadata",
+        "kind": "file",
+        "owner": "governance.map",
+        "policy": {
+          "basis": "authored inventory rule",
+          "index_excluded": true,
+          "inventory_excluded": false,
+          "rule": "inventory.1"
+        },
+        "roles": [
+          "generated"
+        ],
+        "tracking": "intended"
+      },
+      "docs/robots.txt": {
+        "access": "content",
+        "kind": "file",
+        "owner": "project.docs",
+        "policy": {
+          "basis": "authored inventory rule",
+          "index_excluded": false,
+          "inventory_excluded": false,
+          "rule": "inventory.25"
+        },
+        "roles": [
+          "source"
+        ],
+        "tracking": "tracked"
+      },
+      "docs/sitemap.xml": {
+        "access": "content",
+        "kind": "file",
+        "owner": "project.docs",
+        "policy": {
+          "basis": "authored inventory rule",
+          "index_excluded": false,
+          "inventory_excluded": false,
+          "rule": "inventory.26"
+        },
+        "roles": [
+          "source"
+        ],
+        "tracking": "tracked"
+      },
+      "docs/style.css": {
+        "access": "content",
+        "kind": "file",
+        "owner": "web.public",
+        "policy": {
+          "basis": "authored inventory rule",
+          "index_excluded": false,
+          "inventory_excluded": false,
+          "rule": "owner.web.public.42"
+        },
+        "roles": [
+          "source"
+        ],
+        "tracking": "tracked"
+      },
+      "profile.html": {
+        "access": "content",
+        "kind": "file",
+        "owner": "project.docs",
+        "policy": {
+          "basis": "authored inventory rule",
+          "index_excluded": false,
+          "inventory_excluded": false,
+          "rule": "inventory.28"
+        },
+        "roles": [
+          "source"
+        ],
+        "tracking": "tracked"
+      },
+      "promptshield/__init__.py": {
+        "access": "content",
+        "kind": "file",
+        "owner": "interface.cli",
+        "policy": {
+          "basis": "authored inventory rule",
+          "index_excluded": false,
+          "inventory_excluded": false,
+          "rule": "inventory.29"
+        },
+        "roles": [
+          "source"
+        ],
+        "tracking": "tracked"
+      },
+      "promptshield/cli.py": {
+        "access": "content",
+        "kind": "file",
+        "owner": "interface.cli",
+        "policy": {
+          "basis": "authored inventory rule",
+          "index_excluded": false,
+          "inventory_excluded": false,
+          "rule": "inventory.30"
+        },
+        "roles": [
+          "source"
+        ],
+        "tracking": "tracked"
+      },
+      "promptshield/clipboard.py": {
+        "access": "content",
+        "kind": "file",
+        "owner": "interface.clipboard",
+        "policy": {
+          "basis": "authored inventory rule",
+          "index_excluded": false,
+          "inventory_excluded": false,
+          "rule": "inventory.31"
+        },
+        "roles": [
+          "source"
+        ],
+        "tracking": "tracked"
+      },
+      "promptshield/detector.py": {
+        "access": "content",
+        "kind": "file",
+        "owner": "engine.detector",
+        "policy": {
+          "basis": "authored inventory rule",
+          "index_excluded": false,
+          "inventory_excluded": false,
+          "rule": "inventory.32"
+        },
+        "roles": [
+          "source"
+        ],
+        "tracking": "tracked"
+      },
+      "promptshield/guard.py": {
+        "access": "content",
+        "kind": "file",
+        "owner": "engine.guard",
+        "policy": {
+          "basis": "authored inventory rule",
+          "index_excluded": false,
+          "inventory_excluded": false,
+          "rule": "inventory.33"
+        },
+        "roles": [
+          "source"
+        ],
+        "tracking": "tracked"
+      },
+      "promptshield/redactor.py": {
+        "access": "content",
+        "kind": "file",
+        "owner": "engine.redactor",
+        "policy": {
+          "basis": "authored inventory rule",
+          "index_excluded": false,
+          "inventory_excluded": false,
+          "rule": "inventory.34"
+        },
+        "roles": [
+          "source"
+        ],
+        "tracking": "tracked"
+      },
+      "promptshield_avatar.jpg": {
+        "access": "content",
+        "kind": "file",
+        "owner": "project.docs",
+        "policy": {
+          "basis": "authored inventory rule",
+          "index_excluded": false,
+          "inventory_excluded": false,
+          "rule": "inventory.35"
+        },
+        "roles": [
+          "source"
+        ],
+        "tracking": "tracked"
+      },
+      "promptshield_avatar.png": {
+        "access": "content",
+        "kind": "file",
+        "owner": "project.docs",
+        "policy": {
+          "basis": "authored inventory rule",
+          "index_excluded": false,
+          "inventory_excluded": false,
+          "rule": "inventory.36"
+        },
+        "roles": [
+          "source"
+        ],
+        "tracking": "tracked"
+      },
+      "promptshield_logo.png": {
+        "access": "content",
+        "kind": "file",
+        "owner": "project.docs",
+        "policy": {
+          "basis": "authored inventory rule",
+          "index_excluded": false,
+          "inventory_excluded": false,
+          "rule": "inventory.37"
+        },
+        "roles": [
+          "source"
+        ],
+        "tracking": "tracked"
+      },
+      "promptshield_logo_220x220.png": {
+        "access": "content",
+        "kind": "file",
+        "owner": "project.docs",
+        "policy": {
+          "basis": "authored inventory rule",
+          "index_excluded": false,
+          "inventory_excluded": false,
+          "rule": "inventory.38"
+        },
+        "roles": [
+          "source"
+        ],
+        "tracking": "tracked"
+      },
+      "promptshield_pro_thumb.jpg": {
+        "access": "content",
+        "kind": "file",
+        "owner": "project.docs",
+        "policy": {
+          "basis": "authored inventory rule",
+          "index_excluded": false,
+          "inventory_excluded": false,
+          "rule": "inventory.39"
+        },
+        "roles": [
+          "source"
+        ],
+        "tracking": "tracked"
+      },
+      "pyproject.toml": {
+        "access": "content",
+        "kind": "file",
+        "owner": "project.boundary",
+        "policy": {
+          "basis": "authored inventory rule",
+          "index_excluded": false,
+          "inventory_excluded": false,
+          "rule": "inventory.40"
+        },
+        "roles": [
+          "source"
+        ],
+        "tracking": "tracked"
+      },
+      "scripts/project_map.py": {
+        "access": "content",
+        "kind": "file",
+        "owner": "governance.map",
+        "policy": {
+          "basis": "authored inventory rule",
+          "index_excluded": false,
+          "inventory_excluded": false,
+          "rule": "inventory.41"
+        },
+        "roles": [
+          "source"
+        ],
+        "tracking": "tracked"
+      },
+      "tests/__init__.py": {
+        "access": "content",
+        "kind": "file",
+        "owner": "quality.tests",
+        "policy": {
+          "basis": "authored inventory rule",
+          "index_excluded": false,
+          "inventory_excluded": false,
+          "rule": "inventory.3"
+        },
+        "roles": [
+          "source"
+        ],
+        "tracking": "tracked"
+      },
+      "tests/test_cli.py": {
+        "access": "content",
+        "kind": "file",
+        "owner": "quality.tests.interface_cli",
+        "policy": {
+          "basis": "authored inventory rule",
+          "index_excluded": false,
+          "inventory_excluded": false,
+          "rule": "owner.quality.tests.interface_cli.49"
+        },
+        "roles": [
+          "test"
+        ],
+        "tracking": "tracked"
+      },
+      "tests/test_clipboard.py": {
+        "access": "content",
+        "kind": "file",
+        "owner": "quality.tests.interface_cli-interface_clipboard",
+        "policy": {
+          "basis": "authored inventory rule",
+          "index_excluded": false,
+          "inventory_excluded": false,
+          "rule": "owner.quality.tests.interface_cli-interface_clipboard.50"
+        },
+        "roles": [
+          "test"
+        ],
+        "tracking": "tracked"
+      },
+      "tests/test_detector.py": {
+        "access": "content",
+        "kind": "file",
+        "owner": "quality.tests.engine_detector",
+        "policy": {
+          "basis": "authored inventory rule",
+          "index_excluded": false,
+          "inventory_excluded": false,
+          "rule": "owner.quality.tests.engine_detector.46"
+        },
+        "roles": [
+          "test"
+        ],
+        "tracking": "tracked"
+      },
+      "tests/test_guard.py": {
+        "access": "content",
+        "kind": "file",
+        "owner": "quality.tests.engine_guard",
+        "policy": {
+          "basis": "authored inventory rule",
+          "index_excluded": false,
+          "inventory_excluded": false,
+          "rule": "owner.quality.tests.engine_guard.47"
+        },
+        "roles": [
+          "test"
+        ],
+        "tracking": "tracked"
+      },
+      "tests/test_redactor.py": {
+        "access": "content",
+        "kind": "file",
+        "owner": "quality.tests.engine_redactor",
+        "policy": {
+          "basis": "authored inventory rule",
+          "index_excluded": false,
+          "inventory_excluded": false,
+          "rule": "owner.quality.tests.engine_redactor.48"
+        },
+        "roles": [
+          "test"
+        ],
+        "tracking": "tracked"
+      },
+      "web/app.js": {
+        "access": "content",
+        "kind": "file",
+        "owner": "web.public",
+        "policy": {
+          "basis": "authored inventory rule",
+          "index_excluded": false,
+          "inventory_excluded": false,
+          "rule": "inventory.4"
+        },
+        "roles": [
+          "source"
+        ],
+        "tracking": "tracked"
+      },
+      "web/index.html": {
+        "access": "content",
+        "kind": "file",
+        "owner": "web.public",
+        "policy": {
+          "basis": "authored inventory rule",
+          "index_excluded": false,
+          "inventory_excluded": false,
+          "rule": "inventory.4"
+        },
+        "roles": [
+          "source"
+        ],
+        "tracking": "tracked"
+      },
+      "web/style.css": {
+        "access": "content",
+        "kind": "file",
+        "owner": "web.public",
+        "policy": {
+          "basis": "authored inventory rule",
+          "index_excluded": false,
+          "inventory_excluded": false,
+          "rule": "inventory.4"
+        },
+        "roles": [
+          "source"
+        ],
+        "tracking": "tracked"
+      }
+    },
     "path_index": {
       ".editorconfig": "project.boundary",
       ".gitattributes": "project.boundary",
@@ -283,12 +1195,24 @@
     "generated_by": "scripts/project_map.py",
     "generation_command": "python scripts/project_map.py build",
     "inventory_path_sha256": "9fff9fd17568729b8e47c6006ace6ecf8592ffeeb6412a0adcc7ff5f3d17dc58",
-    "source_sha256": "377e281d713cf795a273a20d007722c7c2e619d175e8d49a91a7ea8d53383aa2"
+    "source_sha256": "d107a735e0156105bcb1c749583662b113dce55e20c44128497b0d771998eff5"
   },
   "nodes": [
     {
       "cautions": [],
+      "choices": [],
       "classification": "current",
+      "confidence": null,
+      "coverage": {
+        "access_counts": {
+          "content": 3
+        },
+        "path_count": 3,
+        "provenance": "derived from inventory.manifest; no test execution claim",
+        "role_counts": {
+          "documentation": 3
+        }
+      },
       "domain": "domain.delivery",
       "evidence": [
         {
@@ -313,13 +1237,29 @@
         "articles"
       ],
       "phases": [],
+      "plans": [],
+      "prerequisites": [],
       "purpose": "Public articles and launch materials.",
+      "rationale": null,
       "tags": [],
       "type": "component"
     },
     {
       "cautions": [],
+      "choices": [],
       "classification": "current",
+      "confidence": null,
+      "coverage": {
+        "access_counts": {
+          "content": 5
+        },
+        "path_count": 5,
+        "provenance": "derived from inventory.manifest; no test execution claim",
+        "role_counts": {
+          "documentation": 2,
+          "source": 3
+        }
+      },
       "domain": "domain.delivery",
       "evidence": [
         {
@@ -344,13 +1284,28 @@
         "distribution"
       ],
       "phases": [],
+      "plans": [],
+      "prerequisites": [],
       "purpose": "Commercial distribution.",
+      "rationale": null,
       "tags": [],
       "type": "component"
     },
     {
       "cautions": [],
+      "choices": [],
       "classification": "current",
+      "confidence": null,
+      "coverage": {
+        "access_counts": {
+          "content": 1
+        },
+        "path_count": 1,
+        "provenance": "derived from inventory.manifest; no test execution claim",
+        "role_counts": {
+          "source": 1
+        }
+      },
       "domain": "domain.application",
       "evidence": [
         {
@@ -378,13 +1333,28 @@
         "promptshield/detector.py"
       ],
       "phases": [],
+      "plans": [],
+      "prerequisites": [],
       "purpose": "Secret and PII detection.",
+      "rationale": null,
       "tags": [],
       "type": "component"
     },
     {
       "cautions": [],
+      "choices": [],
       "classification": "current",
+      "confidence": null,
+      "coverage": {
+        "access_counts": {
+          "content": 1
+        },
+        "path_count": 1,
+        "provenance": "derived from inventory.manifest; no test execution claim",
+        "role_counts": {
+          "source": 1
+        }
+      },
       "domain": "domain.application",
       "evidence": [
         {
@@ -411,13 +1381,28 @@
         "promptshield/guard.py"
       ],
       "phases": [],
+      "plans": [],
+      "prerequisites": [],
       "purpose": "Prompt injection checks.",
+      "rationale": null,
       "tags": [],
       "type": "component"
     },
     {
       "cautions": [],
+      "choices": [],
       "classification": "current",
+      "confidence": null,
+      "coverage": {
+        "access_counts": {
+          "content": 1
+        },
+        "path_count": 1,
+        "provenance": "derived from inventory.manifest; no test execution claim",
+        "role_counts": {
+          "source": 1
+        }
+      },
       "domain": "domain.application",
       "evidence": [
         {
@@ -447,13 +1432,28 @@
         "promptshield/redactor.py"
       ],
       "phases": [],
+      "plans": [],
+      "prerequisites": [],
       "purpose": "Redaction and restore mapping.",
+      "rationale": null,
       "tags": [],
       "type": "component"
     },
     {
       "cautions": [],
+      "choices": [],
       "classification": "current",
+      "confidence": null,
+      "coverage": {
+        "access_counts": {
+          "content": 2
+        },
+        "path_count": 2,
+        "provenance": "derived from inventory.manifest; no test execution claim",
+        "role_counts": {
+          "source": 2
+        }
+      },
       "domain": "domain.operations",
       "evidence": [
         {
@@ -478,13 +1478,31 @@
         ".github"
       ],
       "phases": [],
+      "plans": [],
+      "prerequisites": [],
       "purpose": "CI workflows.",
+      "rationale": null,
       "tags": [],
       "type": "component"
     },
     {
       "cautions": [],
+      "choices": [],
       "classification": "current",
+      "confidence": null,
+      "coverage": {
+        "access_counts": {
+          "content": 5,
+          "metadata": 1
+        },
+        "path_count": 6,
+        "provenance": "derived from inventory.manifest; no test execution claim",
+        "role_counts": {
+          "documentation": 1,
+          "generated": 4,
+          "source": 2
+        }
+      },
       "domain": "domain.operations",
       "evidence": [
         {
@@ -510,13 +1528,28 @@
         "scripts/project_map.py"
       ],
       "phases": [],
+      "plans": [],
+      "prerequisites": [],
       "purpose": "Authored map and generated navigation.",
+      "rationale": null,
       "tags": [],
       "type": "component"
     },
     {
       "cautions": [],
+      "choices": [],
       "classification": "current",
+      "confidence": null,
+      "coverage": {
+        "access_counts": {
+          "content": 2
+        },
+        "path_count": 2,
+        "provenance": "derived from inventory.manifest; no test execution claim",
+        "role_counts": {
+          "source": 2
+        }
+      },
       "domain": "domain.delivery",
       "evidence": [
         {
@@ -550,13 +1583,28 @@
         "promptshield/cli.py"
       ],
       "phases": [],
+      "plans": [],
+      "prerequisites": [],
       "purpose": "Command-line interface.",
+      "rationale": null,
       "tags": [],
       "type": "component"
     },
     {
       "cautions": [],
+      "choices": [],
       "classification": "current",
+      "confidence": null,
+      "coverage": {
+        "access_counts": {
+          "content": 1
+        },
+        "path_count": 1,
+        "provenance": "derived from inventory.manifest; no test execution claim",
+        "role_counts": {
+          "source": 1
+        }
+      },
       "domain": "domain.delivery",
       "evidence": [
         {
@@ -585,13 +1633,28 @@
         "promptshield/clipboard.py"
       ],
       "phases": [],
+      "plans": [],
+      "prerequisites": [],
       "purpose": "Local clipboard sanitisation.",
+      "rationale": null,
       "tags": [],
       "type": "component"
     },
     {
       "cautions": [],
+      "choices": [],
       "classification": "current",
+      "confidence": null,
+      "coverage": {
+        "access_counts": {
+          "content": 2
+        },
+        "path_count": 2,
+        "provenance": "derived from inventory.manifest; no test execution claim",
+        "role_counts": {
+          "source": 2
+        }
+      },
       "domain": "domain.delivery",
       "evidence": [
         {
@@ -622,7 +1685,10 @@
         "action.yml"
       ],
       "phases": [],
+      "plans": [],
+      "prerequisites": [],
       "purpose": "Invoke local scan and guard commands from pre-commit hooks and the composite action.",
+      "rationale": null,
       "tags": [],
       "type": "component"
     },
@@ -632,7 +1698,20 @@
         "Exclude .promptshield_sessions because restore mappings can contain secrets.",
         "Use the promptshield vault collection and Brain scope. Other projects do not own these credentials."
       ],
+      "choices": [],
       "classification": "current",
+      "confidence": null,
+      "coverage": {
+        "access_counts": {
+          "content": 7
+        },
+        "path_count": 7,
+        "provenance": "derived from inventory.manifest; no test execution claim",
+        "role_counts": {
+          "documentation": 2,
+          "source": 5
+        }
+      },
       "domain": "domain.project",
       "evidence": [
         {
@@ -674,13 +1753,29 @@
         "pyproject.toml"
       ],
       "phases": [],
+      "plans": [],
+      "prerequisites": [],
       "purpose": "Project contract and configuration.",
+      "rationale": null,
       "tags": [],
       "type": "component"
     },
     {
       "cautions": [],
+      "choices": [],
       "classification": "current",
+      "confidence": null,
+      "coverage": {
+        "access_counts": {
+          "content": 16
+        },
+        "path_count": 16,
+        "provenance": "derived from inventory.manifest; no test execution claim",
+        "role_counts": {
+          "documentation": 4,
+          "source": 12
+        }
+      },
       "domain": "domain.project",
       "evidence": [
         {
@@ -720,13 +1815,28 @@
         "promptshield_pro_thumb.jpg"
       ],
       "phases": [],
+      "plans": [],
+      "prerequisites": [],
       "purpose": "Product guides and deployment documentation.",
+      "rationale": null,
       "tags": [],
       "type": "component"
     },
     {
       "cautions": [],
+      "choices": [],
       "classification": "current",
+      "confidence": null,
+      "coverage": {
+        "access_counts": {
+          "content": 1
+        },
+        "path_count": 1,
+        "provenance": "derived from inventory.manifest; no test execution claim",
+        "role_counts": {
+          "source": 1
+        }
+      },
       "domain": "domain.operations",
       "evidence": [
         {
@@ -751,7 +1861,10 @@
         "tests"
       ],
       "phases": [],
+      "plans": [],
+      "prerequisites": [],
       "purpose": "Own shared test fixtures and tests whose component targets have no authored association.",
+      "rationale": null,
       "tags": [],
       "type": "component"
     },
@@ -759,7 +1872,19 @@
       "cautions": [
         "These are source associations. They do not prove runtime test coverage."
       ],
+      "choices": [],
       "classification": "current",
+      "confidence": null,
+      "coverage": {
+        "access_counts": {
+          "content": 1
+        },
+        "path_count": 1,
+        "provenance": "derived from inventory.manifest; no test execution claim",
+        "role_counts": {
+          "test": 1
+        }
+      },
       "domain": "domain.operations",
       "evidence": [
         {
@@ -784,7 +1909,10 @@
         "tests/test_detector.py"
       ],
       "phases": [],
+      "plans": [],
+      "prerequisites": [],
       "purpose": "Test only the component contracts named by the source imports and assertions.",
+      "rationale": null,
       "tags": [],
       "type": "component"
     },
@@ -792,7 +1920,19 @@
       "cautions": [
         "These are source associations. They do not prove runtime test coverage."
       ],
+      "choices": [],
       "classification": "current",
+      "confidence": null,
+      "coverage": {
+        "access_counts": {
+          "content": 1
+        },
+        "path_count": 1,
+        "provenance": "derived from inventory.manifest; no test execution claim",
+        "role_counts": {
+          "test": 1
+        }
+      },
       "domain": "domain.operations",
       "evidence": [
         {
@@ -817,7 +1957,10 @@
         "tests/test_guard.py"
       ],
       "phases": [],
+      "plans": [],
+      "prerequisites": [],
       "purpose": "Test only the component contracts named by the source imports and assertions.",
+      "rationale": null,
       "tags": [],
       "type": "component"
     },
@@ -825,7 +1968,19 @@
       "cautions": [
         "These are source associations. They do not prove runtime test coverage."
       ],
+      "choices": [],
       "classification": "current",
+      "confidence": null,
+      "coverage": {
+        "access_counts": {
+          "content": 1
+        },
+        "path_count": 1,
+        "provenance": "derived from inventory.manifest; no test execution claim",
+        "role_counts": {
+          "test": 1
+        }
+      },
       "domain": "domain.operations",
       "evidence": [
         {
@@ -850,7 +2005,10 @@
         "tests/test_redactor.py"
       ],
       "phases": [],
+      "plans": [],
+      "prerequisites": [],
       "purpose": "Test only the component contracts named by the source imports and assertions.",
+      "rationale": null,
       "tags": [],
       "type": "component"
     },
@@ -858,7 +2016,19 @@
       "cautions": [
         "These are source associations. They do not prove runtime test coverage."
       ],
+      "choices": [],
       "classification": "current",
+      "confidence": null,
+      "coverage": {
+        "access_counts": {
+          "content": 1
+        },
+        "path_count": 1,
+        "provenance": "derived from inventory.manifest; no test execution claim",
+        "role_counts": {
+          "test": 1
+        }
+      },
       "domain": "domain.operations",
       "evidence": [
         {
@@ -883,7 +2053,10 @@
         "tests/test_cli.py"
       ],
       "phases": [],
+      "plans": [],
+      "prerequisites": [],
       "purpose": "Test only the component contracts named by the source imports and assertions.",
+      "rationale": null,
       "tags": [],
       "type": "component"
     },
@@ -891,7 +2064,19 @@
       "cautions": [
         "These are source associations. They do not prove runtime test coverage."
       ],
+      "choices": [],
       "classification": "current",
+      "confidence": null,
+      "coverage": {
+        "access_counts": {
+          "content": 1
+        },
+        "path_count": 1,
+        "provenance": "derived from inventory.manifest; no test execution claim",
+        "role_counts": {
+          "test": 1
+        }
+      },
       "domain": "domain.operations",
       "evidence": [
         {
@@ -922,13 +2107,28 @@
         "tests/test_clipboard.py"
       ],
       "phases": [],
+      "plans": [],
+      "prerequisites": [],
       "purpose": "Test only the component contracts named by the source imports and assertions.",
+      "rationale": null,
       "tags": [],
       "type": "component"
     },
     {
       "cautions": [],
+      "choices": [],
       "classification": "current",
+      "confidence": null,
+      "coverage": {
+        "access_counts": {
+          "content": 6
+        },
+        "path_count": 6,
+        "provenance": "derived from inventory.manifest; no test execution claim",
+        "role_counts": {
+          "source": 6
+        }
+      },
       "domain": "domain.delivery",
       "evidence": [
         {
@@ -956,7 +2156,10 @@
         "docs/index.html"
       ],
       "phases": [],
+      "plans": [],
+      "prerequisites": [],
       "purpose": "Run the local browser security demonstration in the served and source copies.",
+      "rationale": null,
       "tags": [],
       "type": "component"
     }
