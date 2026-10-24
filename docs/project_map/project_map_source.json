@@ -86,10 +86,8 @@
         ".gitattributes",
         ".gitignore",
         ".pre-commit-config.yaml",
-        ".pre-commit-hooks.yaml",
         "AGENTS.md",
         "CLAUDE.md",
-        "action.yml",
         "pyproject.toml"
       ],
       "evidence": [
@@ -178,14 +176,11 @@
         "LAUNCH_KIT.md",
         "README.md",
         "docs/.nojekyll",
-        "docs/app.js",
         "docs/australian-tfn-compliance-ai.html",
-        "docs/index.html",
         "docs/llm-prompt-injection-defense.html",
         "docs/prevent-api-key-leaks-ai.html",
         "docs/robots.txt",
         "docs/sitemap.xml",
-        "docs/style.css",
         "profile.html",
         "promptshield_avatar.jpg",
         "promptshield_avatar.png",
@@ -207,7 +202,7 @@
     {
       "id": "quality.tests",
       "name": "Automated verification",
-      "purpose": "Automated verification.",
+      "purpose": "Own shared test fixtures and tests whose component targets have no authored association.",
       "type": "component",
       "domain": "domain.operations",
       "classification": "current",
@@ -364,7 +359,7 @@
     {
       "id": "web.public",
       "name": "Browser demonstration",
-      "purpose": "Browser demonstration.",
+      "purpose": "Run the local browser security demonstration in the served and source copies.",
       "type": "component",
       "domain": "domain.delivery",
       "classification": "current",
@@ -374,7 +369,10 @@
         "governance": "not_applicable"
       },
       "paths": [
-        "web"
+        "web",
+        "docs/app.js",
+        "docs/style.css",
+        "docs/index.html"
       ],
       "evidence": [
         {
@@ -438,6 +436,183 @@
       "phases": [],
       "tags": [],
       "cautions": []
+    },
+    {
+      "id": "interface.integrations",
+      "name": "Git hooks and workflow integration",
+      "purpose": "Invoke local scan and guard commands from pre-commit hooks and the composite action.",
+      "type": "component",
+      "domain": "domain.delivery",
+      "classification": "current",
+      "lifecycle": {
+        "implementation": "implemented",
+        "operation": "conditional",
+        "governance": "not_applicable"
+      },
+      "paths": [
+        ".pre-commit-hooks.yaml",
+        "action.yml"
+      ],
+      "evidence": [
+        {
+          "path": ".pre-commit-hooks.yaml",
+          "locator": "entry: python -m promptshield.cli scan",
+          "claim": "Defines the local scan hook."
+        },
+        {
+          "path": "action.yml",
+          "locator": "python -m promptshield.cli scan",
+          "claim": "Invokes the CLI from the composite action."
+        }
+      ],
+      "phases": [],
+      "tags": [],
+      "cautions": []
+    },
+    {
+      "id": "quality.tests.engine_detector",
+      "name": "Tests for Secret and PII detection",
+      "purpose": "Test only the component contracts named by the source imports and assertions.",
+      "type": "component",
+      "domain": "domain.operations",
+      "classification": "current",
+      "lifecycle": {
+        "implementation": "implemented",
+        "operation": "conditional",
+        "governance": "not_applicable"
+      },
+      "paths": [
+        "tests/test_detector.py"
+      ],
+      "evidence": [
+        {
+          "path": "tests/test_detector.py",
+          "locator": "from promptshield.detector import (",
+          "claim": "Imports promptshield/detector.py for test assertions."
+        }
+      ],
+      "phases": [],
+      "tags": [],
+      "cautions": [
+        "These are source associations. They do not prove runtime test coverage."
+      ]
+    },
+    {
+      "id": "quality.tests.engine_guard",
+      "name": "Tests for Prompt injection checks",
+      "purpose": "Test only the component contracts named by the source imports and assertions.",
+      "type": "component",
+      "domain": "domain.operations",
+      "classification": "current",
+      "lifecycle": {
+        "implementation": "implemented",
+        "operation": "conditional",
+        "governance": "not_applicable"
+      },
+      "paths": [
+        "tests/test_guard.py"
+      ],
+      "evidence": [
+        {
+          "path": "tests/test_guard.py",
+          "locator": "from promptshield.guard import PromptGuard, ThreatCategory, ThreatLevel",
+          "claim": "Imports promptshield/guard.py for test assertions."
+        }
+      ],
+      "phases": [],
+      "tags": [],
+      "cautions": [
+        "These are source associations. They do not prove runtime test coverage."
+      ]
+    },
+    {
+      "id": "quality.tests.engine_redactor",
+      "name": "Tests for Redaction and restore mapping",
+      "purpose": "Test only the component contracts named by the source imports and assertions.",
+      "type": "component",
+      "domain": "domain.operations",
+      "classification": "current",
+      "lifecycle": {
+        "implementation": "implemented",
+        "operation": "conditional",
+        "governance": "not_applicable"
+      },
+      "paths": [
+        "tests/test_redactor.py"
+      ],
+      "evidence": [
+        {
+          "path": "tests/test_redactor.py",
+          "locator": "from promptshield.redactor import Redactor",
+          "claim": "Imports promptshield/redactor.py for test assertions."
+        }
+      ],
+      "phases": [],
+      "tags": [],
+      "cautions": [
+        "These are source associations. They do not prove runtime test coverage."
+      ]
+    },
+    {
+      "id": "quality.tests.interface_cli",
+      "name": "Tests for Command-line interface",
+      "purpose": "Test only the component contracts named by the source imports and assertions.",
+      "type": "component",
+      "domain": "domain.operations",
+      "classification": "current",
+      "lifecycle": {
+        "implementation": "implemented",
+        "operation": "conditional",
+        "governance": "not_applicable"
+      },
+      "paths": [
+        "tests/test_cli.py"
+      ],
+      "evidence": [
+        {
+          "path": "tests/test_cli.py",
+          "locator": "from promptshield.cli import main",
+          "claim": "Imports promptshield/cli.py for test assertions."
+        }
+      ],
+      "phases": [],
+      "tags": [],
+      "cautions": [
+        "These are source associations. They do not prove runtime test coverage."
+      ]
+    },
+    {
+      "id": "quality.tests.interface_cli-interface_clipboard",
+      "name": "Tests for Command-line interface, Local clipboard sanitisation",
+      "purpose": "Test only the component contracts named by the source imports and assertions.",
+      "type": "component",
+      "domain": "domain.operations",
+      "classification": "current",
+      "lifecycle": {
+        "implementation": "implemented",
+        "operation": "conditional",
+        "governance": "not_applicable"
+      },
+      "paths": [
+        "tests/test_clipboard.py"
+      ],
+      "evidence": [
+        {
+          "path": "tests/test_clipboard.py",
+          "locator": "from promptshield.cli import main",
+          "claim": "Imports promptshield/cli.py for test assertions."
+        },
+        {
+          "path": "tests/test_clipboard.py",
+          "locator": "from promptshield.clipboard import sanitise_clipboard",
+          "claim": "Imports promptshield/clipboard.py for test assertions."
+        }
+      ],
+      "phases": [],
+      "tags": [],
+      "cautions": [
+        "These are source associations. They do not prove runtime test coverage."
+      ]
     }
   ],
   "relationships": [
@@ -618,6 +793,208 @@
           "path": "README.md",
           "locator": "## Live Interactive Sandbox",
           "claim": "Repository evidence for public articles and launch materials."
+        }
+      ]
+    },
+    {
+      "id": "relation.invokes.interface.integrations.interface.cli",
+      "type": "invokes",
+      "source": "interface.integrations",
+      "target": "interface.cli",
+      "classification": "current",
+      "evidence": [
+        {
+          "path": ".pre-commit-hooks.yaml",
+          "locator": "entry: python -m promptshield.cli guard",
+          "claim": "Routes hook execution through the CLI."
+        },
+        {
+          "path": "action.yml",
+          "locator": "python -m promptshield.cli scan",
+          "claim": "Routes workflow scanning through the CLI."
+        }
+      ]
+    },
+    {
+      "id": "relation.depends_on.engine.redactor.engine.detector",
+      "type": "depends_on",
+      "source": "engine.redactor",
+      "target": "engine.detector",
+      "classification": "current",
+      "evidence": [
+        {
+          "path": "promptshield/redactor.py",
+          "locator": "from promptshield.detector import Detector, Finding",
+          "claim": "Imports promptshield/detector.py for this component."
+        }
+      ]
+    },
+    {
+      "id": "relation.depends_on.interface.cli.engine.detector",
+      "type": "depends_on",
+      "source": "interface.cli",
+      "target": "engine.detector",
+      "classification": "current",
+      "evidence": [
+        {
+          "path": "promptshield/__init__.py",
+          "locator": "from promptshield.detector import Detector, Finding",
+          "claim": "Imports promptshield/detector.py for this component."
+        },
+        {
+          "path": "promptshield/cli.py",
+          "locator": "from promptshield.detector import Detector",
+          "claim": "Imports promptshield/detector.py for this component."
+        }
+      ]
+    },
+    {
+      "id": "relation.depends_on.interface.cli.engine.guard",
+      "type": "depends_on",
+      "source": "interface.cli",
+      "target": "engine.guard",
+      "classification": "current",
+      "evidence": [
+        {
+          "path": "promptshield/__init__.py",
+          "locator": "from promptshield.guard import GuardResult, PromptGuard, ThreatCategory, ThreatLevel",
+          "claim": "Imports promptshield/guard.py for this component."
+        },
+        {
+          "path": "promptshield/cli.py",
+          "locator": "from promptshield.guard import PromptGuard",
+          "claim": "Imports promptshield/guard.py for this component."
+        }
+      ]
+    },
+    {
+      "id": "relation.depends_on.interface.cli.engine.redactor",
+      "type": "depends_on",
+      "source": "interface.cli",
+      "target": "engine.redactor",
+      "classification": "current",
+      "evidence": [
+        {
+          "path": "promptshield/__init__.py",
+          "locator": "from promptshield.redactor import RedactionResult, Redactor",
+          "claim": "Imports promptshield/redactor.py for this component."
+        },
+        {
+          "path": "promptshield/cli.py",
+          "locator": "from promptshield.redactor import Redactor",
+          "claim": "Imports promptshield/redactor.py for this component."
+        }
+      ]
+    },
+    {
+      "id": "relation.depends_on.interface.cli.interface.clipboard",
+      "type": "depends_on",
+      "source": "interface.cli",
+      "target": "interface.clipboard",
+      "classification": "current",
+      "evidence": [
+        {
+          "path": "promptshield/cli.py",
+          "locator": "from promptshield.clipboard import sanitise_clipboard",
+          "claim": "Imports promptshield/clipboard.py for this component."
+        }
+      ]
+    },
+    {
+      "id": "relation.depends_on.interface.clipboard.engine.redactor",
+      "type": "depends_on",
+      "source": "interface.clipboard",
+      "target": "engine.redactor",
+      "classification": "current",
+      "evidence": [
+        {
+          "path": "promptshield/clipboard.py",
+          "locator": "from promptshield.redactor import Redactor",
+          "claim": "Imports promptshield/redactor.py for this component."
+        }
+      ]
+    },
+    {
+      "id": "relation.tests.quality.tests.engine_detector.engine.detector",
+      "type": "tests",
+      "source": "quality.tests.engine_detector",
+      "target": "engine.detector",
+      "classification": "current",
+      "evidence": [
+        {
+          "path": "tests/test_detector.py",
+          "locator": "from promptshield.detector import (",
+          "claim": "Imports promptshield/detector.py for test assertions."
+        }
+      ]
+    },
+    {
+      "id": "relation.tests.quality.tests.engine_guard.engine.guard",
+      "type": "tests",
+      "source": "quality.tests.engine_guard",
+      "target": "engine.guard",
+      "classification": "current",
+      "evidence": [
+        {
+          "path": "tests/test_guard.py",
+          "locator": "from promptshield.guard import PromptGuard, ThreatCategory, ThreatLevel",
+          "claim": "Imports promptshield/guard.py for test assertions."
+        }
+      ]
+    },
+    {
+      "id": "relation.tests.quality.tests.engine_redactor.engine.redactor",
+      "type": "tests",
+      "source": "quality.tests.engine_redactor",
+      "target": "engine.redactor",
+      "classification": "current",
+      "evidence": [
+        {
+          "path": "tests/test_redactor.py",
+          "locator": "from promptshield.redactor import Redactor",
+          "claim": "Imports promptshield/redactor.py for test assertions."
+        }
+      ]
+    },
+    {
+      "id": "relation.tests.quality.tests.interface_cli.interface.cli",
+      "type": "tests",
+      "source": "quality.tests.interface_cli",
+      "target": "interface.cli",
+      "classification": "current",
+      "evidence": [
+        {
+          "path": "tests/test_cli.py",
+          "locator": "from promptshield.cli import main",
+          "claim": "Imports promptshield/cli.py for test assertions."
+        }
+      ]
+    },
+    {
+      "id": "relation.tests.quality.tests.interface_cli-interface_clipboard.interface.cli",
+      "type": "tests",
+      "source": "quality.tests.interface_cli-interface_clipboard",
+      "target": "interface.cli",
+      "classification": "current",
+      "evidence": [
+        {
+          "path": "tests/test_clipboard.py",
+          "locator": "from promptshield.cli import main",
+          "claim": "Imports promptshield/cli.py for test assertions."
+        }
+      ]
+    },
+    {
+      "id": "relation.tests.quality.tests.interface_cli-interface_clipboard.interface.clipboard",
+      "type": "tests",
+      "source": "quality.tests.interface_cli-interface_clipboard",
+      "target": "interface.clipboard",
+      "classification": "current",
+      "evidence": [
+        {
+          "path": "tests/test_clipboard.py",
+          "locator": "from promptshield.clipboard import sanitise_clipboard",
+          "claim": "Imports promptshield/clipboard.py for test assertions."
         }
       ]
     }
@@ -946,6 +1323,76 @@
       "kind": "exact",
       "pattern": "scripts/project_map.py",
       "priority": 10
+    },
+    {
+      "id": "owner.web.public.41",
+      "owner": "web.public",
+      "kind": "exact",
+      "pattern": "docs/app.js",
+      "priority": 30
+    },
+    {
+      "id": "owner.web.public.42",
+      "owner": "web.public",
+      "kind": "exact",
+      "pattern": "docs/style.css",
+      "priority": 30
+    },
+    {
+      "id": "owner.web.public.43",
+      "owner": "web.public",
+      "kind": "exact",
+      "pattern": "docs/index.html",
+      "priority": 30
+    },
+    {
+      "id": "owner.interface.integrations.44",
+      "owner": "interface.integrations",
+      "kind": "exact",
+      "pattern": ".pre-commit-hooks.yaml",
+      "priority": 30
+    },
+    {
+      "id": "owner.interface.integrations.45",
+      "owner": "interface.integrations",
+      "kind": "exact",
+      "pattern": "action.yml",
+      "priority": 30
+    },
+    {
+      "id": "owner.quality.tests.engine_detector.46",
+      "owner": "quality.tests.engine_detector",
+      "kind": "exact",
+      "pattern": "tests/test_detector.py",
+      "priority": 30
+    },
+    {
+      "id": "owner.quality.tests.engine_guard.47",
+      "owner": "quality.tests.engine_guard",
+      "kind": "exact",
+      "pattern": "tests/test_guard.py",
+      "priority": 30
+    },
+    {
+      "id": "owner.quality.tests.engine_redactor.48",
+      "owner": "quality.tests.engine_redactor",
+      "kind": "exact",
+      "pattern": "tests/test_redactor.py",
+      "priority": 30
+    },
+    {
+      "id": "owner.quality.tests.interface_cli.49",
+      "owner": "quality.tests.interface_cli",
+      "kind": "exact",
+      "pattern": "tests/test_cli.py",
+      "priority": 30
+    },
+    {
+      "id": "owner.quality.tests.interface_cli-interface_clipboard.50",
+      "owner": "quality.tests.interface_cli-interface_clipboard",
+      "kind": "exact",
+      "pattern": "tests/test_clipboard.py",
+      "priority": 30
     }
   ],
   "intended_tracked_paths": [
@@ -955,8 +1402,72 @@
     "docs/project_map/index.html"
   ],
   "conditional_artifacts": [],
-  "catalogues": [],
-  "sibling_sets": [],
+  "catalogues": [
+    {
+      "id": "catalogue.engines",
+      "name": "Local processing engines",
+      "purpose": "Find detection, masking, guard and clipboard modules.",
+      "kind": "prefix",
+      "pattern": "promptshield/"
+    },
+    {
+      "id": "catalogue.tests",
+      "name": "Engine and interface tests",
+      "purpose": "Find the unit tests for each local component.",
+      "kind": "prefix",
+      "pattern": "tests/"
+    },
+    {
+      "id": "catalogue.browser",
+      "name": "Browser source assets",
+      "purpose": "Find the source browser demonstration.",
+      "kind": "prefix",
+      "pattern": "web/"
+    },
+    {
+      "id": "catalogue.served",
+      "name": "Published browser assets and guides",
+      "purpose": "Find the GitHub Pages browser and documentation files.",
+      "kind": "prefix",
+      "pattern": "docs/"
+    },
+    {
+      "id": "catalogue.distribution",
+      "name": "Distribution files",
+      "purpose": "Find commercial package and distribution material.",
+      "kind": "prefix",
+      "pattern": "distribution/"
+    }
+  ],
+  "sibling_sets": [
+    {
+      "id": "siblings.browser_assets",
+      "name": "Served and source browser assets",
+      "contract": "The docs and web copies contain the same browser implementation, page and styles. A change must update both copies.",
+      "members": [
+        "docs/app.js",
+        "web/app.js",
+        "docs/style.css",
+        "web/style.css",
+        "docs/index.html",
+        "web/index.html"
+      ],
+      "guard": null,
+      "evidence": [
+        {
+          "path": "docs/app.js",
+          "locator": "SECRET_RULES",
+          "claim": "Contains the browser detector copied in web/app.js."
+        },
+        {
+          "path": "web/app.js",
+          "locator": "SECRET_RULES",
+          "claim": "Contains the same browser detector as docs/app.js."
+        }
+      ],
+      "records": []
+    }
+  ],
   "inventory_exclusions": [
     ".promptshield_sessions/*",
     "dist_output/*",

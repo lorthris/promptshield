@@ -5,6 +5,7 @@
 Local secret and PII detection, deterministic redaction, prompt injection checks and clipboard sanitisation.
 
 - Interactive offline map: [index.html](index.html)
+- Shared project directory: [All projects](file:///C:/Drive/Brain/docs/knowledge/index.html)
 - Canonical graph: [project_map.json](project_map.json)
 - Authored source: [project_map_source.json](project_map_source.json)
 
@@ -36,8 +37,8 @@ Read in this order. Every link resolves from a repository checkout.
 
 ## Verification summary
 
-- Components: 13
-- Directed relationships: 12
+- Components: 19
+- Directed relationships: 25
 - Inventory paths: 58 (Git tracked plus intended map deliverables)
 - Mapped live inventory paths: 58
 - Legacy paths represented by one stub: 0
@@ -85,8 +86,13 @@ Operations components.
 | Component | Type | Class | Lifecycle | Phase | Purpose |
 | --- | --- | --- | --- | --- | --- |
 | `governance.map` Authored map and generated navigation | component | `current` | `implemented/conditional/not_applicable` | none | Authored map and generated navigation. |
-| `quality.tests` Automated verification | component | `current` | `implemented/conditional/not_applicable` | none | Automated verification. |
+| `quality.tests` Automated verification | component | `current` | `implemented/conditional/not_applicable` | none | Own shared test fixtures and tests whose component targets have no authored association. |
 | `governance.ci` CI workflows | component | `current` | `implemented/conditional/not_applicable` | none | CI workflows. |
+| `quality.tests.interface_cli` Tests for Command-line interface | component | `current` | `implemented/conditional/not_applicable` | none | Test only the component contracts named by the source imports and assertions. |
+| `quality.tests.interface_cli-interface_clipboard` Tests for Command-line interface, Local clipboard sanitisation | component | `current` | `implemented/conditional/not_applicable` | none | Test only the component contracts named by the source imports and assertions. |
+| `quality.tests.engine_guard` Tests for Prompt injection checks | component | `current` | `implemented/conditional/not_applicable` | none | Test only the component contracts named by the source imports and assertions. |
+| `quality.tests.engine_redactor` Tests for Redaction and restore mapping | component | `current` | `implemented/conditional/not_applicable` | none | Test only the component contracts named by the source imports and assertions. |
+| `quality.tests.engine_detector` Tests for Secret and PII detection | component | `current` | `implemented/conditional/not_applicable` | none | Test only the component contracts named by the source imports and assertions. |
 
 ### Delivery
 
@@ -94,9 +100,10 @@ Delivery components.
 
 | Component | Type | Class | Lifecycle | Phase | Purpose |
 | --- | --- | --- | --- | --- | --- |
-| `web.public` Browser demonstration | component | `current` | `implemented/conditional/not_applicable` | none | Browser demonstration. |
+| `web.public` Browser demonstration | component | `current` | `implemented/conditional/not_applicable` | none | Run the local browser security demonstration in the served and source copies. |
 | `interface.cli` Command-line interface | component | `current` | `implemented/conditional/not_applicable` | none | Command-line interface. |
 | `delivery.release` Commercial distribution | component | `current` | `implemented/conditional/not_applicable` | none | Commercial distribution. |
+| `interface.integrations` Git hooks and workflow integration | component | `current` | `implemented/conditional/not_applicable` | none | Invoke local scan and guard commands from pre-commit hooks and the composite action. |
 | `interface.clipboard` Local clipboard sanitisation | component | `current` | `implemented/conditional/not_applicable` | none | Local clipboard sanitisation. |
 | `delivery.content` Public articles and launch materials | component | `current` | `implemented/conditional/not_applicable` | none | Public articles and launch materials. |
 
@@ -107,6 +114,11 @@ relationships inside one domain.
 
 | Source domain | Target domain | Count | Types |
 | --- | --- | --- | --- |
+| Application | Application | 1 | depends_on 1 |
+| Delivery | Application | 4 | depends_on 4 |
+| Delivery | Delivery | 2 | depends_on 1, invokes 1 |
+| Operations | Application | 3 | tests 3 |
+| Operations | Delivery | 3 | tests 3 |
 | Project | Application | 3 | contains 3 |
 | Project | Delivery | 5 | contains 5 |
 | Project | Operations | 3 | contains 3 |
@@ -143,14 +155,82 @@ in one member reaches the others, so sweep every member before closing it.
 `python scripts/project_map.py class <member>` lists each set with the clones and
 namesakes the live index finds. Evidence for every set is in the JSON.
 
+### `siblings.browser_assets` Served and source browser assets
+
+The docs and web copies contain the same browser implementation, page and styles. A change must update both copies.
+
+- Members (6): `docs/app.js`, `docs/index.html`, `docs/style.css`, `web/app.js`, `web/index.html`, `web/style.css`
+- Guard: none
+
 ## Operational surfaces
 
 Each catalogue is resolved mechanically from the tracked inventory at build
 time, so a listed path exists and an absent path is not tracked.
 
+### Local processing engines (6)
+
+Find detection, masking, guard and clipboard modules. Pattern: `promptshield/`.
+
+- [promptshield/__init__.py](../../promptshield/__init__.py)
+- [promptshield/cli.py](../../promptshield/cli.py)
+- [promptshield/clipboard.py](../../promptshield/clipboard.py)
+- [promptshield/detector.py](../../promptshield/detector.py)
+- [promptshield/guard.py](../../promptshield/guard.py)
+- [promptshield/redactor.py](../../promptshield/redactor.py)
+
+### Engine and interface tests (6)
+
+Find the unit tests for each local component. Pattern: `tests/`.
+
+- [tests/__init__.py](../../tests/__init__.py)
+- [tests/test_cli.py](../../tests/test_cli.py)
+- [tests/test_clipboard.py](../../tests/test_clipboard.py)
+- [tests/test_detector.py](../../tests/test_detector.py)
+- [tests/test_guard.py](../../tests/test_guard.py)
+- [tests/test_redactor.py](../../tests/test_redactor.py)
+
+### Browser source assets (3)
+
+Find the source browser demonstration. Pattern: `web/`.
+
+- [web/app.js](../../web/app.js)
+- [web/index.html](../../web/index.html)
+- [web/style.css](../../web/style.css)
+
+### Published browser assets and guides (13)
+
+Find the GitHub Pages browser and documentation files. Pattern: `docs/`.
+
+- [docs/.nojekyll](../../docs/.nojekyll)
+- [docs/app.js](../../docs/app.js)
+- [docs/australian-tfn-compliance-ai.html](../../docs/australian-tfn-compliance-ai.html)
+- [docs/index.html](../../docs/index.html)
+- [docs/llm-prompt-injection-defense.html](../../docs/llm-prompt-injection-defense.html)
+- [docs/prevent-api-key-leaks-ai.html](../../docs/prevent-api-key-leaks-ai.html)
+- [docs/project_map/INDEX.md](../../docs/project_map/INDEX.md)
+- [docs/project_map/index.html](../../docs/project_map/index.html)
+- [docs/project_map/project_map.json](../../docs/project_map/project_map.json)
+- [docs/project_map/project_map_source.json](../../docs/project_map/project_map_source.json)
+- [docs/robots.txt](../../docs/robots.txt)
+- [docs/sitemap.xml](../../docs/sitemap.xml)
+- [docs/style.css](../../docs/style.css)
+
+### Distribution files (5)
+
+Find commercial package and distribution material. Pattern: `distribution/`.
+
+- [distribution/cover.jpg](../../distribution/cover.jpg)
+- [distribution/dist_package.py](../../distribution/dist_package.py)
+- [distribution/gumroad/CUSTOMER_GUIDE.md](../../distribution/gumroad/CUSTOMER_GUIDE.md)
+- [distribution/gumroad/PRODUCT_LISTING.md](../../distribution/gumroad/PRODUCT_LISTING.md)
+- [distribution/product_description.html](../../distribution/product_description.html)
+
 ## Directed relationship vocabulary
 
 - `contains`: 12
+- `depends_on`: 6
+- `invokes`: 1
+- `tests`: 6
 
 ## Component relationships
 
@@ -168,14 +248,23 @@ component identifier finds what it depends on and what depends on it.
 ### `engine.detector` Secret and PII detection
 
 - contains from `project.boundary` (current): Repository component
+- depends_on from `engine.redactor` (current): depends_on
+- depends_on from `interface.cli` (current): depends_on
+- tests from `quality.tests.engine_detector` (current): tests
 
 ### `engine.guard` Prompt injection checks
 
 - contains from `project.boundary` (current): Repository component
+- depends_on from `interface.cli` (current): depends_on
+- tests from `quality.tests.engine_guard` (current): tests
 
 ### `engine.redactor` Redaction and restore mapping
 
+- depends_on `engine.detector` (current): depends_on
 - contains from `project.boundary` (current): Repository component
+- depends_on from `interface.cli` (current): depends_on
+- depends_on from `interface.clipboard` (current): depends_on
+- tests from `quality.tests.engine_redactor` (current): tests
 
 ### `governance.ci` CI workflows
 
@@ -187,11 +276,25 @@ component identifier finds what it depends on and what depends on it.
 
 ### `interface.cli` Command-line interface
 
+- depends_on `engine.detector` (current): depends_on
+- depends_on `engine.guard` (current): depends_on
+- depends_on `engine.redactor` (current): depends_on
+- depends_on `interface.clipboard` (current): depends_on
 - contains from `project.boundary` (current): Repository component
+- invokes from `interface.integrations` (current): invokes
+- tests from `quality.tests.interface_cli-interface_clipboard` (current): tests
+- tests from `quality.tests.interface_cli` (current): tests
 
 ### `interface.clipboard` Local clipboard sanitisation
 
+- depends_on `engine.redactor` (current): depends_on
 - contains from `project.boundary` (current): Repository component
+- depends_on from `interface.cli` (current): depends_on
+- tests from `quality.tests.interface_cli-interface_clipboard` (current): tests
+
+### `interface.integrations` Git hooks and workflow integration
+
+- invokes `interface.cli` (current): invokes
 
 ### `project.boundary` Project contract and configuration
 
@@ -216,6 +319,27 @@ component identifier finds what it depends on and what depends on it.
 
 - contains from `project.boundary` (current): Repository component
 
+### `quality.tests.engine_detector` Tests for Secret and PII detection
+
+- tests `engine.detector` (current): tests
+
+### `quality.tests.engine_guard` Tests for Prompt injection checks
+
+- tests `engine.guard` (current): tests
+
+### `quality.tests.engine_redactor` Tests for Redaction and restore mapping
+
+- tests `engine.redactor` (current): tests
+
+### `quality.tests.interface_cli` Tests for Command-line interface
+
+- tests `interface.cli` (current): tests
+
+### `quality.tests.interface_cli-interface_clipboard` Tests for Command-line interface, Local clipboard sanitisation
+
+- tests `interface.cli` (current): tests
+- tests `interface.clipboard` (current): tests
+
 ### `web.public` Browser demonstration
 
 - contains from `project.boundary` (current): Repository component
@@ -234,16 +358,27 @@ directory levels. Exact file ownership is `inventory.path_index` in the JSON.
 - `governance.map` (5): docs/project_map/ (4), scripts/ (1)
 - `interface.cli` (2): promptshield/ (2)
 - `interface.clipboard` (1): promptshield/ (1)
-- `project.boundary` (9): (repository root) (9)
-- `project.docs` (19): (repository root) (10), docs/ (9)
-- `quality.tests` (6): tests/ (6)
-- `web.public` (3): web/ (3)
+- `interface.integrations` (2): (repository root) (2)
+- `project.boundary` (7): (repository root) (7)
+- `project.docs` (16): (repository root) (10), docs/ (6)
+- `quality.tests` (1): tests/ (1)
+- `quality.tests.engine_detector` (1): tests/ (1)
+- `quality.tests.engine_guard` (1): tests/ (1)
+- `quality.tests.engine_redactor` (1): tests/ (1)
+- `quality.tests.interface_cli` (1): tests/ (1)
+- `quality.tests.interface_cli-interface_clipboard` (1): tests/ (1)
+- `web.public` (6): docs/ (3), web/ (3)
 
 ## Material cautions
 
 - `project.boundary`: Core processing is local. Do not add remote telemetry or network calls.
 - `project.boundary`: Exclude .promptshield_sessions because restore mappings can contain secrets.
 - `project.boundary`: Use the promptshield vault collection and Brain scope. Other projects do not own these credentials.
+- `quality.tests.engine_detector`: These are source associations. They do not prove runtime test coverage.
+- `quality.tests.engine_guard`: These are source associations. They do not prove runtime test coverage.
+- `quality.tests.engine_redactor`: These are source associations. They do not prove runtime test coverage.
+- `quality.tests.interface_cli`: These are source associations. They do not prove runtime test coverage.
+- `quality.tests.interface_cli-interface_clipboard`: These are source associations. They do not prove runtime test coverage.
 
 ## Conditional and non-canonical artefacts
 
