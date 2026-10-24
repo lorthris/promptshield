@@ -1830,6 +1830,14 @@ footer p {
     break-inside: avoid;
   }
 }
+.file-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; margin-block: 1rem; }
+.file-controls label { display: flex; align-items: center; gap: 0.4rem; }
+.file-controls select { max-width: 24rem; }
+.file-path-button { text-align: left; overflow-wrap: anywhere; }
+.path-row { flex-wrap: wrap; }
+.repository-folders { margin-block: 1rem; }
+.file-actions { width: 100%; }
+.lookup-card pre, .detail-section pre { white-space: pre-wrap; overflow-wrap: anywhere; }
 </style>
 
 </head>
@@ -1864,7 +1872,7 @@ footer p {
       <form id="search-form" class="search-block" role="search">
         <label for="search-input">Find components, paths, evidence, or cautions</label>
         <div class="search-row">
-          <input id="search-input" name="q" type="search" autocomplete="off" spellcheck="false" placeholder="Find a component, file or workflow">
+          <input id="search-input" name="q" type="search" autocomplete="off" spellcheck="false" placeholder="Name, path or plan">
           <button type="button" id="clear-search" class="icon-button" aria-label="Clear search">Clear</button>
         </div>
         <p id="result-summary" class="compact-status" aria-live="polite"></p>
@@ -1874,6 +1882,7 @@ footer p {
         <a href="#view=overview" data-view="overview">Overview</a>
         <a href="#view=guide" data-view="guide">Guide</a>
         <a href="#view=repository" data-view="repository">Files</a>
+        <a href="#view=workspace" data-view="workspace">Local workspace</a>
         <a href="#view=dependencies" data-view="dependencies">Dependencies</a>
         <a href="#view=workflows" data-view="workflows">Workflows</a>
         <a href="#view=roadmap" data-view="roadmap">Roadmap</a>
@@ -1948,17 +1957,28 @@ footer p {
       <section id="view-repository" class="map-view" data-view-panel="repository" aria-labelledby="repository-title" hidden>
         <div class="view-heading">
           <div><p class="eyebrow">Ownership</p><h2 id="repository-title" tabindex="-1">Files and owners</h2></div>
-          <p>Every live tracked path under its owning component. Search and filters narrow the tree to the files of matching components.</p>
+          <p>Every tracked or intended project path under its owning component. Search and filters narrow the paged inventory to matching components.</p>
         </div>
         <form id="path-lookup-form" class="path-lookup" role="search">
-          <label for="path-lookup">Find a path or directory</label>
+          <label for="path-lookup">Search files, folders, owners, roles or access</label>
           <div class="search-row">
-            <input id="path-lookup" name="path" type="search" autocomplete="off" spellcheck="false" placeholder="scripts/data/lockbox_seal.py">
+            <input id="path-lookup" name="path" type="search" autocomplete="off" spellcheck="false" placeholder="Path, directory, owner, role or access policy">
             <button type="button" id="path-lookup-clear" class="icon-button" aria-label="Clear path lookup">Clear</button>
           </div>
         </form>
         <div id="path-lookup-result" class="path-lookup-result" aria-live="polite"></div>
         <div id="repository-tree" class="file-tree"></div>
+      </section>
+
+      <section id="view-workspace" class="map-view" data-view-panel="workspace" hidden aria-labelledby="workspace-title">
+        <div class="view-heading">
+          <h2 id="workspace-title" tabindex="-1">Local workspace</h2>
+          <p>The canonical Files view describes tracked and intended paths. A local snapshot observes this checkout, including ignored and untracked files, dependencies, links and VCS metadata. It does not read file contents.</p>
+        </div>
+        <p>For first use, run this command from the repository root. Run it again when you need a new observation.</p>
+        <code class="detail-identifier">python -B scripts/project_map.py workspace --write</code>
+        <p><a href="workspace.html">Open latest local snapshot</a>. The snapshot may not exist until you generate it. It describes the time and scope of that observation, not current presence or freshness.</p>
+        <p>Local observations stay outside the committed canonical map.</p>
       </section>
 
       <section id="view-dependencies" class="map-view" data-view-panel="dependencies" aria-labelledby="dependencies-title" hidden>
@@ -2041,7 +2061,7 @@ footer p {
 
 (function initialiseProjectMap() {
   const CLASSIFICATIONS = ["current", "planned", "inferred", "proposed", "legacy"];
-  const VIEWS = ["overview", "guide", "repository", "dependencies", "workflows", "roadmap", "catalogue"];
+  const VIEWS = ["overview", "guide", "repository", "workspace", "dependencies", "workflows", "roadmap", "catalogue"];
   const SVG_NS = "http://www.w3.org/2000/svg";
   // The generator sets this prefix for the selected map directory.
   const REPO_LINK_PREFIX = "../../";
@@ -2103,6 +2123,9 @@ footer p {
   let setsByPath;
   let filterOptions;
   let fileTree;
+  let inventoryIndex;
+  let repositoryPageNumber = 0;
+  const repositoryFilters = { owner: "", role: "", access: "" };
   let dependencyZoom = 1;
   let dependencyNaturalWidth = 0;
   // Until the reader zooms by hand, every drawing is fitted to the container.
@@ -2165,9 +2188,10 @@ footer p {
   }
 
   function repoLink(path, label, classValue) {
+    const record = graph?.inventory?.manifest?.[path];
     return element("a", {
       className: classValue || "repo-link",
-      href: REPO_LINK_PREFIX + path,
+      href: record && record.access !== "content" ? "#view=repository&path=" + encodeURIComponent(path) : REPO_LINK_PREFIX + path.split("/").map(encodeURIComponent).join("/"),
       text: label || path,
       title: "Open " + path + " from the repository checkout",
     });
@@ -2301,9 +2325,10 @@ footer p {
     domainsById = new Map(graph.domains.map((domain) => [domain.id, domain]));
     phasesById = new Map(graph.phases.map((phase) => [phase.id, phase]));
     workflowsById = new Map(graph.workflows.map((workflow) => [workflow.id, workflow]));
+    indexInventory();
     ownedPathsById = new Map();
-    Object.entries(graph.inventory.manifest || graph.inventory.path_index).forEach(([path, record]) => {
-      const owner = typeof record === "string" ? record : record.owner;
+    inventoryIndex.entries.forEach(([path, record]) => {
+      const owner = record.owner;
       if (!ownedPathsById.has(owner)) {
         ownedPathsById.set(owner, []);
       }
@@ -2326,7 +2351,7 @@ footer p {
       phase: new Set(graph.phases.map((phase) => phase.id)),
       classification: new Set(CLASSIFICATIONS),
     };
-    fileTree = buildFileTree(graph.inventory.path_index);
+
   }
 
   function hashParameters() {
@@ -2342,6 +2367,7 @@ footer p {
     const requestedWorkflow = parameters.get("workflow") || "";
     state.workflow = workflowsById.has(requestedWorkflow) ? requestedWorkflow : "";
     state.path = parameters.get("path") || "";
+    state.fileOwner = nodesById.has(parameters.get("owner")) ? parameters.get("owner") : "";
     state.search = parameters.get("q") || "";
     state.dependencyDepth = parameters.get("depth") === "2" ? 2 : 1;
     Object.keys(state.filters).forEach((key) => {
@@ -2353,6 +2379,7 @@ footer p {
   function serialiseState() {
     const parameters = new URLSearchParams();
     parameters.set("view", state.view);
+    if (state.fileOwner) parameters.set("owner", state.fileOwner);
     if (state.node) {
       parameters.set("node", state.node);
     }
@@ -2693,16 +2720,6 @@ footer p {
     return section;
   }
 
-  function pathRow(path) {
-    const row = element("li", { className: "path-row" });
-    row.append(repoLink(path));
-    const owner = graph.inventory.path_index[path];
-    if (owner) {
-      row.append(ownerButton(owner));
-    }
-    return row;
-  }
-
   function siblingSetCard(sibling, currentPath) {
     const card = element("article", { className: "catalogue-card" });
     const heading = element("div", { className: "catalogue-card__heading" });
@@ -2736,7 +2753,7 @@ footer p {
   }
 
   function lookupCommand(term) {
-    return "python scripts/project_map.py q " + (/\s/.test(term) ? '"' + term + '"' : term);
+    return commandFor("q", term);
   }
 
   function workFrontNodes(visible) {
@@ -2973,47 +2990,6 @@ footer p {
     return summary;
   }
 
-  function renderDirectory(directory, allowedPaths) {
-    const list = element("ul", { className: "tree-list" });
-    [...directory.dirs.values()]
-      .filter((child) => !allowedPaths || child.visibleCount > 0)
-      .forEach((child) => {
-        const item = element("li", { className: "tree-dir" });
-        const details = element("details");
-        const summary = element("summary");
-        appendText(summary, "span", child.name + "/", "tree-name");
-        appendText(
-          summary,
-          "span",
-          String(allowedPaths ? child.visibleCount : child.count) + " files",
-          "tree-count"
-        );
-        summary.append(ownerSummary(child));
-        details.append(summary);
-        details.addEventListener(
-          "toggle",
-          () => {
-            if (details.open && !details.dataset.rendered) {
-              details.dataset.rendered = "true";
-              details.append(renderDirectory(child, allowedPaths));
-            }
-          },
-          { once: false }
-        );
-        item.append(details);
-        list.append(item);
-      });
-    directory.files
-      .filter((file) => !allowedPaths || allowedPaths.has(file.path))
-      .forEach((file) => {
-        const item = element("li", { className: "tree-file" });
-        item.append(repoLink(file.path, file.name, "tree-name repo-link"));
-        item.append(ownerButton(file.owner));
-        list.append(item);
-      });
-    return list;
-  }
-
   function markVisibleCounts(directory, allowedPaths) {
     let count = directory.files.filter((file) => allowedPaths.has(file.path)).length;
     directory.dirs.forEach((child) => {
@@ -3023,140 +2999,232 @@ footer p {
     return count;
   }
 
+
+  function indexInventory() {
+    const records = graph.inventory.manifest || Object.fromEntries(
+      Object.entries(graph.inventory.path_index).map(([path, owner]) => [path, { owner, access: "content", roles: [] }])
+    );
+    const owners = new Set();
+    const roles = new Set();
+    const accessPolicies = new Set();
+    const entries = Object.entries(records).map(([path, record]) => {
+      const owner = nodesById.get(record.owner);
+      owners.add(record.owner);
+      (record.roles || []).forEach((role) => roles.add(role));
+      accessPolicies.add(record.access);
+      const text = [path, record.owner, owner?.name || "", ...(record.roles || []), record.access || ""].join(" ").toLocaleLowerCase("en-AU");
+      return [path, record, text];
+    });
+    inventoryIndex = {
+      records,
+      entries,
+      options: {
+        owner: [...owners].sort(),
+        role: [...roles].filter(Boolean).sort(),
+        access: [...accessPolicies].filter(Boolean).sort(),
+      },
+    };
+  }
+
+  function manifestRecords() {
+    return inventoryIndex.records;
+  }
+
+  function commandFor(verb, term) {
+    return "python -B scripts/project_map.py " + verb +
+      (term === undefined ? "" : " -- '" + term.replace(/['\u2018\u2019]/g, (quote) => quote + quote) + "'");
+  }
+
+  function commandHelp(verbs, term) {
+    const details = element("details", { className: "file-actions" });
+    details.append(element("summary", { text: "CLI actions" }));
+    appendText(details, "p", "Run from the repository root. These commands do not run in this page.", "compact-status");
+    verbs.forEach((verb) => details.append(element("code", {
+      className: "detail-identifier", text: commandFor(verb, verb === "brief" ? undefined : term)
+    })));
+    return details;
+  }
+
+  function pathRow(path) {
+    const row = element("li", { className: "path-row" });
+    const record = manifestRecords()[path];
+    if (!record) {
+      row.append(repoLink(path));
+      return row;
+    }
+    const open = element("button", { type: "button", text: path, className: "file-path-button" });
+    open.addEventListener("click", () => {
+      state.view = "repository";
+      state.path = path;
+      invalidateViews();
+      pushHash();
+      render();
+    });
+    row.append(open, ownerButton(record.owner));
+    appendText(row, "span", [record.tracking, record.access, ...(record.roles || [])].filter(Boolean).join(" · "), "compact-status");
+    return row;
+  }
+
   function resolvePathLookup(query) {
     const container = elements["path-lookup-result"];
-    const trimmed = query.trim().replace(/\\/g, "/").replace(/^\.?\//, "").replace(/\/$/, "");
-    if (!trimmed) {
+    const path = query.trim().replace(/\\/g, "/").replace(/^\.\//, "").replace(/\/$/, "");
+    const record = manifestRecords()[path];
+    if (!record) {
       container.replaceChildren();
       return;
     }
-    const pathIndex = graph.inventory.path_index;
-    const exactOwner = pathIndex[trimmed];
-    if (exactOwner) {
-      const card = element("div", { className: "lookup-card" });
-      appendText(card, "span", "Exact file", "eyebrow");
-      const row = element("div", { className: "lookup-card__row" });
-      row.append(repoLink(trimmed));
-      row.append(element("span", { text: "is owned by" }));
-      row.append(ownerButton(exactOwner));
-      card.append(row);
-      (setsByPath.get(trimmed) || []).forEach((sibling) => {
-        appendText(card, "span", "Sibling set: sweep these too", "eyebrow");
-        card.append(siblingSetCard(sibling, trimmed));
-      });
-      appendText(
-        card,
-        "p",
-        "Tests, users, citations, records and clones: " + lookupCommand(trimmed),
-        "compact-status"
-      );
-      container.replaceChildren(card);
-      return;
+    const card = element("article", { className: "lookup-card" });
+    appendText(card, "h3", path);
+    card.append(ownerButton(record.owner));
+    appendText(card, "p", [record.tracking, record.access, ...(record.roles || [])].filter(Boolean).join(" · "), "compact-status");
+    if (record.access === "content") {
+      card.append(repoLink(path, "Open source file"), commandHelp(["q", "tests", "impact", "outline", "show", "class"], path));
+    } else {
+      appendText(card, "p", "Metadata only. This record does not grant source access.", "compact-status");
     }
-    if (trimmed.startsWith("legacy") && graph.inventory.legacy_stub.tracked_path_count > 0) {
-      const card = element("div", { className: "lookup-card" });
-      appendText(card, "span", "Legacy stub", "eyebrow");
-      const row = element("div", { className: "lookup-card__row" });
-      row.append(
-        element("span", {
-          text: "legacy/ holds " + graph.inventory.legacy_stub.tracked_path_count +
-            " tracked paths represented by one stub:",
-        })
-      );
-      row.append(ownerButton(graph.inventory.legacy_stub.owner));
-      card.append(row);
-      container.replaceChildren(card);
-      return;
-    }
-    const lower = trimmed.toLocaleLowerCase("en-AU");
-    const prefixHits = [];
-    const substringHits = [];
-    Object.keys(pathIndex).forEach((path) => {
-      const candidate = path.toLocaleLowerCase("en-AU");
-      if (candidate.startsWith(lower + "/") || candidate.startsWith(lower)) {
-        prefixHits.push(path);
-      } else if (candidate.includes(lower)) {
-        substringHits.push(path);
-      }
-    });
-    const hits = [...prefixHits, ...substringHits];
-    if (!hits.length) {
-      container.replaceChildren(
-        emptyState("No tracked live path matches " + trimmed + ". Ignored, host-only and legacy paths are not indexed.")
-      );
-      return;
-    }
-    const card = element("div", { className: "lookup-card" });
-    const owners = new Map();
-    hits.forEach((path) => {
-      owners.set(pathIndex[path], (owners.get(pathIndex[path]) || 0) + 1);
-    });
-    appendText(
-      card,
-      "span",
-      hits.length + " matching paths across " + owners.size + " owner" + (owners.size === 1 ? "" : "s"),
-      "eyebrow"
-    );
-    const ownerRow = element("div", { className: "lookup-card__owners" });
-    [...owners.entries()]
-      .sort((left, right) => right[1] - left[1])
-      .forEach(([owner, count]) => {
-        const chip = element("span", { className: "lookup-owner" });
-        chip.append(ownerButton(owner));
-        appendText(chip, "span", String(count), "tree-count");
-        ownerRow.append(chip);
-      });
-    card.append(ownerRow);
-    const list = element("ul", { className: "path-list" });
-    hits.slice(0, 40).forEach((path) => list.append(pathRow(path)));
-    card.append(list);
-    if (hits.length > 40) {
-      appendText(card, "p", "Showing the first 40. Narrow the path to see the rest.", "compact-status");
-    }
+    const metadata = element("details");
+    metadata.append(element("summary", { text: "Raw path metadata" }), element("pre", { text: JSON.stringify({ path, ...record }, null, 2) }));
+    card.append(metadata);
+    (setsByPath.get(path) || []).forEach((sibling) => card.append(siblingSetCard(sibling, path)));
     container.replaceChildren(card);
   }
 
-  function renderRepository() {
-    const records = graph.inventory.manifest || Object.fromEntries(Object.entries(graph.inventory.path_index).map(([path, owner]) => [path, {owner}]));
-    const all = Object.entries(records);
-    const search = element("input", {placeholder: "Find any tracked path or owner", value: state.path || ""});
-    const rows = element("div");
-    const status = element("p", {className: "compact-status"});
-    const previous = element("button", {text: "Previous", type: "button"});
-    const next = element("button", {text: "Next", type: "button"});
-    const detail = element("div");
-    const workspace = element("a", {href: "workspace.html", text: "Open local workspace metadata"});
-    const guidance = element("p", {text: "Refresh local files with the project map workspace --write command. This separate snapshot includes ignored files, dependencies, links and VCS metadata without file contents."});
+  function renderDirectory(directory, allowedPaths) {
+    const list = element("ul", { className: "tree-list" });
+    const items = [
+      ...[...directory.dirs.values()].filter((child) => child.visibleCount > 0).map((child) => ({ child })),
+      ...directory.files.filter((file) => allowedPaths.has(file.path)).map((file) => ({ file }))
+    ];
     let page = 0;
-    let selected = all;
     function draw() {
-      rows.replaceChildren();
-      selected.slice(page * 200, page * 200 + 200).forEach(([path, record]) => {
-        const button = element("button", {type: "button", text: path + " | " + record.owner + " | " + (record.access || "content")});
-        button.addEventListener("click", () => {
-          const metadata = element("pre", {text: JSON.stringify({path, ...record}, null, 2)});
-          detail.replaceChildren(ownerButton(record.owner), metadata);
-          if (record.access === "content") detail.append(repoLink(path, "Open source file"));
+      list.replaceChildren();
+      items.slice(page * 200, (page + 1) * 200).forEach(({ child, file }) => {
+        if (file) {
+          list.append(pathRow(file.path));
+          return;
+        }
+        const item = element("li", { className: "tree-dir" });
+        const details = element("details");
+        const summary = element("summary");
+        appendText(summary, "span", child.name + "/", "tree-name");
+        appendText(summary, "span", child.visibleCount + " matching / " + child.count + " total files", "tree-count");
+        summary.append(ownerSummary(child));
+        details.append(summary);
+        details.addEventListener("toggle", () => {
+          if (details.open && !details.dataset.rendered) {
+            details.dataset.rendered = "true";
+            details.append(renderDirectory(child, allowedPaths));
+          }
         });
-        rows.append(element("div", {}, [button]));
+        item.append(details);
+        list.append(item);
       });
-      status.textContent = selected.length + " of " + all.length + " tracked or intended paths | page " + (page + 1) + " of " + Math.max(1, Math.ceil(selected.length / 200));
-      previous.disabled = page === 0;
-      next.disabled = (page + 1) * 200 >= selected.length;
+      if (items.length > 200) {
+        const controls = element("li", { className: "file-controls" });
+        const previous = element("button", { type: "button", text: "Previous", disabled: page === 0 });
+        const next = element("button", { type: "button", text: "Next", disabled: (page + 1) * 200 >= items.length });
+        previous.addEventListener("click", () => { page--; draw(); });
+        next.addEventListener("click", () => { page++; draw(); });
+        controls.append(previous, element("span", { text: "Folder page " + (page + 1) + " of " + Math.ceil(items.length / 200) }), next);
+        list.append(controls);
+      }
     }
-    function filter() {
-      const term = search.value.toLocaleLowerCase();
-      const owner = term.startsWith("owner:") ? term.slice(6) : "";
-      const visible = new Set(visibleNodes().map(node => node.id));
-      selected = all.filter(([path, record]) => (owner ? record.owner === owner : path.toLocaleLowerCase().includes(term) || record.owner.toLocaleLowerCase().includes(term)) && (!activeFilterCount() || visible.has(record.owner)));
-      page = 0;
-      draw();
-    }
-    search.addEventListener("input", filter);
-    previous.addEventListener("click", () => {page -= 1; draw();});
-    next.addEventListener("click", () => {page += 1; draw();});
-    elements["repository-tree"].replaceChildren(workspace, guidance, search, status, previous, next, rows, detail);
-    filter();
+    draw();
+    return list;
+  }
+
+  function renderRepository() {
+    resolvePathLookup(state.path);
+    const visible = new Set(visibleNodes().map((node) => node.id));
+    const rawTerm = state.path.trim().replace(/\\/g, "/").replace(/^\.\//, "").replace(/\/$/, "").toLocaleLowerCase("en-AU");
+    const ownerTerm = rawTerm.startsWith("owner:") ? rawTerm.slice(6) : "";
+    const term = ownerTerm ? "" : rawTerm;
+    const selectedOwner = state.fileOwner || state.inventoryOwner || "";
+    const controls = element("div", { className: "file-controls" });
+    const selectors = {};
+    [["owner", "All owners"], ["role", "All roles"], ["access", "All access policies"]].forEach(([key, label]) => {
+      const select = element("select", { "aria-label": "Filter files by " + key });
+      select.append(element("option", { value: "", text: label }));
+      const values = inventoryIndex.options[key];
+      values.forEach((value) => select.append(element("option", { value, text: key === "owner" ? (nodesById.get(value)?.name || value) + " [" + value + "]" : value })));
+      select.value = key === "owner" ? selectedOwner || ownerTerm : repositoryFilters[key];
+      select.addEventListener("change", () => {
+        repositoryFilters[key] = select.value;
+        if (key === "owner") {
+          state.fileOwner = select.value;
+          if (state.path.startsWith("owner:")) state.path = "";
+        }
+        repositoryPageNumber = 0;
+        dirtyViews.add("repository");
+        replaceHash();
+        render();
+      });
+      selectors[key] = select;
+      const labelElement = element("label", { text: titleCase(key) + " " });
+      labelElement.append(select);
+      controls.append(labelElement);
+    });
+    const ownerFilter = selectors.owner.value;
+    const roleFilter = selectors.role.value;
+    const accessFilter = selectors.access.value;
+    const entries = inventoryIndex.entries.filter(([, record, text]) => {
+      return visible.has(record.owner) && (!ownerFilter || record.owner === ownerFilter) &&
+        (!roleFilter || (record.roles || []).includes(roleFilter)) &&
+        (!accessFilter || record.access === accessFilter) && (!term || text.includes(term));
+    });
+    const pages = Math.max(1, Math.ceil(entries.length / 200));
+    repositoryPageNumber = Math.min(repositoryPageNumber, pages - 1);
+    const previous = element("button", { type: "button", text: "Previous", disabled: repositoryPageNumber === 0 });
+    const next = element("button", { type: "button", text: "Next", disabled: repositoryPageNumber + 1 >= pages });
+    previous.addEventListener("click", () => { repositoryPageNumber--; renderRepository(); });
+    next.addEventListener("click", () => { repositoryPageNumber++; renderRepository(); });
+    controls.append(previous, element("span", { text: "Page " + (repositoryPageNumber + 1) + " of " + pages }), next);
+    const note = element("p", { className: "compact-status", text: entries.length + " of " + inventoryIndex.entries.length +
+      " tracked or intended paths match the local search, file filters and visible global component filters. Each page has at most 200 records." });
+    const rows = element("ul", { className: "path-list" });
+    entries.slice(repositoryPageNumber * 200, (repositoryPageNumber + 1) * 200).forEach(([path]) => rows.append(pathRow(path)));
+    const folders = element("details", { className: "repository-folders" });
+    folders.append(element("summary", { text: "Browse matching folders" }));
+    folders.addEventListener("toggle", () => {
+      if (folders.open && !folders.dataset.rendered) {
+        folders.dataset.rendered = "true";
+        if (!fileTree) fileTree = buildFileTree(Object.fromEntries(inventoryIndex.entries.map(([path, record]) => [path, record.owner])));
+        const allowed = new Set(entries.map(([path]) => path));
+        markVisibleCounts(fileTree, allowed);
+        folders.append(renderDirectory(fileTree, allowed));
+      }
+    });
+    elements["repository-tree"].replaceChildren(note, controls, folders, rows);
+  }
+
+  function renderWorkspace() {}
+
+
+  function appendCoverage(content, node) {
+    if (!node.coverage) return;
+    const coverage = element("section", { className: "detail-section" });
+    appendText(coverage, "h3", "Path coverage");
+    appendText(coverage, "p", node.coverage.path_count + " owned manifest paths. Coverage describes inventory policy, not a test result or a local observation.");
+    ["access_counts", "role_counts"].forEach((key) => {
+      appendText(coverage, "p", Object.entries(node.coverage[key] || {}).map(([name, count]) => name + ": " + count).join("; "));
+    });
+    if (node.coverage.provenance) appendText(coverage, "p", node.coverage.provenance, "compact-status");
+    content.append(coverage);
+  }
+
+  function appendPlans(content, node) {
+    if (!(node.plans || []).length) return;
+    const section = element("section", { className: "detail-section" });
+    appendText(section, "h3", "Plans");
+    const list = element("ul", { className: "detail-list" });
+    node.plans.forEach((plan) => {
+      const item = element("li");
+      const record = manifestRecords()[plan];
+      item.append(record ? element("a", { href: "#view=repository&path=" + encodeURIComponent(plan), text: plan }) : element("span", { text: plan }));
+      list.append(item);
+    });
+    section.append(list);
+    content.append(section);
   }
 
   function relationshipSubset(nodeIds) {
@@ -4041,27 +4109,17 @@ footer p {
     }
     const cli = element("section", { className: "detail-section" });
     appendText(cli, "h3", "Ask the command line");
-    cli.append(element("code", { className: "detail-identifier", text: lookupCommand(node.id) }));
+    cli.append(commandHelp(["q", "brief"], node.id));
     content.append(cli);
-    appendDetailList(content, "Plans", node.plans || []);
+    appendPlans(content, node);
     appendDetailList(content, "Prerequisites", node.prerequisites || []);
     appendText(content, "p", "Confidence: " + (node.confidence || "not assessed"), "compact-status");
-    if (node.coverage) {
-      const coverage = element("section", {className: "detail-section"});
-      appendText(coverage, "h3", "Path coverage");
-      appendText(coverage, "p", node.coverage.path_count + " owned paths. " + Object.entries(node.coverage.access_counts).map(([access, count]) => access + ": " + count).join("; "));
-      appendText(coverage, "p", Object.entries(node.coverage.role_counts).map(([role, count]) => role + ": " + count).join("; "));
-      appendText(coverage, "p", node.coverage.provenance, "compact-status");
-      content.append(coverage);
-    }
+    appendCoverage(content, node);
     appendDetailList(content, "Cautions", node.cautions);
     if (node.rationale) {
       const rationale = element("section", { className: "detail-section" });
       appendText(rationale, "h3", "Rationale");
       appendText(rationale, "p", node.rationale, "detail-purpose");
-      if (node.confidence) {
-        appendText(rationale, "p", "Confidence: " + node.confidence, "compact-status");
-      }
       content.append(rationale);
     }
     if (node.choices) {
@@ -4099,6 +4157,9 @@ footer p {
       text: "Stable link to this component",
     });
     content.append(permalink);
+    const raw = element("details", { className: "detail-section" });
+    raw.append(element("summary", { text: "Raw component metadata" }), element("pre", { text: JSON.stringify(node, null, 2) }));
+    content.append(raw);
     elements["detail-content"].replaceChildren(content);
   }
 
@@ -4116,6 +4177,7 @@ footer p {
     overview: renderOverview,
     guide: renderGuide,
     repository: renderRepository,
+    workspace: renderWorkspace,
     dependencies: renderDependencyGraph,
     workflows: renderWorkflows,
     roadmap: renderRoadmap,
@@ -4212,7 +4274,9 @@ footer p {
       window.clearTimeout(pathTimer);
       state.path = elements["path-lookup"].value;
       replaceHash();
-      resolvePathLookup(state.path);
+      repositoryPageNumber = 0;
+      dirtyViews.add("repository");
+      render();
     });
     elements["path-lookup"].addEventListener("input", (event) => {
       window.clearTimeout(pathTimer);
@@ -4220,14 +4284,18 @@ footer p {
       pathTimer = window.setTimeout(() => {
         state.path = value;
         replaceHash();
-        resolvePathLookup(state.path);
+        repositoryPageNumber = 0;
+      dirtyViews.add("repository");
+      render();
       }, SEARCH_DEBOUNCE_MS);
     });
     elements["path-lookup-clear"].addEventListener("click", () => {
       window.clearTimeout(pathTimer);
       state.path = "";
       replaceHash();
-      resolvePathLookup("");
+      repositoryPageNumber = 0;
+      dirtyViews.add("repository");
+      render();
       elements["path-lookup"].focus();
     });
     document.querySelectorAll("[data-filter]").forEach((select) => {
