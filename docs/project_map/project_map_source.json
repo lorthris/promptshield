@@ -6,7 +6,11 @@
     "tagline": "Local secret and PII detection, deterministic redaction, prompt injection checks and clipboard sanitisation.",
     "purpose": "Local secret and PII detection, deterministic redaction, prompt injection checks and clipboard sanitisation.",
     "source_of_truth": "docs/project_map/project_map_source.json and tracked repository files.",
-    "generation_command": "python scripts/project_map.py build"
+    "generation_command": "python scripts/project_map.py build",
+    "orientation": [
+      "AGENTS.md",
+      "README.md"
+    ]
   },
   "entry_points": [
     {
@@ -101,7 +105,7 @@
       "tags": [],
       "cautions": [
         "Core processing is local. Do not add remote telemetry or network calls.",
-        "Exclude .promptshield_sessions because restore mappings can contain secrets.",
+        "Exclude .promptshield_sessions from content queries because restore mappings can contain secrets. The local workspace snapshot records metadata without opening session payloads.",
         "Use the promptshield vault collection and Brain scope. Other projects do not own these credentials."
       ]
     },
@@ -997,6 +1001,76 @@
           "claim": "Imports promptshield/clipboard.py for test assertions."
         }
       ]
+    },
+    {
+      "id": "relation.tests.quality.tests.interface_cli.engine.detector",
+      "type": "tests",
+      "source": "quality.tests.interface_cli",
+      "target": "engine.detector",
+      "classification": "current",
+      "evidence": [
+        {
+          "path": "tests/test_cli.py",
+          "locator": "def test_cli_scan_json(",
+          "claim": "CLI scan asserts a detected secret rule."
+        }
+      ]
+    },
+    {
+      "id": "relation.tests.quality.tests.interface_cli.engine.redactor",
+      "type": "tests",
+      "source": "quality.tests.interface_cli",
+      "target": "engine.redactor",
+      "classification": "current",
+      "evidence": [
+        {
+          "path": "tests/test_cli.py",
+          "locator": "def test_cli_redact_and_restore(",
+          "claim": "CLI redaction and restore assert masked and restored content."
+        }
+      ]
+    },
+    {
+      "id": "relation.tests.quality.tests.interface_cli.engine.guard",
+      "type": "tests",
+      "source": "quality.tests.interface_cli",
+      "target": "engine.guard",
+      "classification": "current",
+      "evidence": [
+        {
+          "path": "tests/test_cli.py",
+          "locator": "def test_cli_guard_threat(",
+          "claim": "CLI guard asserts threat detection."
+        }
+      ]
+    },
+    {
+      "id": "relation.tests.quality.tests.interface_cli-interface_clipboard.engine.detector",
+      "type": "tests",
+      "source": "quality.tests.interface_cli-interface_clipboard",
+      "target": "engine.detector",
+      "classification": "current",
+      "evidence": [
+        {
+          "path": "tests/test_clipboard.py",
+          "locator": "def test_sanitise_clipboard_dirty(",
+          "claim": "Clipboard sanitisation asserts one detected secret."
+        }
+      ]
+    },
+    {
+      "id": "relation.tests.quality.tests.interface_cli-interface_clipboard.engine.redactor",
+      "type": "tests",
+      "source": "quality.tests.interface_cli-interface_clipboard",
+      "target": "engine.redactor",
+      "classification": "current",
+      "evidence": [
+        {
+          "path": "tests/test_clipboard.py",
+          "locator": "def test_sanitise_clipboard_dirty(",
+          "claim": "Clipboard sanitisation asserts replacement content and absence of the secret."
+        }
+      ]
     }
   ],
   "workflows": [
@@ -1399,7 +1473,8 @@
     "docs/project_map/project_map_source.json",
     "docs/project_map/project_map.json",
     "docs/project_map/INDEX.md",
-    "docs/project_map/index.html"
+    "docs/project_map/index.html",
+    "docs/project_map/CATALOGUE.md"
   ],
   "conditional_artifacts": [],
   "catalogues": [
@@ -1475,7 +1550,6 @@
     "*.db",
     "*.sqlite*",
     "dist/*",
-    "dist_output/*",
     "node_modules/*",
     "__pycache__/*",
     "*/__pycache__/*",

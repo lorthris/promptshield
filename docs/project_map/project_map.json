@@ -56,7 +56,7 @@
     },
     {
       "allow_empty": false,
-      "count": 13,
+      "count": 14,
       "exclude": [],
       "id": "catalogue.served",
       "include": [],
@@ -69,6 +69,7 @@
         "docs/index.html",
         "docs/llm-prompt-injection-defense.html",
         "docs/prevent-api-key-leaks-ai.html",
+        "docs/project_map/CATALOGUE.md",
         "docs/project_map/INDEX.md",
         "docs/project_map/index.html",
         "docs/project_map/project_map.json",
@@ -102,16 +103,20 @@
   "conditional_artifacts": [],
   "coverage": {
     "access_counts": {
-      "content": 58,
+      "content": 59,
       "metadata": 1
     },
-    "path_count": 59,
+    "path_count": 60,
     "provenance": "derived from inventory.manifest; no test execution claim",
     "role_counts": {
-      "documentation": 12,
-      "generated": 4,
+      "documentation": 13,
+      "generated": 5,
       "source": 39,
       "test": 5
+    },
+    "tracking_counts": {
+      "intended": 1,
+      "tracked": 59
     }
   },
   "domain_relationships": [
@@ -141,11 +146,11 @@
       }
     },
     {
-      "count": 3,
+      "count": 8,
       "source": "domain.operations",
       "target": "domain.application",
       "types": {
-        "tests": 3
+        "tests": 8
       }
     },
     {
@@ -663,6 +668,22 @@
         ],
         "tracking": "tracked"
       },
+      "docs/project_map/CATALOGUE.md": {
+        "access": "content",
+        "kind": "file",
+        "owner": "governance.map",
+        "policy": {
+          "basis": "authored inventory rule",
+          "index_excluded": false,
+          "inventory_excluded": false,
+          "rule": "inventory.1"
+        },
+        "roles": [
+          "documentation",
+          "generated"
+        ],
+        "tracking": "tracked"
+      },
       "docs/project_map/INDEX.md": {
         "access": "content",
         "kind": "file",
@@ -1159,6 +1180,7 @@
       "docs/index.html": "web.public",
       "docs/llm-prompt-injection-defense.html": "project.docs",
       "docs/prevent-api-key-leaks-ai.html": "project.docs",
+      "docs/project_map/CATALOGUE.md": "governance.map",
       "docs/project_map/INDEX.md": "governance.map",
       "docs/project_map/index.html": "governance.map",
       "docs/project_map/project_map.json": "governance.map",
@@ -1194,8 +1216,8 @@
   "metadata": {
     "generated_by": "scripts/project_map.py",
     "generation_command": "python scripts/project_map.py build",
-    "inventory_path_sha256": "9fff9fd17568729b8e47c6006ace6ecf8592ffeeb6412a0adcc7ff5f3d17dc58",
-    "source_sha256": "d107a735e0156105bcb1c749583662b113dce55e20c44128497b0d771998eff5"
+    "inventory_path_sha256": "c54441a40196c123bc61bce7cc5313a0e824625665aa0a910e11391110ec27fd",
+    "source_sha256": "2aaf05934bc57620a1c7899fc41a5581284df79eaa898a79e3779c1680177342"
   },
   "nodes": [
     {
@@ -1211,6 +1233,9 @@
         "provenance": "derived from inventory.manifest; no test execution claim",
         "role_counts": {
           "documentation": 3
+        },
+        "tracking_counts": {
+          "tracked": 3
         }
       },
       "domain": "domain.delivery",
@@ -1258,6 +1283,9 @@
         "role_counts": {
           "documentation": 2,
           "source": 3
+        },
+        "tracking_counts": {
+          "tracked": 5
         }
       },
       "domain": "domain.delivery",
@@ -1304,6 +1332,9 @@
         "provenance": "derived from inventory.manifest; no test execution claim",
         "role_counts": {
           "source": 1
+        },
+        "tracking_counts": {
+          "tracked": 1
         }
       },
       "domain": "domain.application",
@@ -1319,7 +1350,9 @@
         "relation.5",
         "relation.depends_on.engine.redactor.engine.detector",
         "relation.depends_on.interface.cli.engine.detector",
-        "relation.tests.quality.tests.engine_detector.engine.detector"
+        "relation.tests.quality.tests.engine_detector.engine.detector",
+        "relation.tests.quality.tests.interface_cli-interface_clipboard.engine.detector",
+        "relation.tests.quality.tests.interface_cli.engine.detector"
       ],
       "inventory_count": 1,
       "lifecycle": {
@@ -1353,6 +1386,9 @@
         "provenance": "derived from inventory.manifest; no test execution claim",
         "role_counts": {
           "source": 1
+        },
+        "tracking_counts": {
+          "tracked": 1
         }
       },
       "domain": "domain.application",
@@ -1367,7 +1403,8 @@
       "incoming_relationships": [
         "relation.7",
         "relation.depends_on.interface.cli.engine.guard",
-        "relation.tests.quality.tests.engine_guard.engine.guard"
+        "relation.tests.quality.tests.engine_guard.engine.guard",
+        "relation.tests.quality.tests.interface_cli.engine.guard"
       ],
       "inventory_count": 1,
       "lifecycle": {
@@ -1401,6 +1438,9 @@
         "provenance": "derived from inventory.manifest; no test execution claim",
         "role_counts": {
           "source": 1
+        },
+        "tracking_counts": {
+          "tracked": 1
         }
       },
       "domain": "domain.application",
@@ -1416,7 +1456,9 @@
         "relation.6",
         "relation.depends_on.interface.cli.engine.redactor",
         "relation.depends_on.interface.clipboard.engine.redactor",
-        "relation.tests.quality.tests.engine_redactor.engine.redactor"
+        "relation.tests.quality.tests.engine_redactor.engine.redactor",
+        "relation.tests.quality.tests.interface_cli-interface_clipboard.engine.redactor",
+        "relation.tests.quality.tests.interface_cli.engine.redactor"
       ],
       "inventory_count": 1,
       "lifecycle": {
@@ -1452,6 +1494,9 @@
         "provenance": "derived from inventory.manifest; no test execution claim",
         "role_counts": {
           "source": 2
+        },
+        "tracking_counts": {
+          "tracked": 2
         }
       },
       "domain": "domain.operations",
@@ -1492,15 +1537,19 @@
       "confidence": null,
       "coverage": {
         "access_counts": {
-          "content": 5,
+          "content": 6,
           "metadata": 1
         },
-        "path_count": 6,
+        "path_count": 7,
         "provenance": "derived from inventory.manifest; no test execution claim",
         "role_counts": {
-          "documentation": 1,
-          "generated": 4,
+          "documentation": 2,
+          "generated": 5,
           "source": 2
+        },
+        "tracking_counts": {
+          "intended": 1,
+          "tracked": 6
         }
       },
       "domain": "domain.operations",
@@ -1515,7 +1564,7 @@
       "incoming_relationships": [
         "relation.1"
       ],
-      "inventory_count": 5,
+      "inventory_count": 6,
       "lifecycle": {
         "governance": "not_applicable",
         "implementation": "implemented",
@@ -1548,6 +1597,9 @@
         "provenance": "derived from inventory.manifest; no test execution claim",
         "role_counts": {
           "source": 2
+        },
+        "tracking_counts": {
+          "tracked": 2
         }
       },
       "domain": "domain.delivery",
@@ -1603,6 +1655,9 @@
         "provenance": "derived from inventory.manifest; no test execution claim",
         "role_counts": {
           "source": 1
+        },
+        "tracking_counts": {
+          "tracked": 1
         }
       },
       "domain": "domain.delivery",
@@ -1653,6 +1708,9 @@
         "provenance": "derived from inventory.manifest; no test execution claim",
         "role_counts": {
           "source": 2
+        },
+        "tracking_counts": {
+          "tracked": 2
         }
       },
       "domain": "domain.delivery",
@@ -1695,7 +1753,7 @@
     {
       "cautions": [
         "Core processing is local. Do not add remote telemetry or network calls.",
-        "Exclude .promptshield_sessions because restore mappings can contain secrets.",
+        "Exclude .promptshield_sessions from content queries because restore mappings can contain secrets. The local workspace snapshot records metadata without opening session payloads.",
         "Use the promptshield vault collection and Brain scope. Other projects do not own these credentials."
       ],
       "choices": [],
@@ -1710,6 +1768,9 @@
         "role_counts": {
           "documentation": 2,
           "source": 5
+        },
+        "tracking_counts": {
+          "tracked": 7
         }
       },
       "domain": "domain.project",
@@ -1774,6 +1835,9 @@
         "role_counts": {
           "documentation": 4,
           "source": 12
+        },
+        "tracking_counts": {
+          "tracked": 16
         }
       },
       "domain": "domain.project",
@@ -1835,6 +1899,9 @@
         "provenance": "derived from inventory.manifest; no test execution claim",
         "role_counts": {
           "source": 1
+        },
+        "tracking_counts": {
+          "tracked": 1
         }
       },
       "domain": "domain.operations",
@@ -1883,6 +1950,9 @@
         "provenance": "derived from inventory.manifest; no test execution claim",
         "role_counts": {
           "test": 1
+        },
+        "tracking_counts": {
+          "tracked": 1
         }
       },
       "domain": "domain.operations",
@@ -1931,6 +2001,9 @@
         "provenance": "derived from inventory.manifest; no test execution claim",
         "role_counts": {
           "test": 1
+        },
+        "tracking_counts": {
+          "tracked": 1
         }
       },
       "domain": "domain.operations",
@@ -1979,6 +2052,9 @@
         "provenance": "derived from inventory.manifest; no test execution claim",
         "role_counts": {
           "test": 1
+        },
+        "tracking_counts": {
+          "tracked": 1
         }
       },
       "domain": "domain.operations",
@@ -2027,6 +2103,9 @@
         "provenance": "derived from inventory.manifest; no test execution claim",
         "role_counts": {
           "test": 1
+        },
+        "tracking_counts": {
+          "tracked": 1
         }
       },
       "domain": "domain.operations",
@@ -2047,6 +2126,9 @@
       },
       "name": "Tests for Command-line interface",
       "outgoing_relationships": [
+        "relation.tests.quality.tests.interface_cli.engine.detector",
+        "relation.tests.quality.tests.interface_cli.engine.guard",
+        "relation.tests.quality.tests.interface_cli.engine.redactor",
         "relation.tests.quality.tests.interface_cli.interface.cli"
       ],
       "paths": [
@@ -2075,6 +2157,9 @@
         "provenance": "derived from inventory.manifest; no test execution claim",
         "role_counts": {
           "test": 1
+        },
+        "tracking_counts": {
+          "tracked": 1
         }
       },
       "domain": "domain.operations",
@@ -2100,6 +2185,8 @@
       },
       "name": "Tests for Command-line interface, Local clipboard sanitisation",
       "outgoing_relationships": [
+        "relation.tests.quality.tests.interface_cli-interface_clipboard.engine.detector",
+        "relation.tests.quality.tests.interface_cli-interface_clipboard.engine.redactor",
         "relation.tests.quality.tests.interface_cli-interface_clipboard.interface.cli",
         "relation.tests.quality.tests.interface_cli-interface_clipboard.interface.clipboard"
       ],
@@ -2127,6 +2214,9 @@
         "provenance": "derived from inventory.manifest; no test execution claim",
         "role_counts": {
           "source": 6
+        },
+        "tracking_counts": {
+          "tracked": 6
         }
       },
       "domain": "domain.delivery",
@@ -2185,6 +2275,10 @@
     "generation_command": "python scripts/project_map.py build",
     "id": "promptshield",
     "name": "PromptShield",
+    "orientation": [
+      "AGENTS.md",
+      "README.md"
+    ],
     "purpose": "Local secret and PII detection, deterministic redaction, prompt injection checks and clipboard sanitisation.",
     "source_of_truth": "docs/project_map/project_map_source.json and tracked repository files.",
     "tagline": "Local secret and PII detection, deterministic redaction, prompt injection checks and clipboard sanitisation."
@@ -2534,6 +2628,34 @@
       "classification": "current",
       "evidence": [
         {
+          "claim": "Clipboard sanitisation asserts one detected secret.",
+          "locator": "def test_sanitise_clipboard_dirty(",
+          "path": "tests/test_clipboard.py"
+        }
+      ],
+      "id": "relation.tests.quality.tests.interface_cli-interface_clipboard.engine.detector",
+      "source": "quality.tests.interface_cli-interface_clipboard",
+      "target": "engine.detector",
+      "type": "tests"
+    },
+    {
+      "classification": "current",
+      "evidence": [
+        {
+          "claim": "Clipboard sanitisation asserts replacement content and absence of the secret.",
+          "locator": "def test_sanitise_clipboard_dirty(",
+          "path": "tests/test_clipboard.py"
+        }
+      ],
+      "id": "relation.tests.quality.tests.interface_cli-interface_clipboard.engine.redactor",
+      "source": "quality.tests.interface_cli-interface_clipboard",
+      "target": "engine.redactor",
+      "type": "tests"
+    },
+    {
+      "classification": "current",
+      "evidence": [
+        {
           "claim": "Imports promptshield/cli.py for test assertions.",
           "locator": "from promptshield.cli import main",
           "path": "tests/test_clipboard.py"
@@ -2556,6 +2678,48 @@
       "id": "relation.tests.quality.tests.interface_cli-interface_clipboard.interface.clipboard",
       "source": "quality.tests.interface_cli-interface_clipboard",
       "target": "interface.clipboard",
+      "type": "tests"
+    },
+    {
+      "classification": "current",
+      "evidence": [
+        {
+          "claim": "CLI scan asserts a detected secret rule.",
+          "locator": "def test_cli_scan_json(",
+          "path": "tests/test_cli.py"
+        }
+      ],
+      "id": "relation.tests.quality.tests.interface_cli.engine.detector",
+      "source": "quality.tests.interface_cli",
+      "target": "engine.detector",
+      "type": "tests"
+    },
+    {
+      "classification": "current",
+      "evidence": [
+        {
+          "claim": "CLI guard asserts threat detection.",
+          "locator": "def test_cli_guard_threat(",
+          "path": "tests/test_cli.py"
+        }
+      ],
+      "id": "relation.tests.quality.tests.interface_cli.engine.guard",
+      "source": "quality.tests.interface_cli",
+      "target": "engine.guard",
+      "type": "tests"
+    },
+    {
+      "classification": "current",
+      "evidence": [
+        {
+          "claim": "CLI redaction and restore assert masked and restored content.",
+          "locator": "def test_cli_redact_and_restore(",
+          "path": "tests/test_cli.py"
+        }
+      ],
+      "id": "relation.tests.quality.tests.interface_cli.engine.redactor",
+      "source": "quality.tests.interface_cli",
+      "target": "engine.redactor",
       "type": "tests"
     },
     {
@@ -2624,11 +2788,11 @@
     "by_type": {
       "component": 19
     },
-    "inventory_paths": 58,
+    "inventory_paths": 59,
     "legacy_paths": 0,
-    "mapped_nonlegacy_paths": 58,
+    "mapped_nonlegacy_paths": 59,
     "nodes": 19,
-    "relationships": 25
+    "relationships": 30
   },
   "workflows": [
     {

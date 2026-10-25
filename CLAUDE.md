@@ -41,4 +41,4 @@ After an included file or component changes, update the source and run
 `python scripts/project_map.py build` and `python scripts/project_map.py check`.
 The launcher uses the shared engine under `~/.claude/tools/project-map`;
 set `PROJECT_MAP_ENGINE` to its `project_map.py` file for a separate installation.
-Keep credentials, local state, caches and generated packages out of the map inventory.
+Keep credentials, local state, caches and generated packages out of content queries. The manifest includes metadata for tracked and intended paths. Use the local workspace snapshot to inspect ignored and untracked path metadata.
