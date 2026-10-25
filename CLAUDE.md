@@ -36,8 +36,10 @@ Use `docs/project_map/INDEX.md` or open `docs/project_map/index.html` before bro
 The authored source is `docs/project_map/project_map_source.json`.
 
 Run `python scripts/project_map.py q <path-or-words>` for ownership and related context.
-Use `impact`, `tests` and `brief` with the same target before a change.
-After an included file or component changes, update the source and run
+Use `impact` and `tests` with the same target before a change. Use `brief` for the command card.
+Ordinary code edits refresh the live index on the next query.
+Update the authored source when components, ownership, workflows or boundaries change.
+After an authored-source or included-path change, run
 `python scripts/project_map.py build` and `python scripts/project_map.py check`.
 The launcher uses the shared engine under `~/.claude/tools/project-map`;
 set `PROJECT_MAP_ENGINE` to its `project_map.py` file for a separate installation.
