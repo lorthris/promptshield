@@ -21,7 +21,8 @@ All calculations run locally on your device with zero telemetry and zero network
 
 ## Live Interactive Sandbox
 
-Test both engines directly in your browser:  
+Test both engines directly in your browser:
+
 👉 **[lorthris.github.io/promptshield](https://lorthris.github.io/promptshield/)**
 
 ---
@@ -105,7 +106,8 @@ python -m promptshield.cli install-hook
 
 ## Commercial Licences
 
-Commercial developer packages are available on Gumroad with perpetual rights and free updates.  
+Commercial developer packages are available on Gumroad with perpetual rights and free updates.
+
 🎉 **Launch Special:** Use code **`LAUNCH20`** at checkout for **20% off** any tool or bundle.
 
 | Package | Purpose | Price (USD) | Link |
